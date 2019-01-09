@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">    
+  <div class="hello">
     <h1>{{ msg }}</h1>
     <input v-model="searchString" @keyup="search">
     <table>
@@ -13,13 +13,12 @@
       </tr>
     </table>
 
-   
   </div>
 </template>
 
 <script>
 import agent from 'superagent'
-export default {  
+export default {
   name: 'SearchAthlete',
   props: {
     msg: String
@@ -32,14 +31,14 @@ export default {
   },
   methods: {
     search () {
-       return agent
+      return agent
         .get('http://frjalsar.azurewebsites.net/athletes')
         .query({ search: this.searchString })
         .then(res => {
           this.list = res.body
         })
     }
-  }  
+  }
 }
 </script>
 

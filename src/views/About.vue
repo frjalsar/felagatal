@@ -1,6 +1,6 @@
 <template>
   <div>
-    test 
+    test
     <SearchAthlete msg="Keppendur"/>
   </div>
 </template>

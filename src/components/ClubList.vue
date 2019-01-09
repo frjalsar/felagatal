@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">     
+  <div class="hello">
     <h1>{{ msg }}</h1>
     <table>
       <tr>
@@ -12,13 +12,12 @@
       </tr>
     </table>
 
-   
   </div>
 </template>
 
 <script>
 import agent from 'superagent'
-export default {  
+export default {
   name: 'ClubList',
   props: {
     msg: String
