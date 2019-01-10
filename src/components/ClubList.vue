@@ -1,17 +1,34 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Full NAME</th>
-      </tr>
-      <tr v-for="club in list" :key="club.id">
-        <td>{{ club.id }}</td>
-        <td>{{ club.fullname }}</td>
-      </tr>
-    </table>
+  <div>
+    <h1>Félög</h1>
+    <div class="row mb-4">
+      <div class="col-md-4 offset-md-4">
+        <input
+          type="text"
+          class="form-control text-center"
+          id="firstName"
+          placeholder="Nafn félags"
+          value
+          @keyup="search"
+        >
+      </div>
+    </div>
+    <div class="row">
 
+        <table class="table">
+          <tr>
+            <th>Númer</th>
+            <th>Skammstöfun</th>
+            <th>Nafn</th>
+          </tr>
+          <tr v-for="club in filteredList" :key="club.id">
+            <td>{{ club.id }}</td>
+            <td>{{ club.shortname }}</td>
+            <td>{{ club.fullname }}</td>
+          </tr>
+        </table>
+
+    </div>
   </div>
 </template>
 
@@ -24,33 +41,34 @@ export default {
   },
   data () {
     return {
-      list: []
+      list: [],
+      filteredList: []
+    }
+  },
+  methods: {
+    search (e) {
+      const searchString = e && e.target.value
+      if (searchString) {
+        this.filteredList = this.list.filter(item => {
+          const foundFullname =
+            item.fullname &&
+            item.fullname.toLowerCase().includes(searchString.toLowerCase())
+          return foundFullname
+        })
+      } else {
+        this.filteredList = this.list
+      }
     }
   },
   mounted () {
-    agent
-      .get('http://frjalsar.azurewebsites.net/clubs')
-      .then(res => {
-        this.list = res.body
-      })
+    agent.get('https://frjalsar.azurewebsites.net/clubs').then(res => {
+      this.list = res.body
+      this.filteredList = res.body
+    })
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

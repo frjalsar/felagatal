@@ -1,7 +1,6 @@
 <template>
   <div>
-    test
-    <SearchAthlete msg="Keppendur"/>
+    <SearchAthlete msg="Iðkendur"/>
   </div>
 </template>
 

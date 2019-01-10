@@ -14,5 +14,5 @@ RUN rm -rf babel.config.js
 RUN rm -rf postcss.config.js
 
 # RUN
-Expose 80
+EXPOSE 3010
 CMD [ "npm", "start" ]
