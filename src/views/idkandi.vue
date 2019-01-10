@@ -6,8 +6,11 @@
         <form class="card-body">
           <div class="form-group row">
             <label for="athlete.id" class="col-sm-2 col-form-label text-right">Númer:</label>
-            <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext" id="athlete.id" v-model="athlete.id">
+            <div class="col-sm-9">
+              <input type="text" readonly class="form-control-plaintext" id="athlete.id" v-model="athlete.id" >
+            </div>
+            <div class="col-sm-1 py-2">
+              <i class="fas fa-check-circle" :class="{ verified: athlete.verified }"></i>
             </div>
           </div>
           <div class="form-group row">
@@ -89,8 +92,8 @@
             <div class="col-sm-2 text-right">Yfirfarið:</div>
             <div class="col-sm-10 text-left">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="athlete.verified">
-                <label class="form-check-label" for="athlete.verified">Staðfesta að öll gögn og félagasöga séu rétt.</label>
+                <input type="checkbox" class="form-check-input" id="athlete.verified" v-model="athlete.verified">
+                <label class="form-check-label" for="athlete.verified">Staðfesta að öll gögn og félagasaga séu rétt.</label>
               </div>
             </div>
           </div>
@@ -155,5 +158,13 @@ export default {
 h1 i {
   cursor: pointer;
   padding-right: 10px
+}
+
+.fa-check-circle {
+  color: #ccc
+}
+
+.fa-check-circle.verified {
+  color: #006400
 }
 </style>
