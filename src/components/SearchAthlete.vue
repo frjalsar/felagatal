@@ -49,7 +49,7 @@ export default {
     },
     search: debounce(function (e) {
       return agent
-        .get('https://frjalsar.azurewebsites.net/athletes')
+        .get(process.env.VUE_APP_API_HOST + '/athletes')
         .query({ search: e.target.value })
         .then(res => {
           this.list = res.body

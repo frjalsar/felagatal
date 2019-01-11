@@ -34,6 +34,7 @@
 
 <script>
 import agent from 'superagent'
+
 export default {
   name: 'ClubList',
   props: {
@@ -61,10 +62,12 @@ export default {
     }
   },
   mounted () {
-    agent.get('https://frjalsar.azurewebsites.net/clubs').then(res => {
-      this.list = res.body
-      this.filteredList = res.body
-    })
+    agent
+      .get(process.env.VUE_APP_API_HOST + '/clubs')
+      .then(res => {
+        this.list = res.body
+        this.filteredList = res.body
+      })
   }
 }
 </script>
