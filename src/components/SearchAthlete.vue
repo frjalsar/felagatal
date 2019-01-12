@@ -12,6 +12,7 @@
           <th>Númer</th>
           <th>Nafn</th>
           <th>Fæðingarár</th>
+          <th>Félag</th>
           <th>Land</th>
           <th></th>
         </tr>
@@ -19,6 +20,7 @@
           <td>{{ athlete.id }}</td>
           <td>{{ athlete.fullName }}</td>
           <td>{{ athlete.birthyear }}</td>
+          <td>{{ athlete.clubs[0] && athlete.clubs[0].fullName }}</td>
           <td>{{ athlete.country }}</td>
           <td><i class="fas fa-check-circle" :class="{ verified: athlete.verified }"></i></td>
         </tr>

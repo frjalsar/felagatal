@@ -55,11 +55,7 @@
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="athlete.gender" id="athlete.gender2" value="2" v-model="athlete.gender" :disabled="working">
                 <label class="form-check-label" for="athlete.gender2">Kona</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="athlete.gender" id="athlete.gender3" value="0" v-model="athlete.gender" :disabled="working">
-                <label class="form-check-label" for="athlete.gender3">Á ekki við</label>
-              </div>
+              </div>              
             </div>
           </div>
           <div class="form-group row">
@@ -75,7 +71,7 @@
                 <div class="col-md-5">
                   <select class="form-control" id="" v-model="club.id" :disabled="working">
                     <option v-for="club in clubs" :key="club.id" :value="club.id">{{ club.fullname}}</option>
-                  </select>
+                  </select>                  
                 </div>
                 <div class="col-md-3">
                   <input type="text" class="form-control" placeholder="Fra" v-model="club.from" :disabled="working">
@@ -85,6 +81,14 @@
                 </div>
                 <div class="col-md-1">
                   <button class="btn btn-default" @click.prevent="removeClub(index)" :disabled="working">-</button>
+                </div>
+                <div class="col-md-12 py-2" v-if="!club.id && club.legacyTeam">
+                  <div class="alert alert-warning">
+                    <strong>Vinsamlegast lagið skráningu</strong>                    
+                    <p>Þessi aðili var skráður í <em>{{ club.legacyTeam}}</em> í gamla grunninum sem er hugsanlega ekki rétt.</p>
+                    <p>Athugið að iðkendur eiga vera skráðir íþrótta- eða ungmennafélög, ekki héraðssambönd, íþróttabandlög eða gervi-lið.</p>
+                    <p>Sé liðið með réttu íþrótta- eða ungmennafélag þarf að stofna það sérstaklega. Vinsamlegast sendið beiðni á <a href="mailto:skraningarnefnd@fri.is">skraningarnefnd@fri.is</a></p>
+                  </div>
                 </div>
               </div>
               <div class="form-row py-1">
@@ -99,7 +103,7 @@
             <div class="col-sm-10 text-left">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="athlete.verified" v-model="athlete.verified">
-                <label class="form-check-label" for="athlete.verified">Staðfesta að öll gögn og félagasaga séu rétt.</label>
+                <label class="form-check-label" for="athlete.verified">Staðfesta að allir reitir og félagasaga sé rétt.</label>
               </div>
             </div>
           </div>
