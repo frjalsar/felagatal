@@ -72,7 +72,7 @@
               <div class="form-row py-1" v-for="(club,index) in athlete.clubs" :key="club.id">
                 <div class="col-md-5">
                   <select class="form-control" id="" v-model="club.id" :disabled="working">
-                    <option v-for="club in clubs" :key="club.id" :value="club.id">{{ club.fullname}}</option>
+                    <option v-for="club in clubs" :key="club.id" :value="club.id">{{ club.fullName}}</option>
                   </select>
                 </div>
                 <div class="col-md-3">
