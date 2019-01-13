@@ -12,11 +12,8 @@
 
           <div class="form-group row">
             <label for="athlete.id" class="col-sm-2 col-form-label text-right">Númer:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-10">
               <input type="text" readonly class="form-control-plaintext" id="athlete.id" v-model="athlete.id">
-            </div>
-            <div class="col-sm-1 py-2">
-              <i class="fas fa-check-circle" :class="{ verified: athlete.verified }"></i>
             </div>
           </div>
           <div class="form-group row">
@@ -30,11 +27,16 @@
             <div class="col-sm-10">
               <input type="text" class="form-control" id="athlete.ssnr" v-model="athlete.ssnr" :disabled="working">
             </div>
+            <div class="col-md-10 offset-md-2 py-2" v-if="!validSSNR()">
+              <div class="alert alert-warning">
+                Kennitala er ekki á réttu formi.
+              </div>
+            </div>
           </div>
           <div class="form-group row">
             <label for="athlete.birthyear" class="col-sm-2 col-form-label text-right">Fæðingarár:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="athlete.ssnr" v-model="athlete.birthyear" :disabled="working">
+              <input type="text" class="form-control" id="athlete.birthyear" v-model="athlete.birthyear" :disabled="working">
             </div>
           </div>
           <div class="form-group row">
@@ -55,7 +57,7 @@
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="athlete.gender" id="athlete.gender2" value="2" v-model="athlete.gender" :disabled="working">
                 <label class="form-check-label" for="athlete.gender2">Kona</label>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="form-group row">
@@ -71,7 +73,7 @@
                 <div class="col-md-5">
                   <select class="form-control" id="" v-model="club.id" :disabled="working">
                     <option v-for="club in clubs" :key="club.id" :value="club.id">{{ club.fullname}}</option>
-                  </select>                  
+                  </select>
                 </div>
                 <div class="col-md-3">
                   <input type="text" class="form-control" placeholder="Fra" v-model="club.from" :disabled="working">
@@ -84,7 +86,7 @@
                 </div>
                 <div class="col-md-12 py-2" v-if="!club.id && club.legacyTeam">
                   <div class="alert alert-warning">
-                    <strong>Vinsamlegast lagið skráningu</strong>                    
+                    <strong>Vinsamlegast lagið skráningu</strong>
                     <p>Þessi aðili var skráður í <em>{{ club.legacyTeam}}</em> í gamla grunninum sem er hugsanlega ekki rétt.</p>
                     <p>Athugið að iðkendur eiga vera skráðir íþrótta- eða ungmennafélög, ekki héraðssambönd, íþróttabandlög eða gervi-lið.</p>
                     <p>Sé liðið með réttu íþrótta- eða ungmennafélag þarf að stofna það sérstaklega. Vinsamlegast sendið beiðni á <a href="mailto:skraningarnefnd@fri.is">skraningarnefnd@fri.is</a></p>
@@ -101,9 +103,12 @@
           <div class="form-group row">
             <div class="col-sm-2 text-right">Yfirfarið:</div>
             <div class="col-sm-10 text-left">
-              <div class="form-check">
+              <div class="form-check" v-if="!athlete.confirmedByUser">
                 <input type="checkbox" class="form-check-input" id="athlete.verified" v-model="athlete.verified">
                 <label class="form-check-label" for="athlete.verified">Staðfesta að allir reitir og félagasaga sé rétt.</label>
+              </div>
+              <div v-if="athlete.confirmedByUser">
+                <i class="fas fa-check-circle verified"></i> Upplýsingar um iðkanda hafa verið staðfestar.
               </div>
             </div>
           </div>
@@ -117,6 +122,7 @@
 <script>
 // @ is an alias to /src
 import agent from 'superagent'
+import { isValid } from 'kennitala-utility'
 
 export default {
   name: 'idkandi',
@@ -130,6 +136,9 @@ export default {
     }
   },
   methods: {
+    validSSNR () {
+      return isValid(this.athlete.ssnr)
+    },
     update () {
       this.working = true
       return agent
@@ -186,7 +195,8 @@ h1 i {
 }
 
 .fa-check-circle {
-  color: #ccc
+  color: #ccc;
+  font-size: 20px;
 }
 
 .fa-check-circle.verified {

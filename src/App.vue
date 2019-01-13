@@ -5,6 +5,7 @@
       <h5 class="my-0 mr-md-auto font-weight-normal">Félagatal FRÍ</h5>
       <nav class="my-2 my-md-0 mr-md-3">
         <router-link to="/" class="p-2 text-dark">Félög</router-link>
+        <router-link to="/herud" class="p-2 text-dark">Héruð</router-link>
         <router-link to="/idkendur" class="p-2 text-dark">Iðkendur</router-link>
       </nav>
       <a class="btn btn-outline-primary" href="#">Innskráning</a>
