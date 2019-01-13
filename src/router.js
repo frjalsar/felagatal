@@ -14,25 +14,24 @@ export default new Router({
       component: Home
     },
     {
+      path: '/felog/:id',
+      name: 'felog',
+      component: () => import(/* webpackChunkName: "felag" */ './views/felag.vue')
+    },
+    {
       path: '/idkendur',
       name: 'idkendur',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
       path: '/idkendur/:id',
       name: 'athlete',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/idkandi.vue')
+      component: () => import(/* webpackChunkName: "idkandi" */ './views/idkandi.vue')
     },
     {
       path: '/herud/',
       name: 'herud',
-      component: () => import(/* webpackChunkName: "about" */ './views/herud.vue')
+      component: () => import(/* webpackChunkName: "herud" */ './views/herud.vue')
     }
   ]
 })

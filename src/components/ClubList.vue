@@ -20,11 +20,13 @@
             <th>Númer</th>
             <th>Skammstöfun</th>
             <th>Nafn</th>
+            <th>Íþróttahérað</th>
           </tr>
-          <tr v-for="club in filteredList" :key="club.id">
+          <tr v-for="club in filteredList" :key="club.id" @click="goToClub(club.id)">
             <td>{{ club.id }}</td>
-            <td>{{ club.shortname }}</td>
-            <td>{{ club.fullname }}</td>
+            <td>{{ club.shortName }}</td>
+            <td>{{ club.fullName }}</td>
+            <td>{{ club.province && club.province.abbreviation}}</td>
           </tr>
         </table>
 
@@ -47,6 +49,12 @@ export default {
     }
   },
   methods: {
+    goToClub (clubId) {
+      this.$router.push({
+        name: 'felog',
+        params: { id: clubId }
+      })
+    },
     search (e) {
       const searchString = e && e.target.value
       if (searchString) {
@@ -73,5 +81,8 @@ export default {
 </script>
 
 <style scoped>
-
+tr:hover td {
+  cursor: pointer;
+  background-color: #eee;
+}
 </style>

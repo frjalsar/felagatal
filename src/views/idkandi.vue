@@ -42,7 +42,7 @@
           <div class="form-group row">
             <label for="athlete.country" class="col-sm-2 col-form-label text-right">Þjóðerni:</label>
             <div class="col-sm-10">
-              <select class="form-control" id="athlete.cou ntry" v-model="athlete.country" :disabled="working">
+              <select class="form-control" id="athlete.country" v-model="athlete.country" :disabled="working">
                 <option v-for="country in countries" :key="country.code" :value="country.code">{{ country.name }}</option>
               </select>
             </div>
@@ -180,7 +180,7 @@ export default {
       })
 
     agent
-      .get('https://frjalsar.azurewebsites.net/clubs/')
+      .get(process.env.VUE_APP_API_HOST + '/clubs/')
       .then(res => {
         this.clubs = res.body
       })
