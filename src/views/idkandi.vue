@@ -2,7 +2,7 @@
   <div>
     <h1><i class="fas fa-arrow-left" @click="$router.go(-1)"></i> Iðkandi</h1>
     <div class="row mb-4">
-      <div class="col-md-8 offset-md-2 card">
+      <div class="col-md-10 offset-md-1 card">
         <form class="card-body">
           <transition name="fade">
             <div class="alert alert-success" role="alert" v-if="updated">
@@ -11,20 +11,20 @@
           </transition>
 
           <div class="form-group row">
-            <label for="athlete.id" class="col-sm-2 col-form-label text-right">Númer:</label>
-            <div class="col-sm-10">
+            <label for="athlete.id" class="col-sm-3 col-form-label text-right">Númer:</label>
+            <div class="col-sm-9">
               <input type="text" readonly class="form-control-plaintext" id="athlete.id" v-model="athlete.id">
             </div>
           </div>
           <div class="form-group row">
-            <label for="athlete.fullName" class="col-sm-2 col-form-label text-right">Fullt nafn:</label>
-            <div class="col-sm-10">
+            <label for="athlete.fullName" class="col-sm-3 col-form-label text-right">Fullt nafn:</label>
+            <div class="col-sm-9">
               <input type="text" class="form-control" id="athlete.fullName" v-model="athlete.fullName" :disabled="working">
             </div>
           </div>
           <div class="form-group row">
-            <label for="athlete.ssnr" class="col-sm-2 col-form-label text-right">Kennitala:</label>
-            <div class="col-sm-10">
+            <label for="athlete.ssnr" class="col-sm-3 col-form-label text-right">Kennitala:</label>
+            <div class="col-sm-9">
               <input type="text" class="form-control" id="athlete.ssnr" v-model="athlete.ssnr" :disabled="working">
             </div>
             <div class="col-md-10 offset-md-2 py-2" v-if="!validSSNR()">
@@ -34,22 +34,22 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="athlete.birthyear" class="col-sm-2 col-form-label text-right">Fæðingarár:</label>
-            <div class="col-sm-10">
+            <label for="athlete.birthyear" class="col-sm-3 col-form-label text-right">Fæðingarár:</label>
+            <div class="col-sm-9">
               <input type="text" class="form-control" id="athlete.birthyear" v-model="athlete.birthyear" :disabled="working">
             </div>
           </div>
           <div class="form-group row">
-            <label for="athlete.country" class="col-sm-2 col-form-label text-right">Þjóðerni:</label>
-            <div class="col-sm-10">
+            <label for="athlete.country" class="col-sm-3 col-form-label text-right">Þjóðerni:</label>
+            <div class="col-sm-9">
               <select class="form-control" id="athlete.country" v-model="athlete.country" :disabled="working">
                 <option v-for="country in countries" :key="country.code" :value="country.code">{{ country.name }}</option>
               </select>
             </div>
           </div>
           <div class="form-group row">
-            <legend class="col-form-label col-sm-2 pt-0 text-right">Kyn:</legend>
-            <div class="col-sm-10 text-left">
+            <legend class="col-form-label col-sm-3 pt-0 text-right">Kyn:</legend>
+            <div class="col-sm-9 text-left">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="athlete.gender" id="athlete.gender1" value="1" v-model="athlete.gender" :disabled="working">
                 <label class="form-check-label" for="athlete.gender1">Karl</label>
@@ -61,14 +61,14 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="athlete.id" class="col-sm-2 col-form-label text-right">Fiffó númer:</label>
-            <div class="col-sm-10">
+            <label for="athlete.id" class="col-sm-3 col-form-label text-right">Fiffó númer:</label>
+            <div class="col-sm-9">
               <input type="text" readonly class="form-control-plaintext" id="athlete.id" v-model="athlete.thorId" :disabled="working">
             </div>
           </div>
           <div class="form-group row">
-            <legend class="col-form-label col-sm-2 text-right">Félagasaga:</legend>
-            <div class="col-sm-10 text-left">
+            <legend class="col-form-label col-sm-3 text-right">Félagasaga:</legend>
+            <div class="col-sm-9 text-left">
               <div class="form-row py-1" v-for="(club,index) in athlete.clubs" :key="club.id">
                 <div class="col-md-5">
                   <select class="form-control" id="" v-model="club.id" :disabled="working">
@@ -101,8 +101,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-sm-2 text-right">Yfirfarið:</div>
-            <div class="col-sm-10 text-left">
+            <div class="col-sm-3 text-right">Yfirfarið:</div>
+            <div class="col-sm-9 text-left">
               <div class="form-check" v-if="!athlete.confirmedByUser">
                 <input type="checkbox" class="form-check-input" id="athlete.verified" v-model="athlete.verified">
                 <label class="form-check-label" for="athlete.verified">Staðfesta að allir reitir og félagasaga sé rétt.</label>

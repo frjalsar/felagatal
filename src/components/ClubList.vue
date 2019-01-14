@@ -24,7 +24,7 @@
           </tr>
           <tr v-for="club in filteredList" :key="club.id" @click="goToClub(club.id)">
             <td>{{ club.id }}</td>
-            <td>{{ club.shortName }}</td>
+            <td>{{ club.abbreviation }}</td>
             <td>{{ club.fullName }}</td>
             <td>{{ club.province && club.province.abbreviation}}</td>
           </tr>

@@ -2,7 +2,7 @@
   <div>
     <h1><i class="fas fa-arrow-left" @click="$router.go(-1)"></i> Félag</h1>
     <div class="row mb-4">
-      <div class="col-md-8 offset-md-2 card">
+      <div class="col-md-10 offset-md-1 card">
         <form class="card-body">
           <transition name="fade">
             <div class="alert alert-success" role="alert" v-if="updated">
@@ -10,7 +10,7 @@
             </div>
           </transition>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="club.id">
             <label for="club.id" class="col-sm-3 col-form-label text-right">Númer:</label>
             <div class="col-sm-9">
               <input type="text" readonly class="form-control-plaintext" id="club.id" v-model="club.id">
@@ -37,18 +37,18 @@
           <div class="form-group row">
             <label for="club.country" class="col-sm-3 col-form-label text-right">Íþróttahérað:</label>
             <div class="col-sm-9">
-              <select class="form-control" id="club.country" v-model="club.province.id" :disabled="working">
+              <select class="form-control" id="club.country" v-model="club.provinceId" :disabled="working">
                 <option v-for="province in provinces" :key="province.id" :value="province.id">{{ province.fullname }}</option>
               </select>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row" v-if="club.thorId">
             <label for="club.id" class="col-sm-3 col-form-label text-right">Fiffó kóði:</label>
             <div class="col-sm-9">
               <input type="text" readonly class="form-control-plaintext" id="club.id" v-model="club.thorId" :disabled="working">
             </div>
           </div>
-          <button type="submit" class="btn btn-secondary mt-4" @click.prevent="update" :disabled="working">Vista</button>
+          <button type="submit" class="btn btn-secondary mt-4" @click.prevent="save" :disabled="working">Vista</button>
         </form>
       </div>
     </div>
@@ -60,7 +60,7 @@
 import agent from 'superagent'
 
 export default {
-  name: 'idkandi',
+  name: 'felag',
   data () {
     return {
       working: false,
@@ -71,10 +71,11 @@ export default {
     }
   },
   methods: {
-    update () {
+    save () {
       this.working = true
-      return agent
-        .put(process.env.VUE_APP_API_HOST + '/clubs')
+      const method = this.club.id ? 'put' : 'post'
+      const path = process.env.VUE_APP_API_HOST + '/clubs'
+      return agent(method, path)
         .send(this.club)
         .then(res => {
           this.updated = !!res.body.id
@@ -89,7 +90,18 @@ export default {
     agent
       .get(process.env.VUE_APP_API_HOST + '/clubs/' + this.$route.params.id)
       .then(res => {
-        this.club = res.body[0]
+        if (res.body[0]) {
+          this.club = res.body[0]
+        } else {
+          this.club = {
+            id: 0,
+            fullName: '',
+            shortName: '',
+            abbreviation: '',
+            provinceId: 0,
+            thorId: null
+          }
+        }
       })
 
     agent
