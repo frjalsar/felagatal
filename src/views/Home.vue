@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ClubList msg="Félagalisti"/>
+    <ClubList msg="Félagalisti" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ClubList from '@/components/ClubList.vue'
+import ClubList from '../components/ClubList.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     ClubList
   }

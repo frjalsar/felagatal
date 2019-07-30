@@ -4,9 +4,9 @@
     <div class="row mb-4">
       <div class="col-md-4 offset-md-4">
         <input
+          id="firstName"
           type="text"
           class="form-control text-center"
-          id="firstName"
           placeholder="Nafn félags"
           value
           @keyup="search"
@@ -14,22 +14,24 @@
       </div>
     </div>
     <div class="row">
-
-        <table class="table">
-          <tr>
-            <th>Númer</th>
-            <th>Skammstöfun</th>
-            <th>Nafn</th>
-            <th>Íþróttahérað</th>
-          </tr>
-          <tr v-for="club in filteredList" :key="club.id" @click="goToClub(club.id)">
-            <td>{{ club.id }}</td>
-            <td>{{ club.abbreviation }}</td>
-            <td>{{ club.fullName }}</td>
-            <td>{{ club.province && club.province.abbreviation}}</td>
-          </tr>
-        </table>
-
+      <table class="table">
+        <tr>
+          <th>Númer</th>
+          <th>Skammstöfun</th>
+          <th>Nafn</th>
+          <th>Íþróttahérað</th>
+        </tr>
+        <tr
+          v-for="club in filteredList"
+          :key="club.id"
+          @click="goToClub(club.id)"
+        >
+          <td>{{ club.id }}</td>
+          <td>{{ club.abbreviation }}</td>
+          <td>{{ club.fullName }}</td>
+          <td>{{ club.province && club.province.abbreviation }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -47,6 +49,14 @@ export default {
       list: [],
       filteredList: []
     }
+  },
+  mounted () {
+    agent
+      .get(process.env.VUE_APP_API_HOST + '/clubs')
+      .then(res => {
+        this.list = res.body
+        this.filteredList = res.body
+      })
   },
   methods: {
     goToClub (clubId) {
@@ -68,14 +78,6 @@ export default {
         this.filteredList = this.list
       }
     }
-  },
-  mounted () {
-    agent
-      .get(process.env.VUE_APP_API_HOST + '/clubs')
-      .then(res => {
-        this.list = res.body
-        this.filteredList = res.body
-      })
   }
 }
 </script>

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ProvinceList msg="Íþróttahéruð"/>
+    <ProvinceList msg="Íþróttahéruð" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ProvinceList from '@/components/ProvinceList.vue'
+import ProvinceList from '../components/ProvinceList.vue'
 
 export default {
-  name: 'provinces',
+  name: 'Provinces',
   components: {
     ProvinceList
   }

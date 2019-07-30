@@ -4,9 +4,9 @@
     <div class="row mb-4">
       <div class="col-md-4 offset-md-4">
         <input
+          id="firstName"
           type="text"
           class="form-control text-center"
-          id="firstName"
           placeholder="Nafn héraðs"
           value
           @keyup="search"
@@ -14,20 +14,21 @@
       </div>
     </div>
     <div class="row">
-
-        <table class="table">
-          <tr>
-            <th>Númer</th>
-            <th>Skammstöfun</th>
-            <th>Nafn</th>
-          </tr>
-          <tr v-for="province in filteredList" :key="province.id">
-            <td>{{ province.id }}</td>
-            <td>{{ province.abbreviation }}</td>
-            <td>{{ province.fullname }}</td>
-          </tr>
-        </table>
-
+      <table class="table">
+        <tr>
+          <th>Númer</th>
+          <th>Skammstöfun</th>
+          <th>Nafn</th>
+        </tr>
+        <tr
+          v-for="province in filteredList"
+          :key="province.id"
+        >
+          <td>{{ province.id }}</td>
+          <td>{{ province.abbreviation }}</td>
+          <td>{{ province.fullname }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -45,6 +46,14 @@ export default {
       list: [],
       filteredList: []
     }
+  },
+  mounted () {
+    agent
+      .get(process.env.VUE_APP_API_HOST + '/provinces')
+      .then(res => {
+        this.list = res.body
+        this.filteredList = res.body
+      })
   },
   methods: {
     search (e) {
@@ -64,14 +73,6 @@ export default {
         this.filteredList = this.list
       }
     }
-  },
-  mounted () {
-    agent
-      .get(process.env.VUE_APP_API_HOST + '/provinces')
-      .then(res => {
-        this.list = res.body
-        this.filteredList = res.body
-      })
   }
 }
 </script>

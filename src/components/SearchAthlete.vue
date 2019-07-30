@@ -1,9 +1,16 @@
 <template>
-  <div >
+  <div>
     <h1>Iðkendur</h1>
     <div class="row mb-4">
       <div class="col-md-4 offset-md-4">
-        <input type="text" class="form-control text-center" id="firstName" placeholder="Nafn iðkanda" value="" @keyup="search" >
+        <input
+          id="firstName"
+          type="text"
+          class="form-control text-center"
+          placeholder="Nafn iðkanda"
+          value=""
+          @keyup="search"
+        >
       </div>
     </div>
     <div class="row">
@@ -14,15 +21,24 @@
           <th>Fæðingarár</th>
           <th>Félag</th>
           <th>Land</th>
-          <th></th>
+          <th />
         </tr>
-        <tr v-for="athlete in list" :key="athlete.id" @click="goToAthlete(athlete.id)">
+        <tr
+          v-for="athlete in list"
+          :key="athlete.id"
+          @click="goToAthlete(athlete.id)"
+        >
           <td>{{ athlete.id }}</td>
           <td>{{ athlete.fullName }}</td>
           <td>{{ athlete.birthyear }}</td>
           <td>{{ athlete.clubs[0] && athlete.clubs[0].fullName }}</td>
           <td>{{ athlete.country }}</td>
-          <td><i class="fas fa-check-circle" :class="{ verified: athlete.verified }"></i></td>
+          <td>
+            <i
+              class="fas fa-check-circle"
+              :class="{ verified: athlete.verified }"
+            />
+          </td>
         </tr>
       </table>
     </div>

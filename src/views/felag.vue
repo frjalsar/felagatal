@@ -1,54 +1,136 @@
 <template>
   <div>
-    <h1><i class="fas fa-arrow-left" @click="$router.go(-1)"></i> Félag</h1>
+    <h1>
+      <i
+        class="fas fa-arrow-left"
+        @click="$router.go(-1)"
+      /> Félag
+    </h1>
     <div class="row mb-4">
       <div class="col-md-10 offset-md-1 card">
         <form class="card-body">
           <transition name="fade">
-            <div class="alert alert-success" role="alert" v-if="updated">
+            <div
+              v-if="updated"
+              class="alert alert-success"
+              role="alert"
+            >
               Uppfærsla tókst
             </div>
           </transition>
 
-          <div class="form-group row" v-if="club.id">
-            <label for="club.id" class="col-sm-3 col-form-label text-right">Númer:</label>
+          <div
+            v-if="club.id"
+            class="form-group row"
+          >
+            <label
+              for="club.id"
+              class="col-sm-3 col-form-label text-right"
+            >Númer:</label>
             <div class="col-sm-9">
-              <input type="text" readonly class="form-control-plaintext" id="club.id" v-model="club.id">
+              <input
+                id="club.id"
+                v-model="club.id"
+                type="text"
+                readonly
+                class="form-control-plaintext"
+              >
             </div>
           </div>
           <div class="form-group row">
-            <label for="club.fullName" class="col-sm-3 col-form-label text-right">Fullt nafn:</label>
+            <label
+              for="club.fullName"
+              class="col-sm-3 col-form-label text-right"
+            >Fullt nafn:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="club.fullName" v-model="club.fullName" :disabled="working">
+              <input
+                id="club.fullName"
+                v-model="club.fullName"
+                type="text"
+                class="form-control"
+                :disabled="working"
+              >
             </div>
           </div>
           <div class="form-group row">
-            <label for="club.fullName" class="col-sm-3 col-form-label text-right">Stutt nafn:</label>
+            <label
+              for="club.fullName"
+              class="col-sm-3 col-form-label text-right"
+            >Stutt nafn:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="club.fullName" v-model="club.shortName" :disabled="working">
+              <input
+                id="club.fullName"
+                v-model="club.shortName"
+                type="text"
+                class="form-control"
+                :disabled="working"
+              >
             </div>
           </div>
           <div class="form-group row">
-            <label for="club.abbreviation" class="col-sm-3 col-form-label text-right">Skammstöfun:</label>
+            <label
+              for="club.abbreviation"
+              class="col-sm-3 col-form-label text-right"
+            >Skammstöfun:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="club.abbreviation" v-model="club.abbreviation" :disabled="working">
+              <input
+                id="club.abbreviation"
+                v-model="club.abbreviation"
+                type="text"
+                class="form-control"
+                :disabled="working"
+              >
             </div>
           </div>
           <div class="form-group row">
-            <label for="club.country" class="col-sm-3 col-form-label text-right">Íþróttahérað:</label>
+            <label
+              for="club.country"
+              class="col-sm-3 col-form-label text-right"
+            >Íþróttahérað:</label>
             <div class="col-sm-9">
-              <select class="form-control" id="club.country" v-model="club.provinceId" :disabled="working">
-                <option v-for="province in provinces" :key="province.id" :value="province.id">{{ province.fullname }}</option>
+              <select
+                id="club.country"
+                v-model="club.provinceId"
+                class="form-control"
+                :disabled="working"
+              >
+                <option
+                  v-for="province in provinces"
+                  :key="province.id"
+                  :value="province.id"
+                >
+                  {{ province.fullname }}
+                </option>
               </select>
             </div>
           </div>
-          <div class="form-group row" v-if="club.thorId">
-            <label for="club.id" class="col-sm-3 col-form-label text-right">Fiffó kóði:</label>
+          <div
+            v-if="club.thorId"
+            class="form-group row"
+          >
+            <label
+              for="club.id"
+              class="col-sm-3 col-form-label text-right"
+            >Fiffó kóði:</label>
             <div class="col-sm-9">
-              <input type="text" readonly class="form-control-plaintext" id="club.id" v-model="club.thorId" :disabled="working">
+              <input
+                id="club.id"
+                v-model="club.thorId"
+                type="text"
+                readonly
+                class="form-control-plaintext"
+                :disabled="working"
+              >
             </div>
           </div>
-          <button type="submit" class="btn btn-secondary mt-4" @click.prevent="save" :disabled="working">Vista</button>
+          <button
+            type="submit"
+            class="btn btn-secondary mt-4"
+            :disabled="working"
+            @click.prevent="save"
+          >
+            Vista
+          </button>
         </form>
       </div>
     </div>
@@ -60,7 +142,7 @@
 import agent from 'superagent'
 
 export default {
-  name: 'felag',
+  name: 'Felag',
   data () {
     return {
       working: false,
@@ -68,22 +150,6 @@ export default {
       club: {},
       provinces: []
 
-    }
-  },
-  methods: {
-    save () {
-      this.working = true
-      const method = this.club.id ? 'put' : 'post'
-      const path = process.env.VUE_APP_API_HOST + '/clubs'
-      return agent(method, path)
-        .send(this.club)
-        .then(res => {
-          this.updated = !!res.body.id
-          this.working = false
-          setTimeout(() => {
-            this.updated = false
-          }, 2000)
-        })
     }
   },
   mounted () {
@@ -109,6 +175,22 @@ export default {
       .then(res => {
         this.provinces = res.body
       })
+  },
+  methods: {
+    save () {
+      this.working = true
+      const method = this.club.id ? 'put' : 'post'
+      const path = process.env.VUE_APP_API_HOST + '/clubs'
+      return agent(method, path)
+        .send(this.club)
+        .then(res => {
+          this.updated = !!res.body.id
+          this.working = false
+          setTimeout(() => {
+            this.updated = false
+          }, 2000)
+        })
+    }
   }
 }
 </script>

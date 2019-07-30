@@ -1,15 +1,15 @@
 <template>
   <div>
-    <SearchAthlete msg="Iðkendur"/>
+    <SearchAthlete msg="Iðkendur" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SearchAthlete from '@/components/SearchAthlete.vue'
+import SearchAthlete from '../components/SearchAthlete.vue'
 
 export default {
-  name: 'about',
+  name: 'About',
   components: {
     SearchAthlete
   }
