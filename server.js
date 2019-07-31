@@ -10,7 +10,9 @@ app.use(history())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 
-app.use(express.static('dist'))
+app.use(express.static('dist', {
+  maxAge: '1d'
+}))
 
 app.set('port', process.env.PORT || 3010)
 app.listen(app.get('port'), () => {
