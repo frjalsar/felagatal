@@ -67,7 +67,7 @@ export default {
     },
     search: debounce(function (e) {
       return agent
-        .get(process.env.VUE_APP_API_HOST + '/athletes')
+        .get(process.env.ICELANDATHLETICS_API + '/athletes')
         .query({ search: e.target.value })
         .then(res => {
           this.list = res.body

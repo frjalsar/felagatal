@@ -297,7 +297,7 @@ export default {
   },
   mounted () {
     agent
-      .get(process.env.VUE_APP_API_HOST + '/athletes/' + this.$route.params.id)
+      .get(process.env.ICELANDATHLETICS_API + '/athletes/' + this.$route.params.id)
       .then(res => {
         this.athlete = res.body[0]
       })
@@ -312,7 +312,7 @@ export default {
       })
 
     agent
-      .get(process.env.VUE_APP_API_HOST + '/clubs/')
+      .get(process.env.ICELANDATHLETICS_API + '/clubs/')
       .then(res => {
         this.clubs = res.body
       })
@@ -324,7 +324,7 @@ export default {
     update () {
       this.working = true
       return agent
-        .put(process.env.VUE_APP_API_HOST + '/athletes')
+        .put(process.env.ICELANDATHLETICS_API + '/athletes')
         .send(this.athlete)
         .then(res => {
           this.updated = !!res.body.id

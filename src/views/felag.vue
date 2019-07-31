@@ -154,7 +154,7 @@ export default {
   },
   mounted () {
     agent
-      .get(process.env.VUE_APP_API_HOST + '/clubs/' + this.$route.params.id)
+      .get(process.env.ICELANDATHLETICS_API + '/clubs/' + this.$route.params.id)
       .then(res => {
         if (res.body[0]) {
           this.club = res.body[0]
@@ -171,7 +171,7 @@ export default {
       })
 
     agent
-      .get(process.env.VUE_APP_API_HOST + '/regions')
+      .get(process.env.ICELANDATHLETICS_API + '/regions')
       .then(res => {
         this.regions = res.body
       })
@@ -180,7 +180,7 @@ export default {
     save () {
       this.working = true
       const method = this.club.id ? 'put' : 'post'
-      const path = process.env.VUE_APP_API_HOST + '/clubs'
+      const path = process.env.ICELANDATHLETICS_API + '/clubs'
       return agent(method, path)
         .send(this.club)
         .then(res => {

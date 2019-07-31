@@ -52,7 +52,7 @@ export default {
   },
   mounted () {
     agent
-      .get(process.env.VUE_APP_API_HOST + '/clubs')
+      .get(process.env.ICELANDATHLETICS_API + '/clubs')
       .then(res => {
         this.list = res.body
         this.filteredList = res.body
