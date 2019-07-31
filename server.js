@@ -1,8 +1,11 @@
 const express = require('express')
+const compression = require('compression')
+const history = require('connect-history-api-fallback')
 const bodyParser = require('body-parser')
-var history = require('connect-history-api-fallback')
+
 const app = express()
 
+app.use(compression())
 app.use(history())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
