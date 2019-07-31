@@ -21,12 +21,12 @@
           <th>Nafn</th>
         </tr>
         <tr
-          v-for="province in filteredList"
-          :key="province.id"
+          v-for="region in filteredList"
+          :key="region.id"
         >
-          <td>{{ province.id }}</td>
-          <td>{{ province.abbreviation }}</td>
-          <td>{{ province.fullname }}</td>
+          <td>{{ region.id }}</td>
+          <td>{{ region.abbreviation }}</td>
+          <td>{{ region.fullname }}</td>
         </tr>
       </table>
     </div>
@@ -37,7 +37,7 @@
 import agent from 'superagent'
 
 export default {
-  name: 'ProvinceList',
+  name: 'RegionList',
   props: {
     msg: String
   },
@@ -49,7 +49,7 @@ export default {
   },
   mounted () {
     agent
-      .get(process.env.VUE_APP_API_HOST + '/provinces')
+      .get(process.env.VUE_APP_API_HOST + '/regions')
       .then(res => {
         this.list = res.body
         this.filteredList = res.body

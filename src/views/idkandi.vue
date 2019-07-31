@@ -49,7 +49,7 @@
               >
             </div>
           </div>
-          <div class="form-group row">
+          <!--div class="form-group row">
             <label
               for="athlete.ssnr"
               class="col-sm-3 col-form-label text-right"
@@ -71,7 +71,7 @@
                 Kennitala er ekki á réttu formi.
               </div>
             </div>
-          </div>
+          </div-->
           <div class="form-group row">
             <label
               for="athlete.birthyear"

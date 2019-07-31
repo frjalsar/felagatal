@@ -29,7 +29,7 @@
           <td>{{ club.id }}</td>
           <td>{{ club.abbreviation }}</td>
           <td>{{ club.fullName }}</td>
-          <td>{{ club.province && club.province.abbreviation }}</td>
+          <td>{{ club.region && club.region.abbreviation }}</td>
         </tr>
       </table>
     </div>

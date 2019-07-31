@@ -90,16 +90,16 @@
             <div class="col-sm-9">
               <select
                 id="club.country"
-                v-model="club.provinceId"
+                v-model="club.regionId"
                 class="form-control"
                 :disabled="working"
               >
                 <option
-                  v-for="province in provinces"
-                  :key="province.id"
-                  :value="province.id"
+                  v-for="region in regions"
+                  :key="region.id"
+                  :value="region.id"
                 >
-                  {{ province.fullname }}
+                  {{ region.fullname }}
                 </option>
               </select>
             </div>
@@ -148,7 +148,7 @@ export default {
       working: false,
       updated: null,
       club: {},
-      provinces: []
+      regions: []
 
     }
   },
@@ -164,16 +164,16 @@ export default {
             fullName: '',
             shortName: '',
             abbreviation: '',
-            provinceId: 0,
+            regionId: 0,
             thorId: null
           }
         }
       })
 
     agent
-      .get(process.env.VUE_APP_API_HOST + '/provinces/')
+      .get(process.env.VUE_APP_API_HOST + '/regions')
       .then(res => {
-        this.provinces = res.body
+        this.regions = res.body
       })
   },
   methods: {
