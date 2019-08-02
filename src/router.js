@@ -32,6 +32,16 @@ export default new Router({
       path: '/herud/',
       name: 'herud',
       component: () => import(/* webpackChunkName: "herud" */ './views/herud.vue')
+    },
+    {
+      path: '/passar/',
+      name: 'passar',
+      component: () => import(/* webpackChunkName: "passar" */ './views/passi.vue')
+    },
+    {
+      path: '/passar/:athleteId',
+      name: 'passar',
+      component: () => import(/* webpackChunkName: "passar" */ './views/passi.vue')
     }
   ]
 })
