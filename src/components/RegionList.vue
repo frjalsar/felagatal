@@ -50,6 +50,7 @@ export default {
   mounted () {
     agent
       .get(process.env.ICELANDATHLETICS_API + '/regions')
+      .withCredentials()
       .then(res => {
         this.list = res.body
         this.filteredList = res.body
