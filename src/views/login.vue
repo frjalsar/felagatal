@@ -75,6 +75,7 @@ export default {
           username: this.username,
           password: this.password
         })
+        .withCredentials()
         .then(res => {
           console.log(res)
           console.log(document.cookie)
