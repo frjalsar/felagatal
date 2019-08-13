@@ -1,7 +1,7 @@
 const express = require('express')
 const compression = require('compression')
 const bodyParser = require('body-parser')
-const helmet = require('helmet')np
+const helmet = require('helmet')
 const enforceHttps = require('express-sslify').HTTPS
 const app = express()
 
