@@ -1,12 +1,14 @@
 const express = require('express')
 const compression = require('compression')
 const bodyParser = require('body-parser')
-const helmet = require('helmet')
+const helmet = require('helmet')np
 const enforceHttps = require('express-sslify').HTTPS
 const app = express()
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(enforceHttps())
+  app.use(enforceHttps({
+    trustProtoHeader: true
+  }))
   app.use(compression())
   app.use(helmet())
 }
