@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     search: debounce(function(e) {
-      if (e.target && e.target.value) {
+      if (e.target && e.target.value.length > 3) {
         this.searchFn(e.target.value).then(res => {
           this.results = res
         })
