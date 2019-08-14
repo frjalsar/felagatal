@@ -142,7 +142,7 @@
 import agent from 'superagent'
 
 export default {
-  name: 'Felag',
+  name: 'ClubsSingle',
   data () {
     return {
       working: false,
@@ -154,7 +154,7 @@ export default {
   },
   mounted () {
     agent
-      .get(process.env.ICELANDATHLETICS_API + '/clubs/' + this.$route.params.id)
+      .get(process.env.FRI_API_URL + '/clubs/' + this.$route.params.id)
       .then(res => {
         if (res.body[0]) {
           this.club = res.body[0]
@@ -171,7 +171,7 @@ export default {
       })
 
     agent
-      .get(process.env.ICELANDATHLETICS_API + '/regions')
+      .get(process.env.FRI_API_URL + '/regions')
       .then(res => {
         this.regions = res.body
       })
@@ -180,7 +180,7 @@ export default {
     save () {
       this.working = true
       const method = this.club.id ? 'put' : 'post'
-      const path = process.env.ICELANDATHLETICS_API + '/clubs'
+      const path = process.env.FRI_API_URL + '/clubs'
       return agent(method, path)
         .send(this.club)
         .then(res => {

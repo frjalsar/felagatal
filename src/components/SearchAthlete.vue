@@ -67,7 +67,8 @@ export default {
     },
     search: debounce(function (e) {
       return agent
-        .get(process.env.ICELANDATHLETICS_API + '/athletes')
+        .get(process.env.FRI_API_URL + '/athletes')
+        .withCredentials()
         .query({ search: e.target.value })
         .then(res => {
           this.list = res.body

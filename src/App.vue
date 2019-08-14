@@ -11,7 +11,7 @@
       </h5>
       <nav class="my-2 my-md-0 mr-md-3">
         <router-link
-          to="/"
+          to="/felog"
           class="p-2 text-dark"
         >
           Félög
@@ -28,11 +28,19 @@
         >
           Iðkendur
         </router-link>
-      </nav>
-      <a
-        class="btn btn-outline-primary"
-        href="#"
-      >Innskráning</a>
+      </nav>      
+       <router-link v-if="!user"
+          to="/login"
+          class="btn btn-outline-primary"
+        >
+          Innskráning
+        </router-link>
+        <router-link v-if="user"
+          to="/logout"
+          class="btn btn-outline-primary"
+        >
+          Útskrá
+        </router-link>
     </div>
     <div class="container">
       <div class="py-4 text-center">
@@ -51,3 +59,18 @@ h1 {
   text-transform: uppercase;
 }
 </style>
+
+<script>
+import getUser from './user'
+export default {
+  name: 'App',
+  data() {
+    return {
+      user: undefined
+    }
+  },
+  mounted() {
+    this.user = getUser()
+  }
+}
+</script>

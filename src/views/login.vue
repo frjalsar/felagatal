@@ -6,13 +6,13 @@
     <div class="row mb-4">
       <div class="col-md-10 offset-md-1 card">
         <form class="card-body">          
-          
+          <div class="col-md-6 offset-md-3" >
           <div class="form-group row">
             <label
               for="username"
-              class="col-sm-3 col-form-label text-right"
+              class="col-sm-4 col-form-label text-right"
             >Notendanafn:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
               <input
                 id="username"
                 v-model="username"
@@ -25,9 +25,9 @@
           <div class="form-group row">
             <label
               for="password"
-              class="col-sm-3 col-form-label text-right"
+              class="col-sm-4 col-form-label text-right"
             >Lykilorð:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
               <input
                 id="password"
                 v-model="password"
@@ -54,6 +54,7 @@
 
 <script>
 // @ is an alias to /src
+import { setCookie } from 'tiny-cookie'
 import agent from 'superagent'
 
 export default {
@@ -68,7 +69,7 @@ export default {
   methods: {
     login () {
       this.working = true
-      const path = process.env.ICELANDATHLETICS_API + '/login'
+      const path = process.env.FRI_API_URL + '/login'
       return agent
         .post(path)
         .send({
@@ -77,8 +78,18 @@ export default {
         })
         .withCredentials()
         .then(res => {
-          console.log(res)
-          console.log(document.cookie)
+          this.working = false
+          setCookie(
+            'FRI_FELAGATAL',
+            btoa(JSON.stringify(res.body)),
+            {
+              'domain': '.fri.is',
+              'max-age': 7 * 24 * 60 * 60 * 1000,
+              'samesite': 'strict',
+              'secure': process.env.NODE_ENV === 'production'
+            }
+          )
+          this.$router.push('/felog')
         })
     }
   }

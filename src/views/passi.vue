@@ -38,12 +38,12 @@ export default {
   data () {
     return {
       pass: '',
-      qr: process.env.ICELANDATHLETICS_API + '/passes/' + this.$route.params.athleteId + '/qr'
+      qr: process.env.FRI_API_URL + '/passes/' + this.$route.params.athleteId + '/qr'
     }
   },
   mounted () {
     agent
-      .get(process.env.ICELANDATHLETICS_API + '/passes/' + this.$route.params.athleteId)
+      .get(process.env.FRI_API_URL + '/passes/' + this.$route.params.athleteId)
       .then(res => {
         this.pass = res.body
       })
