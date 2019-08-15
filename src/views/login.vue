@@ -85,7 +85,7 @@ export default {
             btoa(JSON.stringify(res.body)),
             {
               'domain': '.fri.is',
-              'max-age': 7 * 24 * 60 * 60 * 1000,
+              'expires': '7D',
               'samesite': 'strict',
               'secure': process.env.NODE_ENV === 'production'
             }
