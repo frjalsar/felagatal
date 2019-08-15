@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import agent from 'superagent'
 import debounce from 'lodash.debounce'
 
 export default {

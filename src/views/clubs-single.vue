@@ -195,7 +195,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h1 i {
   cursor: pointer;
   padding-right: 10px

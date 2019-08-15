@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import agent from 'superagent'
-
 export default {
   name: 'FilterTable',
   props: {

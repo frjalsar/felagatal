@@ -79,6 +79,7 @@ export default {
         .withCredentials()
         .then(res => {
           this.working = false
+
           setCookie(
             'FRI_FELAGATAL',
             btoa(JSON.stringify(res.body)),
@@ -88,7 +89,8 @@ export default {
               'samesite': 'strict',
               'secure': process.env.NODE_ENV === 'production'
             }
-          )
+          )          
+
           this.$router.push('/felog')
         })
     }
@@ -96,7 +98,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h1 i {
   cursor: pointer;
   padding-right: 10px

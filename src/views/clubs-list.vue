@@ -11,7 +11,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import FilterTable from '../components/FilterTable.vue'
 import agent from 'superagent'
 
@@ -59,3 +58,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  div {
+    display: block;
+  }
+</style>
