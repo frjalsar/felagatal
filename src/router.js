@@ -12,31 +12,26 @@ export default new Router({
     },
     {
       path: '/felog',
-      name: 'clubs-list',
-      // beforeEnter: hasSession(),
+      beforeEnter: hasSession(),
       component: () => import(/* webpackChunkName: "felog" */ './views/clubs-list.vue')
     },
     {
       path: '/felog/:id',
-      name: 'clubs-single',
       // beforeEnter: hasSession(),
       component: () => import(/* webpackChunkName: "felag" */ './views/clubs-single.vue')
     },
     {
       path: '/idkendur',
-      name: 'athletes-list',
       beforeEnter: hasSession(),
       component: () => import(/* webpackChunkName: "about" */ './views/athletes-list.vue')
     },
     {
       path: '/idkendur/:id',
-      name: 'athletes-single',
       beforeEnter: hasSession(),
       component: () => import(/* webpackChunkName: "idkandi" */ './views/athletes-single.vue')
     },
     {
       path: '/herud',
-      name: 'regions-list',
       beforeEnter: hasSession(),
       component: () => import(/* webpackChunkName: "herud" */ './views/regions-list.vue')
     },
@@ -59,7 +54,7 @@ function hasSession () {
     if (user) {
       next()
     } else {
-      next({ name: 'login' })
+      next({ path: '/login' })
     }
   }
 }
