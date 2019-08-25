@@ -4,7 +4,7 @@
     <div class="row mb-4">
       <div class="col-md-10 offset-md-1 card">
         <form class="card-body">
-          <Alert type="warning" :msg="errorMsg" />
+          <Alert type="warning" :message="errorMsg" />
 
           <div class="col-md-6 offset-md-3" >            
           <div class="form-group row">
@@ -18,7 +18,7 @@
                 v-model="username"
                 type="text"
                 class="form-control"
-                :disabled="working"
+                :disabled="disabled"
               >
             </div>
           </div>
@@ -33,7 +33,7 @@
                 v-model="password"
                 type="password"
                 class="form-control"
-                :disabled="working"
+                :disabled="disabled"
               >
             </div>
           </div>
@@ -41,7 +41,7 @@
           <button
             type="submit"
             class="btn btn-primary mt-4"
-            :disabled="working"
+            :disabled="disabled"
             @click.prevent="login"
           >
             Innskrá
@@ -53,13 +53,17 @@
 </template>
 
 <script>
+import Alert from '../alert/Alert'
 import agent from 'superagent'
 
 export default {
-  name: 'Felag',
+  name: 'Login',
+  components: {
+    Alert
+  },
   data () {
     return {
-      working: false,
+      disabled: false,
       errorMsg: '',
       username: '1907834139',
       password: 'Aq1Sw2De'
@@ -67,7 +71,7 @@ export default {
   },  
   methods: {
     login () {
-      this.working = true
+      this.disabled = true
       return agent
         .post('/login')
         .send({
@@ -76,11 +80,11 @@ export default {
         })
         .withCredentials()
         .then(res => {
-          this.working = false
+          this.disabled = false
           this.$router.push('/felog')
         })
         .catch(e => {
-          this.working = false
+          this.disabled = false
           if (e.status === 401) {
             this.errorMsg = e.response.text
           } else {
@@ -88,7 +92,7 @@ export default {
           }
           setTimeout(() => {
             this.errorMsg = ''
-          }, 800)
+          }, 2000)
         })
     }
   }
