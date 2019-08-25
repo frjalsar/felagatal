@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FilterTable from '../components/FilterTable.vue'
+import FilterTable from '../tables/FilterTable.vue'
 import agent from 'superagent'
 
 export default {

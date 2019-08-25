@@ -32,7 +32,7 @@ export default {
   name: 'Felag',
   filters: {
     date (str) {
-      return format(str, 'DD.MM.YYYY')
+      return format(str, 'dd.MM.yyyy')
     }
   },
   data () {

@@ -8,42 +8,47 @@ export default new Router({
   routes: [
     {
       path: '/login',
-      component: () => import(/* webpackChunkName: "login" */ './views/login.vue')
+      component: () => import(/* webpackChunkName: "login" */ './login/Login.vue')
     },
     {
       path: '/felog',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "felog" */ './views/clubs-list.vue')
+      component: () => import(/* webpackChunkName: "felog" */ './clubs/List.vue')
     },
     {
       path: '/felog/:id',
       // beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "felag" */ './views/clubs-single.vue')
+      component: () => import(/* webpackChunkName: "felag" */ './clubs/Single.vue')
     },
     {
       path: '/idkendur',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "about" */ './views/athletes-list.vue')
+      component: () => import(/* webpackChunkName: "about" */ './athletes/List.vue')
     },
     {
       path: '/idkendur/:id',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "idkandi" */ './views/athletes-single.vue')
+      component: () => import(/* webpackChunkName: "idkandi" */ './athletes/Single.vue')
     },
     {
       path: '/herud',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "herud" */ './views/regions-list.vue')
+      component: () => import(/* webpackChunkName: "herud" */ './regions/List.vue')
+    },
+    {
+      path: '/herud/:id',
+      beforeEnter: hasSession(),
+      component: () => import(/* webpackChunkName: "herud" */ './regions/Single.vue')
     },
     {
       path: '/passar/',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "passar" */ './views/passi.vue')
+      component: () => import(/* webpackChunkName: "passar" */ './passi/Passi.vue')
     },
     {
       path: '/passar/:athleteId',
       beforeEnter: hasSession(),
-      component: () => import(/* webpackChunkName: "passarAthlete" */ './views/passi.vue')
+      component: () => import(/* webpackChunkName: "passarAthlete" */ './passi/Passi.vue')
     }
   ]
 })

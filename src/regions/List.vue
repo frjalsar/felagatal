@@ -12,11 +12,11 @@
 
 <script>
 // @ is an alias to /src
-import FilterTable from '../components/FilterTable.vue'
+import FilterTable from '../tables/FilterTable.vue'
 import agent from 'superagent'
 
 export default {
-  name: 'Regions',
+  name: 'RegionsList',
   components: {
     FilterTable
   },
@@ -34,7 +34,7 @@ export default {
         label: 'Nafn'
       }],
       onClick: (item) => {
-        this.$router.push('/herud' + item.id)
+        this.$router.push('/herud/' + item.id)
       }
     }
   },

@@ -1,0 +1,35 @@
+<template>
+  <transition name="fade">
+    <div
+      v-if="message"
+      class="alert"
+      :class=" {
+        'alert-success': type === 'success',
+        'alert-warning': type === 'warning',
+        'alert-error': type === 'error'
+      }"
+      role="alert"
+    >
+      {{ message }}
+    </div>
+  </transition>
+</template>
+
+<script>
+export default {
+  name: 'Alert',
+  props: {
+    type: String,
+    message: String
+  }  
+}
+</script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>
-      Innskráning
-    </h1>
+    <h1>Innskráning</h1>
     <div class="row mb-4">
       <div class="col-md-10 offset-md-1 card">
-        <form class="card-body">          
-          <div class="col-md-6 offset-md-3" >
+        <form class="card-body">
+          <Alert type="warning" :msg="errorMsg" />
+
+          <div class="col-md-6 offset-md-3" >            
           <div class="form-group row">
             <label
               for="username"
@@ -53,8 +53,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import { setCookie } from 'tiny-cookie'
 import agent from 'superagent'
 
 export default {
@@ -62,6 +60,7 @@ export default {
   data () {
     return {
       working: false,
+      errorMsg: '',
       username: '1907834139',
       password: 'Aq1Sw2De'
     }
@@ -69,9 +68,8 @@ export default {
   methods: {
     login () {
       this.working = true
-      const path = process.env.FRI_API_URL + '/login'
       return agent
-        .post(path)
+        .post('/login')
         .send({
           username: this.username,
           password: this.password
@@ -79,19 +77,18 @@ export default {
         .withCredentials()
         .then(res => {
           this.working = false
-
-          setCookie(
-            'FRI_FELAGATAL',
-            btoa(JSON.stringify(res.body)),
-            {
-              'domain': '.fri.is',
-              'expires': '7D',
-              'samesite': 'strict',
-              'secure': process.env.NODE_ENV === 'production'
-            }
-          )          
-
           this.$router.push('/felog')
+        })
+        .catch(e => {
+          this.working = false
+          if (e.status === 401) {
+            this.errorMsg = e.response.text
+          } else {
+            this.errorMsg = 'Villa koma upp'
+          }
+          setTimeout(() => {
+            this.errorMsg = ''
+          }, 800)
         })
     }
   }
@@ -111,12 +108,5 @@ h1 i {
 
 .fa-check-circle.verified {
   color: #c3e6cb
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>

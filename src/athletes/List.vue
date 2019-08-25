@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SearchTable from '../components/SearchTable.vue'
+import SearchTable from '../tables/SearchTable.vue'
 import agent from 'superagent'
 
 export default {
@@ -52,7 +52,7 @@ export default {
                 id: athlete.id,
                 fullName: athlete.fullName,
                 birthyear: athlete.birthyear,
-                clubName: athlete.clubs.length && athlete.clubs[0].fullName,
+                clubName: athlete.membership.length && athlete.membership[athlete.membership.length - 1].fullName,
                 country: athlete.country
               }              
             })
