@@ -6,15 +6,13 @@
         @click="$router.go(-1)"
       /> Íþróttahérað
     </h1>
-    <div class="row mb-4">
-      <div class="col-md-10 offset-md-1 card">
-        <EditRegion          
-          :region="region"
-          :disabled="disabled"          
-          :alert="alert"
-          @save="save"
-        />
-      </div>
+    <div class="row mb-4">      
+      <EditRegion          
+        :region="region"
+        :disabled="disabled"          
+        :alert="alert"
+        @save="save"
+      />
     </div>
   </div>
 </template>

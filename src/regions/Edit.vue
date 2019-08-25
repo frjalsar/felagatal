@@ -1,4 +1,5 @@
 <template>
+<div class="col-md-10 offset-md-1 card">
   <form class="card-body">
     <Alert :type="alert.type" :message="alert.msg" />
 
@@ -31,6 +32,7 @@
     />
 
   </form>
+</div>
 </template>
 
 <script>

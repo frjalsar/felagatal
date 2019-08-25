@@ -6,18 +6,16 @@
         @click="$router.go(-1)"
       /> Iðkandi
     </h1>
-    <div class="row mb-4">
-      <div class="col-md-10 offset-md-1 card">
-        <EditAthlete
-          :athlete="athlete"
-          :clubs="clubs"
-          :countries="countries"
-          :genders="genders"
-          :disabled="disabled"
-          :alert="alert"
-          @save="save"
-        />
-      </div>
+    <div class="row mb-4">      
+      <EditAthlete
+        :athlete="athlete"
+        :clubs="clubs"
+        :countries="countries"
+        :genders="genders"
+        :disabled="disabled"
+        :alert="alert"
+        @save="save"
+      />      
     </div>
   </div>
 </template>

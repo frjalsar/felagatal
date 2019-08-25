@@ -6,16 +6,14 @@
         @click="$router.go(-1)"
       /> Félag
     </h1>
-    <div class="row mb-4">
-      <div class="col-md-10 offset-md-1 card">
-        <EditClub
-          :club="club"
-          :regions="regions"
-          :disabled="disabled"
-          :alert="alert"
-          @save="save"
-        />
-      </div>
+    <div class="row mb-4">      
+      <EditClub
+        :club="club"
+        :regions="regions"
+        :disabled="disabled"
+        :alert="alert"
+        @save="save"
+      />      
     </div>
   </div>
 </template>
