@@ -65,8 +65,8 @@ export default {
     return {
       disabled: false,
       errorMsg: '',
-      username: '1907834139',
-      password: 'Aq1Sw2De'
+      username: '',
+      password: ''
     }
   },  
   methods: {

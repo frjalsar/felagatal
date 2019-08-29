@@ -6,7 +6,7 @@
       :class=" {
         'alert-success': type === 'success',
         'alert-warning': type === 'warning',
-        'alert-error': type === 'error'
+        'alert-danger': type === 'danger'
       }"
       role="alert"
     >

@@ -47,7 +47,7 @@ export default {
           return {
             id: region.id,
             abbreviation: region.abbreviation,
-            fullName: region.fullname
+            fullName: region.fullName
           }
         })
       })

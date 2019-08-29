@@ -12,23 +12,38 @@
     />
 
     <Input
-      :value="region.fullname"
+      :value="region.fullName"
       :label="'Fullt nafn'"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @input="region.fullName = $event"
     />
     
     <Input
       :value="region.abbreviation"
       :label="'Skammstöfun'"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @input="region.abbreviation = $event"
     />  
+    
+    <Checkbox
+      v-if="!readonly"
+      :value="region.verified"
+      :label="'Staðfesting'"
+      :options="[{
+        value: true,
+        text: 'Staðfesta að gögn sé rétt skráð'
+      }]"
+      :disabled="disabled"
+      @change="region.verified= $event"
+    />
 
     <Button      
+      v-if="!readonly"
       :label="'Vista'"
       :disabled="disabled"
-      @click="save"
+      @click="$emit('save', region) "
     />
 
   </form>
@@ -38,8 +53,7 @@
 <script>
 import Alert from '../alert/Alert'
 import Input from '../forms/Input'
-import Select from '../forms/Select'
-import Radio from '../forms/Radio'
+import Checkbox from '../forms/Checkbox'
 import Button from '../forms/Button'
 
 export default {
@@ -47,19 +61,14 @@ export default {
   components: {
     Alert,
     Input,
-    Select,
-    Radio,
+    Checkbox,
     Button
   },
   props: {
     region: Object,
     alert: Object,
-    disabled: Boolean
-  },
-  methods: {
-    save() {
-      this.$emit('save', this.region)      
-    },    
-  }  
+    disabled: Boolean,
+    readonly: Boolean
+  }
 }
 </script>

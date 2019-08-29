@@ -11,6 +11,7 @@
         :club="club"
         :regions="regions"
         :disabled="disabled"
+        :readonly="readonly"
         :alert="alert"
         @save="save"
       />      
@@ -22,6 +23,7 @@
 // @ is an alias to /src
 import agent from 'superagent'
 import EditClub from './Edit'
+import { handle401, hasAccess } from '../user'
 
 export default {
   name: 'ClubsSingle',
@@ -33,7 +35,8 @@ export default {
       disabled: false,
       alert: {},
       club: {},
-      regions: []
+      regions: [],
+      readonly: true,
     }
   },
   mounted () {
@@ -43,6 +46,7 @@ export default {
       .then(res => {
         if (res.body[0]) {
           this.club = res.body[0]
+          this.readonly = !hasAccess('clubId', res.body[0].id)
         } else {
           this.club = {
             id: 0,
@@ -61,12 +65,12 @@ export default {
       .then(res => {
         this.regions = res.body.map(region => ({
           value: region.id,
-          text: region.fullname
+          text: region.fullName
         }))
       })
   },
   methods: {
-    save (club) {        
+    save (club) {
       this.disabled = true
       const method = club.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/clubs'
@@ -82,6 +86,10 @@ export default {
             this.alert = {}
           },800)
           this.disabled = false          
+        })
+        .catch(e => {
+          this.alert = handle401(e)
+          throw e
         })
     }
   }

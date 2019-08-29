@@ -12,6 +12,7 @@
         :clubs="clubs"
         :countries="countries"
         :genders="genders"
+        :readonly="readonly"
         :disabled="disabled"
         :alert="alert"
         @save="save"
@@ -24,6 +25,7 @@
 // @ is an alias to /src
 import agent from 'superagent'
 import EditAthlete from './Edit'
+import { handle401, hasAccess } from '../user'
 
 export default {
   name: 'AthletesSingle',
@@ -43,7 +45,8 @@ export default {
       }, {
         value: 2,
         text: 'Kona'
-      }]
+      }],
+      readonly: true
     }
   },
   mounted () {    
@@ -62,6 +65,7 @@ export default {
         .then(res => {
           if (res.body[0]) {
             this.athlete = res.body[0]
+            this.readonly = !hasAccess('username', res.body[0].ssnr)
           } else {
             this.club = {
               id: 0,
@@ -84,7 +88,6 @@ export default {
   },
   methods: {
     save (athlete) {
-      console.log(athlete)
       this.disabled = true
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'
@@ -100,6 +103,10 @@ export default {
             this.alert = {}
           },800)
           this.disabled = false          
+        })
+        .catch(e => {
+          this.alert = handle401(e)
+          throw e
         })
     }
   }

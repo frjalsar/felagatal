@@ -10,6 +10,7 @@
       <EditRegion          
         :region="region"
         :disabled="disabled"          
+        :readonly="readonly"
         :alert="alert"
         @save="save"
       />
@@ -20,6 +21,7 @@
 <script>
 import agent from 'superagent'
 import EditRegion from './Edit'
+import { handle401, hasAccess } from '../user'
 
 export default {
   name: 'RegionsSingle',
@@ -27,23 +29,25 @@ export default {
     EditRegion
   },
   data () {
-    return {     
+    return {
       disabled: false,
       alert: {},
       region: {},
+      readonly: true
     }
-  },
-  mounted () {
+  },  
+  mounted () {    
     agent
       .get(process.env.FRI_API_URL + '/regions/' + this.$route.params.id)
       .withCredentials()
       .then(res => {
         if (res.body[0]) {
           this.region = res.body[0]
+          this.readonly = !hasAccess('regionId', res.body[0].id)
         } else {
           this.region = {
             id: 0,
-            fullname: '',
+            fullName: '',
             abbreviation: '',            
           }
         }
@@ -53,7 +57,7 @@ export default {
     save (region) {
       this.disabled = true
       const method = region.id ? 'put' : 'post'
-      const path = process.env.FRI_API_URL + '/regions'
+      const path = process.env.FRI_API_URL + '/regions'      
       return agent(method, path)
         .send(region)
         .withCredentials()
@@ -67,7 +71,11 @@ export default {
             this.alert = {}
           }, 800)
         })
-    }
+        .catch(e => {
+          this.alert = handle401(e)
+          throw e
+        })
+    }    
   }
 }
 </script>

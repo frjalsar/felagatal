@@ -7,28 +7,30 @@
       :value="athlete.id"
       :label="'Númer'"
       :readonly="true"
-      :disabled="disabled"
+      :disabled="disabled || readonly"
       @input="athlete.id = $event"
     />
 
     <Input
       :value="athlete.fullName"
       :label="'Fullt nafn'"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @input="athlete.fullName = $event"
     />
 
-    <Input
+    <Input v-if="!readonly"
       :value="athlete.ssnr"
-      :label="'Kennitala'" 
-      :disabled="disabled"
+      :label="'Kennitala'"
+      :disabled="disabled || readonly"
       @input="athlete.ssnr = $event"
     />
 
     <Input
       :value="athlete.birthyear"
       :label="'Fæðingarár'"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @input="athlete.birthyear = $event"
     />
 
@@ -36,7 +38,8 @@
       :value="athlete.country"      
       :label="'Land'"
       :options="countries"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @input="athlete.country = $event"
     />
 
@@ -44,7 +47,8 @@
       :value="athlete.gender"      
       :label="'Kyn'"
       :options="genders"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"
       @change="athlete.gender = $event"
     />
 
@@ -52,7 +56,7 @@
       :value="athlete.thorId"
       :label="'Fiffó kóði'"
       :readonly="true"
-      :disabled="disabled"      
+      :disabled="disabled || readonly"
       @input="athlete.thorId = $event"
     />    
 
@@ -60,14 +64,16 @@
       :label="'Félagasaga'"
       :membership="athlete.membership"
       :clubs="clubs"
-      :disabled="disabled"
+      :readonly="readonly"
+      :disabled="disabled || readonly"      
       @input="athlete.membership = $event"
     />
 
-    <Button      
+    <Button
+      v-if="!readonly"
       :label="'Vista'"
       :disabled="disabled"
-      @click="save"
+      @click="$emit('save', athlete)"
     />
 
   </form>
@@ -98,12 +104,8 @@ export default {
     countries: Array,
     genders: Array,
     alert: Object,
-    disabled: Boolean
-  },
-  methods: {
-    save() {
-      this.$emit('save', this.athlete)      
-    },    
+    disabled: Boolean,
+    readonly: Boolean
   }  
 }
 </script>
