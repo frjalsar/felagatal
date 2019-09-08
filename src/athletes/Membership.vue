@@ -48,6 +48,10 @@
       </div>
 
       <div class="col-md-1">
+        <input
+          type="hidden"
+          :value="club.thorClub"
+        />
         <button
           class="btn btn-default"
           :disabled="disabled"
