@@ -47,12 +47,12 @@ export default {
   },
   methods: {
     search: debounce(function(e) {
-      if (e.target && e.target.value.length > 3) {
+      if (e.target && e.target.value.length >= 3) {
         this.searchFn(e.target.value).then(res => {
           this.results = res
         })
       }
-    },500)
+    },300)
   },
   computed: {
     headers() {

@@ -65,7 +65,7 @@ export default {
         .then(res => {
           if (res.body[0]) {
             this.athlete = res.body[0]
-            this.readonly = !hasAccess('username', res.body[0].ssnr)
+            this.readonly = false
           } else {
             this.club = {
               id: 0,

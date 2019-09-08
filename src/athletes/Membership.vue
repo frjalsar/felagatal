@@ -57,12 +57,12 @@
         </button>
       </div>
       <div
-        v-if="!club.id && club.legacyTeam"
+        v-if="!club.id && club.thorClub"
         class="col-md-12 py-2"
       >
         <div class="alert alert-warning">
           <strong>Vinsamlegast lagið skráningu</strong>
-          <p>Þessi aðili var skráður í <em>{{ club.legacyTeam }}</em> í gamla grunninum sem er hugsanlega ekki rétt.</p>
+          <p>Þessi aðili var skráður í <em>{{ club.thorClub }}</em> í gamla grunninum sem er hugsanlega ekki rétt.</p>
           <p>Athugið að iðkendur eiga vera skráðir íþrótta- eða ungmennafélög, ekki héraðssambönd, íþróttabandlög eða gervi-lið.</p>
           <p>Sé liðið með réttu íþrótta- eða ungmennafélag þarf að stofna það sérstaklega. Vinsamlegast sendið beiðni á <a href="mailto:skraningarnefnd@fri.is">skraningarnefnd@fri.is</a></p>
         </div>

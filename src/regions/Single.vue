@@ -43,7 +43,7 @@ export default {
       .then(res => {
         if (res.body[0]) {
           this.region = res.body[0]
-          this.readonly = !hasAccess('regionId', res.body[0].id)
+          this.readonly = false
         } else {
           this.region = {
             id: 0,

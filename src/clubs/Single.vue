@@ -46,7 +46,7 @@ export default {
       .then(res => {
         if (res.body[0]) {
           this.club = res.body[0]
-          this.readonly = !hasAccess('clubId', res.body[0].id)
+          this.readonly = false
         } else {
           this.club = {
             id: 0,
