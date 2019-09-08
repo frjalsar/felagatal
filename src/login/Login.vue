@@ -81,7 +81,7 @@ export default {
         .withCredentials()
         .then(res => {
           this.disabled = false
-          this.$router.push('/felog')
+          this.$router.push('/idkendur')
         })
         .catch(e => {
           this.disabled = false
