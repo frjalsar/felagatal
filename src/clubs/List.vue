@@ -2,7 +2,7 @@
   <div>
     <FilterTable
       title="Félög"
-      placeholder="Leita"
+      placeholder="Sía"
       :definition="defintion"
       :data="data"
       :onClick="onClick"

@@ -82,6 +82,7 @@ export default {
         .then(res => {
           this.disabled = false
           this.$router.push('/idkendur')
+          this.$root.$emit('loggedin', true)
         })
         .catch(e => {
           this.disabled = false

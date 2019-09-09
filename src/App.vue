@@ -30,11 +30,19 @@
         </router-link>        
       </nav>      
        <router-link
+          v-if="!user"
           to="/login"
           class="btn btn-outline-primary"
         >
           Innskráning
         </router-link>
+
+        <a
+          v-if="user"
+          class="btn btn-outline-secondary"
+        >
+          {{ user.fullName }}
+        </a>
       
     </div>
     <div class="container">
@@ -56,7 +64,20 @@ h1 {
 </style>
 
 <script>
+import { getUser } from './user'
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      user: undefined
+    }
+  },
+  mounted() {
+    // This Feels hacky
+    this.user = getUser()
+    this.$root.$on('loggedin', () => {
+      this.user = getUser()
+    })
+  }
 }
 </script>

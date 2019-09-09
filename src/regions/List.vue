@@ -2,7 +2,7 @@
   <div>
     <FilterTable
       title="Íþróttahéruð"
-      placeholder="Leita"
+      placeholder="Sía"
       :definition="defintion"
       :data="data"
       :onClick="onClick"

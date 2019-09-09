@@ -25,6 +25,7 @@
     "express": "^4.16.4",
     "express-sslify": "^1.2.0",
     "helmet": "^3.20.0",
+    "js-base64": "^2.5.1",
     "kennitala-utility": "^4.4.1",
     "lodash.debounce": "^4.0.8",
     "path": "^0.12.7",
