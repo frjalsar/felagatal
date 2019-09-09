@@ -40,7 +40,7 @@
       :options="countries"
       :readonly="readonly"
       :disabled="disabled || readonly"
-      @input="athlete.country = $event"
+      @change="athlete.country = $event"
     />
 
     <Radio

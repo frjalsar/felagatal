@@ -5,20 +5,20 @@
     </label>
 
     <div class="col-sm-9">
-      <select          
-        :value="value"
+      <select        
         :id="label" 
         :readonly="readonly"        
         :class="readonly ? 'form-control-plaintext' : 'form-control'"
         :disabled="disabled"
-        @input="$emit('input', $event.target.value)"
-      >
+        @change="$emit('change', $event.target.value)"
+      > 
         <option
           v-for="opt in options"
           :key="opt.value"
           :value="opt.value"
+          :selected="opt.value === value"
         >
-          {{ opt.text }}
+        {{ opt.text }} 
         </option>
       </select>
   </div>  

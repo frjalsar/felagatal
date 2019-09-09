@@ -39,9 +39,9 @@
       :value="club.regionId"      
       :label="'Íþróttahérað'"
       :options="regions"
-      :readonly="readonly"
+      :readonly="readonly" 
       :disabled="disabled || readonly"
-      @input="club.regionId = $event"
+      @change="club.regionId = $event"
     />
 
     <Input
