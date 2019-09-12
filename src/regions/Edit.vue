@@ -27,7 +27,7 @@
       @input="region.abbreviation = $event"
     />  
     
-    <Checkbox
+    <!--Checkbox
       v-if="!readonly"
       :value="region.verified"
       :label="'Staðfesting'"
@@ -37,7 +37,7 @@
       }]"
       :disabled="disabled"
       @change="region.verified= $event"
-    />
+    /-->
 
     <Button      
       v-if="!readonly"
