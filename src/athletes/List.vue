@@ -3,7 +3,7 @@
     <h1>Iðkendur</h1>
     <div class="row mb-4">
       <div class="col-md-12">
-        <a class="btn btn-sm" v-for="letter in alphabet" :key="letter" @click="searchForLetter(letter)">
+        <a class="btn btn-sm" v-for="letter in alphabet" :key="letter" @click="letterSearch(letter)">
           {{ letter }}
         </a>
       </div>
@@ -91,6 +91,11 @@
           <th>Félag</th>
           <th>Land</th>
         </tr>
+        <tr v-if="busy">
+          <td colspan="5" align="center">
+            <FadeLoader :loading="busy" color="#007bff"></FadeLoader>
+          </td>
+        </tr>
         <tr
           v-for="athlete in athletes"
           :key="athlete.id"
@@ -108,13 +113,17 @@
 </template>
 
 <script>
+import { FadeLoader } from '@saeris/vue-spinners'
 import agent from 'superagent'
 
 export default {
   name: 'AthletesList',
+  components: {
+    FadeLoader
+  },
   data() {
     return {
-      busy: true,
+      busy: false,
       athletes: [],
       clubs: [],
       regions: [],
@@ -124,9 +133,7 @@ export default {
         search: undefined,
         regionId: undefined,
         clubId: undefined,
-        legacyClub: undefined,
-        limit: 50,
-        offset: 0
+        legacyClub: undefined
       },      
       alphabet: ['A', 'Á', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Ý', 'Z', 'Þ', 'Æ', 'Ö'],
     }
@@ -138,41 +145,44 @@ export default {
       } else {
         return this.clubs
       }
+    },
+    emptySearch() {
+      return !(this.query.search || this.query.regionId || this.query.clubId || this.query.legacyClub || this.query.startsWith)
     }
   },
-  methods: {    
-    searchForLetter(letter) {
-      this.query.search = letter
-      return this.search()
-    },
+  methods: {
     onClick (item) {
       this.$router.push('/idkendur/' + item.id)
     },
+    letterSearch(letter) {
+      this.query = {
+        startsWith: letter
+      }
+      return this.search().then(() => {
+        this.query.startsWith = undefined
+      })
+    },
     search () {
-      this.busy = true   
+      this.busy = true
+      this.athletes = []
+      if (this.emptySearch) {        
+        return Promise.resolve([]).then(res => {
+          this.athletes = res
+          this.busy = false
+        })       
+      }
       return agent
         .get(process.env.FRI_API_URL + '/athletes')
         .withCredentials()
         .query(this.query)
         .then(res => {
-          this.athletes = res.body          
+          this.athletes = res.body
+
           this.busy = false
-        })
-    }   
+        })      
+    }
   },
   mounted() {
-    agent
-      .get(process.env.FRI_API_URL + '/athletes')
-      .withCredentials()
-      .query({
-        search: 'A',
-        limit: this.query.limit
-      })
-      .then(res => {
-        this.busy = false
-        this.athletes = res.body
-      })
-    
     agent
       .get(process.env.FRI_API_URL + '/clubs')
       .withCredentials()
@@ -198,4 +208,8 @@ export default {
 </script>
 
 <style scoped>
+tr:hover td {
+  cursor: pointer;
+  background-color: #eee;
+}
 </style>
