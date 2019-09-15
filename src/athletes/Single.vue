@@ -57,6 +57,11 @@ export default {
           value: country.alpha3Code,
           text: country.nativeName                   
         }))
+
+        this.countries.unshift({
+          value: undefined,
+          text: 'Velja land'
+        })
       })
       .then(() => {
         agent

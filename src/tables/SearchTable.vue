@@ -2,13 +2,50 @@
   <div>
     <h1>{{ title }}</h1>
     <div class="row mb-4">
-      <div class="col-md-4 offset-md-4">
-        <input                    
+      <div class="col-md-12">
+        <a class="btn btn-sm" v-for="letter in alphabet" :key="letter" @click="search(letter)">
+          {{ letter }}
+        </a>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <input
           type="text"
           class="form-control text-center"
           :placeholder="placeholder"
-          @keyup="search"
+          @keyup="inputSearch"
         >
+      </div>
+      <div class="col-md-4">
+        <select
+          class="form-control"
+        > 
+          <option>
+            Íþróttahérað
+          </option>
+          <option
+            v-for="(region) in regions"
+            :key="region.id"
+          >
+          {{ region.fullName }} 
+          </option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <select
+          class="form-control"
+        > 
+          <option>
+            Félag
+          </option>
+          <option
+            v-for="club in clubs"
+            :key="club.id"
+          >
+          {{ club.fullName }} 
+          </option>
+        </select>
       </div>
     </div>
     <div class="row">
@@ -35,6 +72,9 @@ export default {
   name: 'SearchTable',
   props: {
     title: String,
+    data: Array,
+    clubs: Array,
+    regions: Array,
     placeholder: String,
     definition: Array,
     searchFn: Function,
@@ -42,15 +82,19 @@ export default {
   },
   data() {
     return {
-      results: []
+      results: this.data,
+      alphabet: ['A', 'Á', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Ý', 'Z', 'Þ', 'Æ', 'Ö']
     }
   },
   methods: {
-    search: debounce(function(e) {
-      if (e.target && e.target.value.length >= 3) {
-        this.searchFn(e.target.value).then(res => {
+    search(val) {
+      this.searchFn(val).then(res => {
           this.results = res
         })
+    },
+    inputSearch: debounce(function(e) {
+      if (e.target && e.target.value.length >= 3) {
+        this.search(e.target.value)
       }
     },300)
   },
@@ -68,6 +112,11 @@ export default {
         })
       }
     }    
+  },
+  watch: {
+    data(val) {
+      this.results = val
+    }
   }
 }
 </script>
