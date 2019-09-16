@@ -171,8 +171,10 @@ export default {
       this.clubId = e.target.value
       this.$emit('change', this.selected)
     },
-    changeLegacy(e) {
+    changeLegacy(e) {      
       this.legacyClub = e.target.value
+      this.regionId = undefined
+      this.clubId = undefined
       this.$emit('change', this.selected)
     }
   }  
