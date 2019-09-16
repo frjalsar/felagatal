@@ -149,8 +149,9 @@ export default {
     toggleLetter(letter) {
       if (this.startsWith === letter) {
         this.startsWith = undefined
-      } else {
+      } else {        
         this.startsWith = letter
+        this.search = undefined
       }
       this.$emit('change', this.selected)
     },
