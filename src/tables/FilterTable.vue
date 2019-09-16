@@ -58,24 +58,26 @@ export default {
       }
     },
     filteredData() {
-      return this.data.filter(item => {
+      console.log(this.data.length)
+      const t = this.data.filter(item => {
         return this.definition.reduce((acc, def) => {
-          const value = item[def.field]          
-          const valueType = typeof value
-
-          if (value) {
-            if (valueType === 'string') {              
-              return acc || value.toUpperCase().includes(this.query.toUpperCase())
-            }
-
-            if (valueType === 'number') {
-              return acc || Number(value).toString().includes(this.query)
-            }
+          const value = item[def.field]
+          const valueType = typeof value          
+          
+          if (valueType === 'string') {              
+            return acc || value.toUpperCase().includes(this.query.toUpperCase())
           }
 
-          return false
+          if (valueType === 'number') {
+            return acc || Number(value).toString().includes(this.query)
+          }      
+          
+          return acc
         }, false)
       })
+
+      console.log(t.length)
+      return t
     }
   }
 }
