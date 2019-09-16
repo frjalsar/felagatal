@@ -20,7 +20,7 @@
           type="text"
           class="form-control text-center"
           placeholder="Leita"
-          @keyup="searchInput"
+          @input="searchInput"
         >
       </div>
       <div class="col-md-3">
@@ -110,7 +110,6 @@ export default {
     default: Object
   },
   data() {
-    console.log(this.settings)
     return {
       startsWith: this.default.startsWith,
       search: this.default.search,
@@ -156,8 +155,16 @@ export default {
       this.$emit('change', this.selected)
     },
     searchInput: debounce(function(e) {
+      console.log('input')
       this.startsWith = undefined
       this.search = e.target && e.target.value
+      
+      // To clear box
+      if (this.search.length === 0) {
+        this.$emit('change', this.selected)
+      }
+
+      // Only search on 3
       if (this.search.length >= 3) {
         this.$emit('change', this.selected)
       }

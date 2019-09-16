@@ -67,7 +67,6 @@ export default {
       return ''
     },
     setQueryParams (query) {
-      console.log('set query', query)
       this.$router.replace({ query })
       this.search()
     },
@@ -75,7 +74,6 @@ export default {
       this.$router.push('/idkendur/' + item.id)
     },
     search () {
-      console.log('searching')
       this.busy = true
       this.athletes = []
       return agent

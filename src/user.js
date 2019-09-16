@@ -36,6 +36,6 @@ export function hasAccess (entityId, value) {
       return true
     }
   }
-  console.log('hasAccess', false)
+
   return false
 }
