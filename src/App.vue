@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <img
-        alt="Frjálsíþróttasamband Íslands"
-        src="./assets/logo.png"
-        class="logo"
-      >
-      <h5 class="my-0 mr-md-auto font-weight-normal">
-        Félagatal FRÍ
-      </h5>
+      <a href="/#/">
+        <img
+          alt="Frjálsíþróttasamband Íslands"
+          src="./assets/logo.png"
+          class="logo"
+        >
+        </a>
+        <a href="/#/" class="mr-md-auto title-link">
+          <h5 class="my-0 font-weight-normal">
+            Félagatal FRÍ
+          </h5>      
+        </a>
       <nav class="my-2 my-md-0 mr-md-3">
         <router-link
           to="/idkendur"
@@ -81,3 +85,10 @@ export default {
   }
 }
 </script>
+<style>
+a.title-link {
+  text-decoration: none;
+  color: #343a40;
+}
+
+</style>

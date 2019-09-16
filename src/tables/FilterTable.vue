@@ -57,9 +57,8 @@ export default {
         })
       }
     },
-    filteredData() {
-      console.log(this.data.length)
-      const t = this.data.filter(item => {
+    filteredData() {      
+      return this.data.filter(item => {
         return this.definition.reduce((acc, def) => {
           const value = item[def.field]
           const valueType = typeof value          
@@ -74,10 +73,7 @@ export default {
           
           return acc
         }, false)
-      })
-
-      console.log(t.length)
-      return t
+      })      
     }
   }
 }
