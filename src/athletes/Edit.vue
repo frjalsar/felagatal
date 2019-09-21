@@ -20,10 +20,10 @@
     />
 
     <Input v-if="!readonly"
-      :value="athlete.ssnr"
+      :value="athlete.kt"
       :label="'Kennitala'"
       :disabled="disabled || readonly"
-      @input="athlete.ssnr = $event"
+      @input="athlete.kt = $event"
     />
 
     <Input
