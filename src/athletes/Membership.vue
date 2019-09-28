@@ -1,15 +1,19 @@
 <template>
-<div class="form-group row">
-  <legend class="col-form-label col-sm-3 text-right">
-    {{ label }}
-  </legend>
-  <div class="col-sm-9 text-left">
+<div>
+    <div class="row">
+      <div class="col-md-11 offset-md-1">
+        <legend class="col-form-label">
+          {{ label }}
+        </legend>          
+      </div>
+    </div>
+
     <div
       v-for="(club, index) in membership"
       :key="club.id"
-      class="form-row py-1"
+      class="row"
     >
-      <div class="col-md-5">
+      <div class="col-md-5 offset-md-1 mb-3">
         <select
           :value="club.id"
           :disabled="disabled"
@@ -25,7 +29,7 @@
           </option>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-2">
         <input
           :value="club.from"
           type="text"
@@ -36,7 +40,7 @@
         />
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-2">
          <input
           :value="club.to"
           type="text"
@@ -53,16 +57,16 @@
           :value="club.legacyClub"
         />
         <button
-          class="btn btn-default"
+          class="btn btn-outline-secondary"
           :disabled="disabled"
           @click.prevent="removeClub(index)"
         >
-          -
+          Eyða
         </button>
       </div>
       <div
         v-if="!club.id && club.legacyClub"
-        class="col-md-12 py-2"
+        class="col-md-10 offset-md-1 py-2"
       >
         <div class="alert alert-warning">
           <strong>Vinsamlegast lagið skráningu</strong>
@@ -72,14 +76,14 @@
         </div>
       </div>
     </div>
-    <div class="form-row py-1">
-      <div class="col-md-1 offset-md-11">
+    <div class="row py-1">
+      <div class="col-md-2 offset-md-10">
         <button
-          class="btn btn-default"
+          class="btn btn-outline-secondary"
           :disabled="disabled"
           @click.prevent="addClub"
         >
-          +
+          Bæta
         </button>
       </div>
     </div>

@@ -1,53 +1,54 @@
 <template>
-<div class="col-md-10 offset-md-1 card">
-  <form class="card-body">
-    <Alert :type="alert.type" :message="alert.msg" />
+<form>
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <Alert :type="alert.type" :message="alert.msg" />
+    </div>
+  </div>
 
-    <Input
-      :value="region.id"
-      :label="'Númer'"
-      :readonly="true"
-      :disabled="disabled"
-      @input="club.id = $event"
-    />
-
-    <Input
-      :value="region.fullName"
-      :label="'Fullt nafn'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="region.fullName = $event"
-    />
+  <div class="row">
+    <div class="col-md-6 offset-md-1">
+      <Input
+        :value="region.fullName"
+        :label="'Fullt nafn'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="region.fullName = $event"
+      />
+    </div>
     
-    <Input
-      :value="region.abbreviation"
-      :label="'Skammstöfun'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="region.abbreviation = $event"
-    />  
-    
-    <!--Checkbox
-      v-if="!readonly"
-      :value="region.verified"
-      :label="'Staðfesting'"
-      :options="[{
-        value: true,
-        text: 'Staðfesta að gögn sé rétt skráð'
-      }]"
-      :disabled="disabled"
-      @change="region.verified= $event"
-    /-->
+    <div class="col-md-2">
+      <Input
+        :value="region.abbreviation"
+        :label="'Skammstöfun'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="region.abbreviation = $event"
+      />
+    </div>
 
-    <Button      
-      v-if="!readonly"
-      :label="'Vista'"
-      :disabled="disabled"
-      @click="$emit('save', region) "
-    />
+    <div class="col-md-2">
+      <Input
+        :value="region.id"
+        :label="'Númer'"
+        :readonly="true"
+        :disabled="disabled"
+        @input="club.id = $event"
+      />
+    </div>
+  </div>
 
-  </form>
-</div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <Button
+        v-if="!readonly"
+        :label="'Vista'"
+        :disabled="disabled"
+        @click="$emit('save', region) "
+      />
+    </div>
+  </div>
+</form>
 </template>
 
 <script>

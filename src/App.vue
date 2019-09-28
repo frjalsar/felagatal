@@ -50,7 +50,7 @@
       
     </div>
     <div class="container">
-      <div class="py-4 text-center">
+      <div class="my-5 p-3 bg-white rounded shadow-sm">
         <router-view />
       </div>
     </div>

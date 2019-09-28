@@ -32,6 +32,10 @@ export default new Router({
       component: () => import(/* webpackChunkName: "herud" */ './regions/Single.vue')
     },
     {
+      path: '/felagasaga/:id',
+      component: () => import(/* webpackChunkName: "felagasaga" */ './membership/Single.vue')
+    },
+    {
       path: '/login',
       component: () => import(/* webpackChunkName: "login" */ './login/Login.vue')
     },

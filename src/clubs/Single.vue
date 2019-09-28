@@ -1,21 +1,19 @@
 <template>
   <div>
-    <h1>
+    <h1 class="text-center mb-4">
       <i
         class="fas fa-arrow-left"
         @click="$router.go(-1)"
       /> Félag
-    </h1>
-    <div class="row mb-4">      
-      <EditClub
-        :club="club"
-        :regions="regions"
-        :disabled="disabled"
-        :readonly="readonly"
-        :alert="alert"
-        @save="save"
-      />      
-    </div>
+    </h1>    
+    <EditClub
+      :club="club"
+      :regions="regions"
+      :disabled="disabled"
+      :readonly="readonly"
+      :alert="alert"
+      @save="save"
+    />    
   </div>
 </template>
 

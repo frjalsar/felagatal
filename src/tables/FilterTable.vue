@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
+    <h1 class="text-center mb-4">{{ title }}</h1>
     <div class="row mb-4">
       <div class="col-md-4 offset-md-4">
         <input
@@ -12,18 +12,24 @@
       </div>
     </div>
     <div class="row">
-      <table class="table">
-        <tr>
-          <th v-for="header in headers" :key="header.field">{{ header.label }}</th>
-        </tr>
-        <tr
-          v-for="item in filteredData"
-          :key="item.id"
-          @click="onClick && onClick(item)"
-        >
-          <td v-for="header in headers" :key="header.field">{{ item[header.field] }}</td>
-        </tr>
-      </table>
+      <div class="col-md-12">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th v-for="header in headers" :key="header.field">{{ header.label }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in filteredData"
+              :key="item.id"
+              @click="onClick && onClick(item)"
+            >
+              <td v-for="header in headers" :key="header.field">{{ item[header.field] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>

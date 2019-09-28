@@ -1,66 +1,87 @@
 <template>
-<div class="col-md-10 offset-md-1 card">
-  <form class="card-body">
-    <Alert :type="alert.type" :message="alert.msg" />
+<form>
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <Alert :type="alert.type" :message="alert.msg" />
+    </div>
+  </div>
 
-    <Input
-      :value="club.id"
-      :label="'Númer'"
-      :readonly="true"
-      :disabled="disabled"
-      @input="club.id = $event"
-    />
+  <div class="row">
+    <div class="col-md-5 offset-md-1">
+      <Input
+        :value="club.fullName"
+        :label="'Fullt nafn'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="club.fullName = $event"
+      />
+    </div>
 
-    <Input
-      :value="club.fullName"
-      :label="'Fullt nafn'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="club.fullName = $event"
-    />
+    <div class="col-md-3">
+      <Input
+        :value="club.shortName"
+        :label="'Stutt nafn'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="club.shortName = $event"
+      />
+    </div>
 
-    <Input
-      :value="club.shortName"
-      :label="'Stutt nafn'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="club.shortName = $event"
-    />
+    <div class="col-md-2">
+      <Input
+        :value="club.abbreviation"
+        :label="'Skammstöfun'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="club.abbreviation = $event"
+      />
+    </div>
+  </div>
 
-    <Input
-      :value="club.abbreviation"
-      :label="'Skammstöfun'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="club.abbreviation = $event"
-    />
+  <div class="row">
+    <div class="col-md-5 offset-md-1">
+      <Select
+        :value="club.regionId"
+        :label="'Íþróttahérað'"
+        :options="regions"
+        :readonly="readonly" 
+        :disabled="disabled || readonly"
+        @change="club.regionId = $event"
+      />
+    </div>
 
-    <Select
-      :value="club.regionId"      
-      :label="'Íþróttahérað'"
-      :options="regions"
-      :readonly="readonly" 
-      :disabled="disabled || readonly"
-      @change="club.regionId = $event"
-    />
+    <div class="col-sm-6 col-md-3">
+       <Input
+        :value="club.id"
+        :label="'Númer'"
+        :readonly="true"
+        :disabled="disabled"
+        @input="club.id = $event"
+      />    
+    </div>
 
-    <Input
-      :value="club.thorId"
-      :label="'Fiffó kóði'"
-      :readonly="true"
-      :disabled="disabled"      
-      @input="club.thorId = $event"
-    />
+    <div class="col-sm-6 col-md-2">
+      <Input
+        :value="club.thorId"
+        :label="'Fiffó kóði'"
+        :readonly="true"
+        :disabled="disabled"
+        @input="club.thorId = $event"
+      />
+    </div>
+  </div>
 
-    <Button      
-      v-if="!readonly"
-      :label="'Vista'"
-      :disabled="disabled"
-      @click="$emit('save', club)"
-    />
-
-  </form>
-</div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <Button
+        v-if="!readonly"
+        :label="'Vista'"
+        :disabled="disabled"
+        @click="$emit('save', club)"
+      />
+    </div>
+  </div>
+</form>
 </template>
 
 <script>

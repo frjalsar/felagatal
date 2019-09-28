@@ -1,66 +1,88 @@
 <template>
-<div class="col-md-10 offset-md-1 card">
-  <form class="card-body">
-    <Alert :type="alert.type" :message="alert.msg" />
+<form>
 
-    <Input
-      :value="athlete.id"
-      :label="'Númer'"
-      :readonly="true"
-      :disabled="disabled || readonly"
-      @input="athlete.id = $event"
-    />
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <Alert :type="alert.type" :message="alert.msg" />
+    </div>
+  </div>
 
-    <Input
-      :value="athlete.fullName"
-      :label="'Fullt nafn'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="athlete.fullName = $event"
-    />
+  <div class="row">
+    <div class="col-md-6 offset-md-1 mb-3">
+      <Input
+        :value="athlete.fullName"
+        :label="'Fullt nafn'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="athlete.fullName = $event"
+      />
+    </div>
 
-    <Input v-if="!readonly"
-      :value="athlete.kt"
-      :label="'Kennitala'"
-      :disabled="disabled || readonly"
-      @input="athlete.kt = $event"
-    />
+    <div class="col-md-2 mb-3">
+      <Input v-if="!readonly"
+        :value="athlete.kt"
+        :label="'Kennitala'"
+        :disabled="disabled || readonly"
+        @input="athlete.kt = $event"
+      />
+    </div>
 
-    <Input
-      :value="athlete.birthyear"
-      :label="'Fæðingarár'"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @input="athlete.birthyear = $event"
-    />
+    <div class="col-md-2 mb-3">
+      <Input
+        :value="athlete.birthyear"
+        :label="'Fæðingarár'"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @input="athlete.birthyear = $event"
+      />
+    </div>    
+  </div>
 
-    <Select
-      :value="athlete.country"      
-      :label="'Land'"
-      :options="countries"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @change="athlete.country = $event"
-    />
+  <div class="row">
+    <div class="col-md-2 offset-md-1">    
+      <Select
+        :value="athlete.gender"      
+        :label="'Kyn'"
+        :options="genders"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @change="athlete.gender = $event"
+      />
+    </div>
 
-    <Radio
-      :value="athlete.gender"      
-      :label="'Kyn'"
-      :options="genders"
-      :readonly="readonly"
-      :disabled="disabled || readonly"
-      @change="athlete.gender = $event"
-    />
+    <div class="col-md-4 mb-3">
+      <Select
+        :value="athlete.country"      
+        :label="'Land'"
+        :options="countries"
+        :readonly="readonly"
+        :disabled="disabled || readonly"
+        @change="athlete.country = $event"
+      />
+    </div>
 
-    <Input
-      :value="athlete.thorId"
-      :label="'Fiffó kóði'"
-      :readonly="true"
-      :disabled="disabled || readonly"
-      @input="athlete.thorId = $event"
-    />    
+    <div class="col-sm-6 col-md-2 mb-3">
+      <Input
+        :value="athlete.id"
+        :label="'Númer'"
+        :readonly="true"
+        :disabled="disabled || readonly"
+        @input="athlete.id = $event"
+      />
+    </div>
 
-    <Membership
+    <div class="col-sm-6 col-md-2  mb-3">
+      <Input
+        :value="athlete.thorId"
+        :label="'Fiffó númer'"
+        :readonly="true"
+        :disabled="disabled || readonly"
+        @input="athlete.thorId = $event"
+      />    
+    </div>
+  </div>
+
+  <Membership
       :label="'Félagasaga'"
       :membership="athlete.membership"
       :clubs="clubs"
@@ -69,15 +91,18 @@
       @input="athlete.membership = $event"
     />
 
-    <Button
-      v-if="!readonly"
-      :label="'Vista'"
-      :disabled="disabled"
-      @click="$emit('save', athlete)"
-    />
+  <div class="row">
+    <div class="col-md-12 text-center">    
+      <Button
+        v-if="!readonly"
+        :label="'Vista'"
+        :disabled="disabled"
+        @click="$emit('save', athlete)"
+      />
+    </div>
+  </div>
 
-  </form>
-</div>
+</form>
 </template>
 
 <script>

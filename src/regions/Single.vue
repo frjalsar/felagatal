@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <h1>
-      <i
-        class="fas fa-arrow-left"
-        @click="$router.go(-1)"
-      /> Íþróttahérað
-    </h1>
-    <div class="row mb-4">      
-      <EditRegion          
-        :region="region"
-        :disabled="disabled"          
-        :readonly="readonly"
-        :alert="alert"
-        @save="save"
-      />
-    </div>
-  </div>
+<div>
+  <h1 class="text-center mb-5">    
+    <i
+      class="fas fa-arrow-left"
+      @click="$router.go(-1)"
+    /> Íþróttahérað
+  </h1>     
+  <EditRegion          
+    :region="region"
+    :disabled="disabled"          
+    :readonly="readonly"
+    :alert="alert"
+    @save="save"
+  />
+</div>  
 </template>
 
 <script>

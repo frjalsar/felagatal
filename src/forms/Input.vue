@@ -1,19 +1,17 @@
 <template>
-  <div class="form-group row">
-    <label :for="label" class="col-sm-3 col-form-label text-right">
+  <div class="form-group">
+    <label :for="label">
       {{ label }}
-    </label>
-
-    <div class="col-sm-9">
-      <input
-        :value="value"        
-        :id="label"          
-        :type="type || 'text'"
-        :readonly="readonly"
-        :class="readonly ? 'form-control-plaintext' : 'form-control'"
-        :disabled="disabled"
-        @input="$emit('input', $event.target.value)"
-      >
+    </label>    
+    <input
+      :value="value"        
+      :id="label"          
+      :type="type || 'text'"
+      :readonly="readonly"
+      :class="readonly ? 'form-control-plaintext' : 'form-control'"
+      :disabled="disabled"
+      @input="$emit('input', $event.target.value)"
+    />
   </div>  
 </template>
 

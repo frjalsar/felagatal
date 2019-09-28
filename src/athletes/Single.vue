@@ -1,23 +1,21 @@
 <template>
   <div>
-    <h1>
+    <h1 class="text-center mb-5">
       <i
         class="fas fa-arrow-left"
         @click="$router.go(-1)"
       /> Iðkandi
-    </h1>
-    <div class="row mb-4">      
-      <EditAthlete
-        :athlete="athlete"
-        :clubs="clubs"
-        :countries="countries"
-        :genders="genders"
-        :readonly="readonly"
-        :disabled="disabled"
-        :alert="alert"
-        @save="save"
-      />      
-    </div>
+    </h1>         
+    <EditAthlete
+      :athlete="athlete"
+      :clubs="clubs"
+      :countries="countries"
+      :genders="genders"
+      :readonly="readonly"
+      :disabled="disabled"
+      :alert="alert"
+      @save="save"
+    />          
   </div>
 </template>
 
@@ -93,6 +91,7 @@ export default {
   },
   methods: {
     save (athlete) {
+      console.log(athlete.membership)
       this.disabled = true
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'

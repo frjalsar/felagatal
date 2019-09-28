@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Iðkendur</h1>
+    <h1 class="text-center mb-4">Iðkendur</h1>
     <SearchPanel
       :regions="regions"
       :clubs="clubs"
@@ -9,31 +9,37 @@
       @change="setQueryParams"
       />
     <div class="row">
-      <table class="table">
-        <tr>
-          <th>Númer</th>
-          <th>Nafn</th>
-          <th>Fæðingarár</th>
-          <th>Félag</th>
-          <th>Land</th>
-        </tr>
-        <tr v-if="busy">
-          <td colspan="5" align="center">
-            <FadeLoader :loading="busy" color="#007bff"></FadeLoader>
-          </td>
-        </tr>
-        <tr
-          v-for="athlete in athletes"
-          :key="athlete.id"
-          @click="onClick && onClick(athlete)"
-        >
-          <td>{{ athlete.id }}</td>
-          <td>{{ athlete.fullName }}</td>
-          <td>{{ athlete.birthyear }}</td>
-          <td>{{ getCurrentClub(athlete) }}</td>
-          <td>{{ athlete.country }}</td>
-        </tr>
-      </table>
+      <div class="col-md-12">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Númer</th>
+              <th scope="col">Nafn</th>
+              <th scope="col">Fæðingarár</th>
+              <th scope="col">Félag</th>
+              <th scope="col">Land</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="busy">
+              <td colspan="5" align="center">
+                <FadeLoader :loading="busy" color="#007bff"></FadeLoader>
+              </td>
+            </tr>
+            <tr
+              v-for="athlete in athletes"
+              :key="athlete.id"
+              @click="onClick && onClick(athlete)"
+            >
+              <td>{{ athlete.id }}</td>
+              <td>{{ athlete.fullName }}</td>
+              <td>{{ athlete.birthyear }}</td>
+              <td>{{ getCurrentClub(athlete) }}</td>
+              <td>{{ athlete.country }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
