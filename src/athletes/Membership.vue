@@ -29,7 +29,7 @@
           </option>
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2 mb-3">
         <input
           :value="club.from"
           type="text"
@@ -40,7 +40,7 @@
         />
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2 mb-3">
          <input
           :value="club.to"
           type="text"
@@ -51,7 +51,7 @@
         />
       </div>
 
-      <div class="col-md-1">
+      <div class="col-md-1 mb-3">
         <input
           type="hidden"
           :value="club.legacyClub"
