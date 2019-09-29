@@ -13,11 +13,11 @@
         <table class="table">
           <thead class="thead-light">
             <tr>
-              <th scope="col">Númer</th>
+              <th scope="col" class="d-none d-lg-table-cell">Númer</th>
               <th scope="col">Nafn</th>
-              <th scope="col">Fæðingarár</th>
-              <th scope="col">Félag</th>
-              <th scope="col">Land</th>
+              <th scope="col" class="d-none d-md-table-cell">Fæðingarár</th>
+              <th scope="col" class="d-none d-md-table-cell">Félag</th>
+              <th scope="col" class="d-none d-lg-table-cell">Land</th>
             </tr>
           </thead>
           <tbody>
@@ -31,11 +31,11 @@
               :key="athlete.id"
               @click="onClick && onClick(athlete)"
             >
-              <td>{{ athlete.id }}</td>
+              <td class="d-none d-lg-table-cell">{{ athlete.id }}</td>
               <td>{{ athlete.fullName }}</td>
-              <td>{{ athlete.birthyear }}</td>
-              <td>{{ getCurrentClub(athlete) }}</td>
-              <td>{{ athlete.country }}</td>
+              <td class="d-none d-md-table-cell">{{ athlete.birthyear }}</td>
+              <td class="d-none d-md-table-cell"> {{ getCurrentClub(athlete) }}</td>
+              <td class="d-none d-lg-table-cell">{{ athlete.country }}</td>
             </tr>
           </tbody>
         </table>

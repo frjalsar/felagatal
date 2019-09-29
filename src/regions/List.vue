@@ -25,13 +25,15 @@ export default {
       data: [],
       defintion: [{
         field: 'id',
-        label: 'Númer'
-      },{
-        field: 'abbreviation',
-        label: 'Skammstöfun'
+        label: 'Númer',
+        display: 'lg'
       },{
         field: 'fullName',
-        label: 'Nafn'
+        label: 'Nafn'        
+      },{
+        field: 'abbreviation',
+        label: 'Skammstöfun',
+        display: 'md'
       }],
       onClick: (item) => {
         this.$router.push('/herud/' + item.id)

@@ -16,7 +16,16 @@
         <table class="table">
           <thead class="thead-light">
             <tr>
-              <th v-for="header in headers" :key="header.field">{{ header.label }}</th>
+              <th
+                v-for="header in headers"
+                :key="header.field"
+                :class="{
+                  'd-none d-lg-table-cell': header.display === 'lg',
+                  'd-none d-md-table-cell': header.display === 'md'
+                }"                 
+              >
+                {{ header.label }}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -25,7 +34,16 @@
               :key="item.id"
               @click="onClick && onClick(item)"
             >
-              <td v-for="header in headers" :key="header.field">{{ item[header.field] }}</td>
+              <td
+                v-for="header in headers"
+                :key="header.field"
+                :class="{
+                  'd-none d-lg-table-cell': header.display === 'lg',
+                  'd-none d-md-table-cell': header.display === 'md'
+                }"         
+              >
+                {{ item[header.field] }}                
+              </td>
             </tr>
           </tbody>
         </table>
