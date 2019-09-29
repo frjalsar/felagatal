@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="form-row mb-4">
-      <div class="col-md-3 mb-3">
+      <div class="col-md-6 col-lg-3 mb-3">
         <input
           :value="search"
           type="text"
@@ -23,7 +23,7 @@
           @input="searchInput"
         >
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-6 col-lg-3 mb-3">
         <select
           :value="regionId"
           class="form-control"
@@ -44,7 +44,7 @@
           </option>
         </select>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 col-lg-3 mb-3">
         <select
           :value="clubId"
           class="form-control"
@@ -65,7 +65,7 @@
           </option>
         </select>
       </div>
-      <div class="col-md-2 mb-3">
+      <div class="col-md-4 col-lg-2 mb-3">
         <select
           :value="legacyClub"
           class="form-control"
@@ -86,10 +86,10 @@
           </option>
         </select>
       </div>
-      <div class="col-md-1 mb-3">
+      <div class="col-md-4 col-lg-1 mb-3">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn btn-secondary btn-block"
           @click="clear"
         >
         Hreinsa
