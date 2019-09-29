@@ -23,7 +23,7 @@
 // @ is an alias to /src
 import agent from 'superagent'
 import EditAthlete from './Edit'
-import { handle401, hasAccess } from '../user'
+import { handle401 } from '../user'
 
 export default {
   name: 'AthletesSingle',
@@ -47,7 +47,7 @@ export default {
       readonly: true
     }
   },
-  mounted () {    
+  mounted () {
     agent
       .get('https://restcountries.eu/rest/v2/all')
       .then(res => {        
@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     save (athlete) {
-      console.log(athlete.membership)
       this.disabled = true
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'

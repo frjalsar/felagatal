@@ -8,7 +8,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 offset-md-1 mb-3">
+    <div class="col-md-6 offset-md-1 mb-md-3">
       <Input
         :value="athlete.fullName"
         :label="'Fullt nafn'"
@@ -18,7 +18,7 @@
       />
     </div>
 
-    <div class="col-md-2 mb-3">
+    <div class="col-md-2 mb-md-3">
       <Input v-if="!readonly"
         :value="athlete.kt"
         :label="'Kennitala'"
@@ -27,7 +27,7 @@
       />
     </div>
 
-    <div class="col-md-2 mb-3">
+    <div class="col-md-2 mb-md-3">
       <Input
         :value="athlete.birthyear"
         :label="'Fæðingarár'"
@@ -39,7 +39,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2 offset-md-1">    
+    <div class="col-md-2 offset-md-1 mb-md-3">    
       <Select
         :value="athlete.gender"      
         :label="'Kyn'"
@@ -50,7 +50,7 @@
       />
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-4 mb-md-3">
       <Select
         :value="athlete.country"      
         :label="'Land'"
@@ -61,7 +61,7 @@
       />
     </div>
 
-    <div class="col-sm-6 col-md-2 mb-3">
+    <div class="col-sm-6 col-md-2 mb-md-3">
       <Input
         :value="athlete.id"
         :label="'Númer'"
@@ -71,7 +71,7 @@
       />
     </div>
 
-    <div class="col-sm-6 col-md-2  mb-3">
+    <div class="col-sm-6 col-md-2  mb-md-3">
       <Input
         :value="athlete.thorId"
         :label="'Fiffó númer'"

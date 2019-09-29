@@ -7,7 +7,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 offset-md-1">
+    <div class="col-md-6 offset-md-1 mb-md-3">
       <Input
         :value="region.fullName"
         :label="'Fullt nafn'"
@@ -17,7 +17,7 @@
       />
     </div>
     
-    <div class="col-md-2">
+    <div class="col-md-2 mb-md-3">
       <Input
         :value="region.abbreviation"
         :label="'Skammstöfun'"
@@ -27,7 +27,7 @@
       />
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-2 mb-md-3">
       <Input
         :value="region.id"
         :label="'Númer'"

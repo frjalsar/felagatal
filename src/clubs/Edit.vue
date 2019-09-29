@@ -7,7 +7,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-5 offset-md-1">
+    <div class="col-md-5 offset-md-1 mb-md-3">
       <Input
         :value="club.fullName"
         :label="'Fullt nafn'"
@@ -17,7 +17,7 @@
       />
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 mb-md-3">
       <Input
         :value="club.shortName"
         :label="'Stutt nafn'"
@@ -27,7 +27,7 @@
       />
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-2 mb-md-3">
       <Input
         :value="club.abbreviation"
         :label="'Skammstöfun'"
@@ -39,7 +39,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-5 offset-md-1">
+    <div class="col-md-5 offset-md-1 mb-md-3">
       <Select
         :value="club.regionId"
         :label="'Íþróttahérað'"
@@ -50,7 +50,7 @@
       />
     </div>
 
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-3 mb-md-3">
        <Input
         :value="club.id"
         :label="'Númer'"
@@ -60,7 +60,7 @@
       />    
     </div>
 
-    <div class="col-sm-6 col-md-2">
+    <div class="col-sm-6 col-md-2 mb-md-3">
       <Input
         :value="club.thorId"
         :label="'Fiffó kóði'"

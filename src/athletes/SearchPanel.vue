@@ -7,7 +7,7 @@
           v-for="letter in alphabet"
           :key="letter"
           :class="{'btn-outline-secondary': startsWith === letter}"
-          @click="toggleLetter(letter)"
+          @click="toggleLetter(letter)"          
         >
           {{ letter }}
         </a>
@@ -188,3 +188,15 @@ export default {
   }  
 }
 </script>
+<style scoped>
+a.btn {
+  cursor: pointer;
+}
+a.btn:hover {
+  border-color: #6c757d
+}
+
+a.btn-outline-secondary:hover {
+  color: #fff
+}
+</style>

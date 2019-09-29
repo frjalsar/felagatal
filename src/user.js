@@ -1,5 +1,5 @@
 import { getCookie } from 'tiny-cookie'
-import { Base64 } from 'js-base64';
+import { Base64 } from 'js-base64'
 
 export function getUser () {
   const cookie = getCookie('FRI_FELAGATAL')
