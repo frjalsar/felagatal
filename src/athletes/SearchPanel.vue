@@ -156,7 +156,6 @@ export default {
       this.$emit('change', this.selected)
     },
     searchInput: debounce(function(e) {
-      console.log('input')
       this.startsWith = undefined
       this.search = e.target && e.target.value
       

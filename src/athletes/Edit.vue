@@ -81,27 +81,36 @@
       />    
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <legend class="col-form-label">Félagasaga:</legend>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1 offset-md-1">
+      <Timeline :start="startYear" :end="endYear" :data="athlete.membership" alignYear="left" />
+    </div>
 
-  <Membership
-      :label="'Félagasaga'"
-      :membership="athlete.membership"
-      :clubs="clubs"
-      :readonly="readonly"
-      :disabled="disabled || readonly"      
-      @input="athlete.membership = $event"
-    />
+    <div class="col-md-8">
+      <MembershipAdmin :current="athlete.membership" :pending="athlete.pendingMembership" />
+    </div>
 
+    <div class="col-md-1">
+      <Timeline :start="startYear" :end="endYear" :data="athlete.pendingMembership" alignYear="right" background="#6c757d" />
+    </div>
+  </div>
+  
   <div class="row">
     <div class="col-md-12 text-center">    
       <Button
+        class="btn btn-secondary"
         v-if="!readonly"
         :label="'Vista'"
         :disabled="disabled"
         @click="$emit('save', athlete)"
       />
     </div>
-  </div>
-
+  </div>  
 </form>
 </template>
 
@@ -112,6 +121,8 @@ import Select from '../forms/Select'
 import Radio from '../forms/Radio'
 import Button from '../forms/Button'
 import Membership from './Membership'
+import Timeline from './Timeline'
+import MembershipAdmin from './MembershipAdmin'
 
 export default {
   name: 'EditAthlete',
@@ -121,7 +132,8 @@ export default {
     Select,
     Radio,
     Button,
-    Membership
+    Timeline,
+    MembershipAdmin
   },
   props: {
     athlete: Object,
@@ -131,6 +143,41 @@ export default {
     alert: Object,
     disabled: Boolean,
     readonly: Boolean
-  }  
+  }, 
+  computed: {
+    startYear() {
+      if (this.athlete.membership) {
+        const current = this.athlete.membership
+          .map(m => new Date(m.from))
+          .sort((a,b) => a -b)
+
+        const pending = this.athlete.pendingMembership
+          .map(m => new Date(m.from))
+          .sort((a,b) => a -b)
+        
+        const min = Math.min(current[0], pending[0]) || current[0]
+        return new Date(min).getFullYear()      
+      }
+    },
+    endYear() {
+      if (!!this.athlete.membership) {
+        const current = this.athlete.membership
+          .map(m => m.to ? new Date(m.to) : new Date())
+          .sort((a,b) => b - a)
+
+        const pending = this.athlete.pendingMembership
+          .map(m => m.to ? new Date(m.to) : new Date())
+          .sort((a,b) => b -a)
+        
+        const max = Math.min(current[0], pending[0]) || current[0]
+        return new Date(max).getFullYear()
+      }
+    }
+  },
+  methods: {
+    newMembership() {
+      console.log('create new membership')
+    }      
+  }
 }
 </script>

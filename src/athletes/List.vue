@@ -34,7 +34,7 @@
               <td class="d-none d-lg-table-cell">{{ athlete.id }}</td>
               <td>{{ athlete.fullName }}</td>
               <td class="d-none d-md-table-cell">{{ athlete.birthyear }}</td>
-              <td class="d-none d-md-table-cell"> {{ getCurrentClub(athlete) }}</td>
+              <td class="d-none d-md-table-cell"> {{ athlete.club && athlete.club.fullName }}</td>
               <td class="d-none d-lg-table-cell">{{ athlete.country }}</td>
             </tr>
           </tbody>
@@ -65,13 +65,6 @@ export default {
     }
   },
   methods: {
-    getCurrentClub(athlete) {
-      if (athlete.membership && athlete.membership.length > 0) {
-        const foundClub = athlete.membership.find(m => m.current)
-        return foundClub ? foundClub.fullName : ''
-      }
-      return ''
-    },
     setQueryParams (query) {
       this.$router.replace({ query })
       this.search()
