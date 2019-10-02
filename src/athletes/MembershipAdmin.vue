@@ -124,7 +124,6 @@
 </template>
 
 <script>
-import groupBy from 'lodash.groupby'
 import { mask } from 'vue-the-mask'
 import debounce from 'lodash.debounce'
 import { differenceInYears, differenceInMonths, addMonths, isValid, format} from 'date-fns'
