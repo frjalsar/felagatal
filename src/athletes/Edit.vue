@@ -92,7 +92,11 @@
     </div>
 
     <div class="col-md-8">
-      <MembershipAdmin :current="athlete.membership" :pending="athlete.pendingMembership" />
+      <MembershipAdmin
+         :current="athlete.membership"
+         :pending="athlete.pendingMembership"
+         :clubs="clubs"
+      />
     </div>
 
     <div class="col-md-1">

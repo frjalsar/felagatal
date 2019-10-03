@@ -3,7 +3,7 @@
  
   <div class="timesheet-header">
 
-    <div class="header-current" v-if="current && current.length">
+    <div class="header-current">
       <h6>Núverandi skráning</h6>
       <div v-if="current && current.length">
         <small class="d-block">Dags: {{ formatDate(current[0].modifiedAt) }}</small> 
@@ -11,16 +11,16 @@
       </div>
     </div>
 
-    <div class="header-pending" v-if="pending && pending.length > 0">
+    <div class="header-pending">
       <h6>Ný tillaga</h6>
 
-      <div>
-        <small class="d-block">Dags: {{ formatDate(pending[0].modifiedAt) }}</small>
-        <small class="d-block">Notandi: {{ pending[0].modifiedByName }}</small> 
+      <div v-if="pending && pending.length">
+        <small class="d-block">Dags: {{ pendingDate }}</small>
+        <small class="d-block">Notandi: {{ pendingUser }}</small> 
       </div>
 
-      <div v-if="false">
-        <button class="btn btn-sm btn-outline-secondary mt-2" @click="$emit('newMembership')">Byrja</button>
+      <div v-if="!(pending && pending.length)">
+        <button class="btn btn-sm btn-outline-secondary mt-2" @click="addMembership">Byrja</button>
       </div>
 
     </div>  
@@ -126,7 +126,7 @@
 <script>
 import { mask } from 'vue-the-mask'
 import debounce from 'lodash.debounce'
-import { differenceInYears, differenceInMonths, addMonths, isValid, format} from 'date-fns'
+import { isValid, format, startOfToday, startOfTomorrow} from 'date-fns'
 export default {
   name: 'AdminMembership',
   directives: {
@@ -137,8 +137,40 @@ export default {
     pending: Array,
     clubs: Array,
     disabled: Boolean
-  },    
+  },
+  computed: {
+    pendingDate() {
+      if (this.pending.length) {
+        return this.formatDate(new Date(this.pending[0].modifiedAt), 'yyyy-MM-dd')
+      } else {
+        return this.formatDate(startOfToday, 'yyyy-MM-dd')
+      }      
+    },
+    pendingUser() {
+      if (this.pending.length) {
+          this.pending[0].modifiedByName
+      } else {
+        return 'Bergur Hallgrímsson' // todo - sækja úr köku
+      }
+      
+    }
+  },  
   methods: {
+    addMembership() {
+      this.current.forEach(item => {
+        this.pending.push(Object.assign({}, item))
+      })
+
+      const lastItem = this.pending[this.pending.length -1 ]      
+      lastItem.to = format(startOfTomorrow(), 'yyyy-MM-dd')
+
+      this.pending.push({
+        clubId: null,
+        clubFullName: '-',
+        modifiedAt: this.pendindDate,
+        from: format(startOfToday(), 'yyyy-MM-dd')
+      })  
+    },
     formatDate (val) {
       if (val) {
         const valDate = new Date(val)
@@ -148,6 +180,7 @@ export default {
     changeClub(e, membership) {
       const clubId = Number(e.target.value)
       const foundClub = this.clubs.find(c => c.id === clubId)
+      console.log(membership)
       membership.clubId = clubId
       membership.clubFullName = foundClub.fullName      
     },
@@ -163,7 +196,9 @@ export default {
 </script>
 
 <style scoped>
-
+.card {
+  height: 150px;
+}
 .timesheet {
   position: relative;  
 }
