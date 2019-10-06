@@ -29,7 +29,7 @@
             <tr
               v-for="athlete in athletes"
               :key="athlete.id"
-              @click="onClick && onClick(athlete)"
+              @click.prevent="onClick && onClick(athlete)"
             >
               <td class="d-none d-lg-table-cell">{{ athlete.id }}</td>
               <td>{{ athlete.fullName }}</td>

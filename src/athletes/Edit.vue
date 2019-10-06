@@ -111,7 +111,7 @@
         v-if="!readonly"
         :label="'Vista'"
         :disabled="disabled"
-        @click="$emit('save', athlete)"
+        @click.prevent="$emit('save', athlete)"
       />
     </div>
   </div>  
@@ -177,11 +177,6 @@ export default {
         return new Date(max).getFullYear()
       }
     }
-  },
-  methods: {
-    newMembership() {
-      console.log('create new membership')
-    }      
-  }
+  }  
 }
 </script>

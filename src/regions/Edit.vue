@@ -44,7 +44,7 @@
         v-if="!readonly"
         :label="'Vista'"
         :disabled="disabled"
-        @click="$emit('save', region) "
+        @click.prevent="$emit('save', region) "
       />
     </div>
   </div>

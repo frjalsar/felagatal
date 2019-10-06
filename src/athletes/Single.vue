@@ -63,23 +63,23 @@ export default {
       })
       .then(() => {
         agent
-        .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
-        .withCredentials()
-        .then(res => {
-          if (res.body[0]) {
-            this.athlete = res.body[0]
-            this.readonly = false
-          } else {
-            this.club = {
-              id: 0,
-              fullName: '',
-              shortName: '',
-              abbreviation: '',
-              regionId: 0,
-              thorId: null
+          .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
+          .withCredentials()
+          .then(res => {
+            if (res.body[0]) {
+              this.athlete = res.body[0]
+              this.readonly = false
+            } else {
+              this.club = {
+                id: 0,
+                fullName: '',
+                shortName: '',
+                abbreviation: '',
+                regionId: 0,
+                thorId: null
+              }
             }
-          }
-        })
+          })
       })
 
     agent
@@ -91,17 +91,26 @@ export default {
   },
   methods: {
     save (athlete) {
-      this.disabled = true
+      console.log(athlete)
+      this.disabled = true      
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'
       return agent(method, path)
         .send(athlete)
         .withCredentials()
-        .then(res => {        
+        .then(res => {
           this.alert = {
             type: 'success',
             msg: 'Uppfærsla tókst'
           }
+          
+        agent
+          .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
+          .withCredentials()
+          .then(res => {
+              this.athlete = res.body[0]                          
+            })
+
           setTimeout(() => {
             this.alert = {}
           },800)

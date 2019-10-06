@@ -6,7 +6,7 @@
     <div class="header-current">
       <h6>Núverandi skráning</h6>
       <div v-if="current && current.length">
-        <small class="d-block">Dags: {{ formatDate(current[0].modifiedAt) }}</small> 
+        <small class="d-block">Dags: {{ current[0].modifiedAt | formatDate }}</small> 
         <small class="d-block">Notandi: {{ current[0].modifiedByName }}</small> 
       </div>
     </div>
@@ -15,12 +15,12 @@
       <h6>Ný tillaga</h6>
 
       <div v-if="pending && pending.length">
-        <small class="d-block">Dags: {{ pendingDate }}</small>
+        <small class="d-block">Dags: {{ pendingDate | formatDate }}</small>
         <small class="d-block">Notandi: {{ pendingUser }}</small> 
       </div>
 
       <div v-if="!(pending && pending.length)">
-        <button class="btn btn-sm btn-outline-secondary mt-2" @click="addMembership">Byrja</button>
+        <button class="btn btn-sm btn-outline-secondary mt-2" @click.prevent="addMembership">Byrja</button>
       </div>
 
     </div>  
@@ -66,11 +66,23 @@
 
 
     <div class="membership-pending">
-      <div class="card my-3 border-secondary" v-for="membership in pending" :key="membership.clubId + '-' + membership.from">     
+      <div class="card my-3 border-secondary" v-for="(membership, index) in pending" :key="membership.clubId + '-' + membership.from">     
         <div class="card-body py-3">
-          <h5 class="card-title">{{ membership.clubFullName ||  membership.legacyClub }}</h5>
+          <div class="form-row">
+            <div class="col-md-11 text-left">
+              <h5 class="card-title">{{ membership.clubFullName ||  membership.legacyClub }}</h5> 
+            </div>
+            <div class="col-md-1 text-right">
+              <button
+                class="btn btn-sm btn-warning-outline mt-n1"
+                title="Fjarlægja félag"
+                @click.prevent="removeClub(index)"
+              ><i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
           <div class="form-group form-row d-none d-lg-flex">
-            <label class="col-auto col-form-label col-form-label-sm">Frá:</label>
+            <label class="col-md-2 col-form-label col-form-label-sm text-right">Frá:</label>
             <div class="col-md-4">
               <input
                 :value="membership.from"
@@ -83,7 +95,7 @@
               />
             </div>         
             
-            <label class="col-auto col-form-label col-form-label-sm">Til:</label>
+            <label class="col-md-2 col-form-label col-form-label-sm text-right">Til:</label>
             <div class="col-md-4">
               <input            
                 :value="membership.to"
@@ -96,8 +108,8 @@
             </div>        
           </div>        
           <div class="form-group form-row d-none d-lg-flex">
-            <label class="col-auto col-form-label col-form-label-sm">Félag:</label>
-            <div class="col-md-9">
+            <label class="col-md-2 col-form-label col-form-label-sm text-right">Félag:</label>
+            <div class="col-md-10">
               <select
                 :value="membership.clubId"              
                 :disabled="disabled"
@@ -111,10 +123,20 @@
                 >
                   {{ club.fullName}}
                 </option>
-              </select>
+              </select>              
             </div>          
-          </div>
+          </div>          
         </div>
+      </div>
+
+      <div class="text-center">
+        <button
+          v-if="pending && pending.length"
+          class="btn btn-sm btn-outline-secondary"
+          title="Bæta við félagi"
+          @click.prevent="addClub"
+        ><i class="fas fa-plus"></i>
+        </button>      
       </div>
     </div>
     
@@ -126,7 +148,7 @@
 <script>
 import { mask } from 'vue-the-mask'
 import debounce from 'lodash.debounce'
-import { isValid, format, startOfToday, startOfTomorrow} from 'date-fns'
+import { isValid, format, startOfYesterday, startOfToday } from 'date-fns'
 export default {
   name: 'AdminMembership',
   directives: {
@@ -141,35 +163,57 @@ export default {
   computed: {
     pendingDate() {
       if (this.pending.length) {
-        return this.formatDate(new Date(this.pending[0].modifiedAt), 'yyyy-MM-dd')
+        return this.pending[0].modifiedAt
       } else {
-        return this.formatDate(startOfToday, 'yyyy-MM-dd')
+        return this.formatDate(new Date())
       }      
     },
     pendingUser() {
       if (this.pending.length) {
-          this.pending[0].modifiedByName
+        return this.pending[0].modifiedByName
       } else {
-        return 'Bergur Hallgrímsson' // todo - sækja úr köku
+        return 'Bergur Hallgrímsson' // Sækja úr köku
       }
       
     }
-  },  
+  },
+  filters: {
+    formatDate (val) {
+      if (val) {
+        const valDate = new Date(val)
+        return format(valDate, 'yyyy-MM-dd') + ' kl. ' + format(valDate, 'HH:mm:ss')       
+      }      
+    },    
+  },
   methods: {
     addMembership() {
       this.current.forEach(item => {
-        this.pending.push(Object.assign({}, item))
+        this.pending.push({
+          clubId: item.clubId,
+          clubFullName: item.clubFullName,          
+          from: item.from,
+          to: item.to,
+          modifiedAt: new Date(),
+          modifiedBy: 1,
+          modifiedByName: 'Bergur Hallgrímsson'
+        })
       })
-
+    },
+    removeClub(index) {
+      this.pending.splice(index, 1)      
+    },
+    addClub () {
       const lastItem = this.pending[this.pending.length -1 ]      
-      lastItem.to = format(startOfTomorrow(), 'yyyy-MM-dd')
+      lastItem.to = format(startOfYesterday(), 'yyyy-MM-dd')
 
       this.pending.push({
         clubId: null,
-        clubFullName: '-',
-        modifiedAt: this.pendindDate,
-        from: format(startOfToday(), 'yyyy-MM-dd')
-      })  
+        clubFullName: ' ',
+        from: format(startOfToday(), 'yyyy-MM-dd'),
+        modifiedAt: this.pendingDate,
+        modifiedBy: 1,
+        modifiedByName: 'Bergur Hallgrímsson' // Sækja úr köku   
+      })      
     },
     formatDate (val) {
       if (val) {
@@ -180,7 +224,6 @@ export default {
     changeClub(e, membership) {
       const clubId = Number(e.target.value)
       const foundClub = this.clubs.find(c => c.id === clubId)
-      console.log(membership)
       membership.clubId = clubId
       membership.clubFullName = foundClub.fullName      
     },
@@ -197,7 +240,7 @@ export default {
 
 <style scoped>
 .card {
-  height: 150px;
+  height: 180px;
 }
 .timesheet {
   position: relative;  
@@ -229,7 +272,7 @@ export default {
 }
 .timesheet-body > .membership-pending {
   display: block;
-  width: 48%;
+  width: 48%;  
 }
 
 </style>>

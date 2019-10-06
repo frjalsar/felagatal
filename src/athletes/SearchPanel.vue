@@ -90,7 +90,7 @@
         <button
           type="button"
           class="btn btn-secondary btn-block"
-          @click="clear"
+          @click.prevent="clear"
         >
         Hreinsa
         </button>

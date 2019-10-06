@@ -77,7 +77,7 @@
         v-if="!readonly"
         :label="'Vista'"
         :disabled="disabled"
-        @click="$emit('save', club)"
+        @click.prevent="$emit('save', club)"
       />
     </div>
   </div>
