@@ -4,7 +4,7 @@
   <div class="timesheet-header">
 
     <div class="header-current">
-      <h6>Núverandi skráning</h6>
+      <h6>{{ current[0].confirmed ? 'Staðfest' : 'Óstaðfest' }} skráning</h6>
       <div v-if="current && current.length">
         <small class="d-block">Dags: {{ current[0].modifiedAt | formatDate }}</small> 
         <small class="d-block">Notandi: {{ current[0].modifiedByName }}</small> 
