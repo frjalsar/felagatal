@@ -5,12 +5,12 @@
         class="fas fa-arrow-left"
         @click="$router.go(-1)"
       /> Félag
-    </h1>    
+    </h1>
+    
     <EditClub
       :club="club"
       :regions="regions"
       :disabled="disabled"
-      :readonly="readonly"
       :alert="alert"
       @save="save"
     />    
@@ -21,7 +21,7 @@
 // @ is an alias to /src
 import agent from 'superagent'
 import EditClub from './Edit'
-import { handle401, hasAccess } from '../user'
+import { getUser, handle401 } from '../user'
 
 export default {
   name: 'ClubsSingle',
@@ -30,21 +30,21 @@ export default {
   },
   data () {
     return {      
-      disabled: false,
+      disabled: true,
       alert: {},
       club: {},
       regions: [],
-      readonly: true,
     }
   },
-  mounted () {
+  created () {
+    this.disabled = !getUser()
+
     agent
       .get(process.env.FRI_API_URL + '/clubs/' + this.$route.params.id)
       .withCredentials()
       .then(res => {
         if (res.body[0]) {
           this.club = res.body[0]
-          this.readonly = false
         } else {
           this.club = {
             id: 0,

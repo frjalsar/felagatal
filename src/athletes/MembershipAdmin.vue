@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="header-pending">
+    <div class="header-pending" v-if="!disabled">
       <h6>Ný tillaga</h6>
 
       <div v-if="pending && pending.length">
@@ -39,8 +39,7 @@
                 :value="membership.from"
                 type="text"
                 class="form-control form-control-plaintext form-control-sm"
-                placeholder="Fra"
-                :disabled="disabled"
+                placeholder="Fra"                
                 @input="membership.from = $event.target.value"
               />
             </div>         
@@ -52,7 +51,6 @@
                 type="text"
                 class="form-control form-control-plaintext  form-control-sm"
                 placeholder="Til"
-                :disabled="disabled"
                 @input="membership.to = $event.target.value"
               />
             </div>        
@@ -63,9 +61,8 @@
         </div>
       </div>
     </div>
-
-
-    <div class="membership-pending">
+    
+    <div class="membership-pending" v-if="!disabled">
       <div class="card my-3 border-secondary" v-for="(membership, index) in pending" :key="membership.clubId + '-' + membership.from">     
         <div class="card-body py-3">
           <div class="form-row">
@@ -158,7 +155,8 @@ export default {
     current: Array,
     pending: Array,
     clubs: Array,
-    disabled: Boolean
+    disabled: Boolean,
+    readonly: Boolean
   },
   computed: {
     pendingDate() {

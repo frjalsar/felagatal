@@ -12,17 +12,16 @@
       <Input
         :value="athlete.fullName"
         :label="'Fullt nafn'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="athlete.fullName = $event"
       />
     </div>
 
     <div class="col-md-2 mb-md-3">
-      <Input v-if="!readonly"
+      <Input
         :value="athlete.kt"
         :label="'Kennitala'"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="athlete.kt = $event"
       />
     </div>
@@ -31,8 +30,7 @@
       <Input
         :value="athlete.birthyear"
         :label="'Fæðingarár'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="athlete.birthyear = $event"
       />
     </div>    
@@ -44,8 +42,7 @@
         :value="athlete.gender"      
         :label="'Kyn'"
         :options="genders"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @change="athlete.gender = $event"
       />
     </div>
@@ -54,9 +51,8 @@
       <Select
         :value="athlete.country"      
         :label="'Land'"
-        :options="countries"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :options="countries"        
+        :disabled="disabled"
         @change="athlete.country = $event"
       />
     </div>
@@ -66,7 +62,7 @@
         :value="athlete.id"
         :label="'Númer'"
         :readonly="true"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="athlete.id = $event"
       />
     </div>
@@ -76,7 +72,7 @@
         :value="athlete.thorId"
         :label="'Fiffó númer'"
         :readonly="true"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="athlete.thorId = $event"
       />    
     </div>
@@ -89,18 +85,18 @@
   <div class="row">
     <div class="col-md-1 offset-md-1">
       <Timeline :start="startYear" :end="endYear" :data="athlete.membership" alignYear="left" />
-    </div>
-
+    </div>    
     <div class="col-md-8">
       <MembershipAdmin
          :current="athlete.membership"
          :pending="athlete.pendingMembership"
          :clubs="clubs"
+         :disabled="disabled"
       />
     </div>
 
     <div class="col-md-1">
-      <Timeline :start="startYear" :end="endYear" :data="athlete.pendingMembership" alignYear="right" background="#6c757d" />
+      <Timeline :start="startYear" :end="endYear" :data="athlete.pendingMembership" alignYear="right" background="#6c757d"  v-if="!disabled"/>
     </div>
   </div>
   
@@ -108,7 +104,7 @@
     <div class="col-md-12 text-center">    
       <Button
         class="btn btn-secondary"
-        v-if="!readonly"
+        v-if="!disabled"
         :label="'Vista'"
         :disabled="disabled"
         @click.prevent="$emit('save', athlete)"
@@ -137,7 +133,7 @@ export default {
     Radio,
     Button,
     Timeline,
-    MembershipAdmin
+    MembershipAdmin,    
   },
   props: {
     athlete: Object,
@@ -145,8 +141,7 @@ export default {
     countries: Array,
     genders: Array,
     alert: Object,
-    disabled: Boolean,
-    readonly: Boolean
+    disabled: Boolean,    
   }, 
   computed: {
     startYear() {

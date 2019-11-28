@@ -11,8 +11,7 @@
       <Input
         :value="club.fullName"
         :label="'Fullt nafn'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="club.fullName = $event"
       />
     </div>
@@ -21,8 +20,7 @@
       <Input
         :value="club.shortName"
         :label="'Stutt nafn'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="club.shortName = $event"
       />
     </div>
@@ -31,8 +29,7 @@
       <Input
         :value="club.abbreviation"
         :label="'Skammstöfun'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="club.abbreviation = $event"
       />
     </div>
@@ -44,8 +41,7 @@
         :value="club.regionId"
         :label="'Íþróttahérað'"
         :options="regions"
-        :readonly="readonly" 
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @change="club.regionId = $event"
       />
     </div>
@@ -74,7 +70,7 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <Button
-        v-if="!readonly"
+        v-if="!disabled"
         :label="'Vista'"
         :disabled="disabled"
         @click.prevent="$emit('save', club)"
@@ -104,8 +100,7 @@ export default {
     club: Object,
     regions: Array,
     alert: Object,
-    disabled: Boolean,
-    readonly: Boolean
+    disabled: Boolean
   }  
 }
 </script>

@@ -11,7 +11,6 @@
       :clubs="clubs"
       :countries="countries"
       :genders="genders"
-      :readonly="readonly"
       :disabled="disabled"
       :alert="alert"
       @save="save"
@@ -20,10 +19,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import agent from 'superagent'
 import EditAthlete from './Edit'
-import { handle401 } from '../user'
+import { getUser, handle401 } from '../user'
 
 export default {
   name: 'AthletesSingle',
@@ -32,7 +30,7 @@ export default {
   },
   data () {
     return {            
-      disabled: false,
+      disabled: true,
       alert: {},
       athlete: {},
       clubs: [],
@@ -43,11 +41,12 @@ export default {
       }, {
         value: 2,
         text: 'Kona'
-      }],
-      readonly: true
+      }],      
     }
   },
-  mounted () {
+  created () {    
+    this.disabled = !getUser()
+
     agent
       .get('https://restcountries.eu/rest/v2/all')
       .then(res => {        
@@ -68,7 +67,6 @@ export default {
           .then(res => {
             if (res.body[0]) {
               this.athlete = res.body[0]
-              this.readonly = false
             } else {
               this.club = {
                 id: 0,
@@ -91,7 +89,6 @@ export default {
   },
   methods: {
     save (athlete) {
-      console.log(athlete)
       this.disabled = true      
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'

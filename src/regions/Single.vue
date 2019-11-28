@@ -6,10 +6,9 @@
       @click="$router.go(-1)"
     /> Íþróttahérað
   </h1>     
-  <EditRegion          
+  <EditRegion
     :region="region"
-    :disabled="disabled"          
-    :readonly="readonly"
+    :disabled="disabled"
     :alert="alert"
     @save="save"
   />
@@ -19,7 +18,7 @@
 <script>
 import agent from 'superagent'
 import EditRegion from './Edit'
-import { handle401, hasAccess } from '../user'
+import { getUser, handle401 } from '../user'
 
 export default {
   name: 'RegionsSingle',
@@ -28,20 +27,20 @@ export default {
   },
   data () {
     return {
-      disabled: false,
+      disabled: true,
       alert: {},
       region: {},
-      readonly: true
     }
   },  
-  mounted () {    
+  created () {    
+    this.disabled = !getUser()
+
     agent
       .get(process.env.FRI_API_URL + '/regions/' + this.$route.params.id)
       .withCredentials()
       .then(res => {
         if (res.body[0]) {
           this.region = res.body[0]
-          this.readonly = false
         } else {
           this.region = {
             id: 0,

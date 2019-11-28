@@ -1,7 +1,7 @@
 <template>
   <div class="form-group">
     <label :for="label">
-      {{ label }}
+      {{ label }}:
     </label>    
     <input
       :value="value"        
@@ -27,3 +27,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>

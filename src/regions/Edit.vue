@@ -10,9 +10,8 @@
     <div class="col-md-6 offset-md-1 mb-md-3">
       <Input
         :value="region.fullName"
-        :label="'Fullt nafn'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :label="'Fullt nafn'"        
+        :disabled="disabled"
         @input="region.fullName = $event"
       />
     </div>
@@ -21,8 +20,7 @@
       <Input
         :value="region.abbreviation"
         :label="'Skammstöfun'"
-        :readonly="readonly"
-        :disabled="disabled || readonly"
+        :disabled="disabled"
         @input="region.abbreviation = $event"
       />
     </div>
@@ -41,7 +39,7 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <Button
-        v-if="!readonly"
+        v-if="!disabled"
         :label="'Vista'"
         :disabled="disabled"
         @click.prevent="$emit('save', region) "
@@ -68,8 +66,7 @@ export default {
   props: {
     region: Object,
     alert: Object,
-    disabled: Boolean,
-    readonly: Boolean
+    disabled: Boolean,    
   }
 }
 </script>
