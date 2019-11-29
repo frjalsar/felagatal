@@ -6,8 +6,9 @@
     <div class="header-current">
       <h6>{{ current[0].confirmed ? 'Staðfest' : 'Óstaðfest' }} skráning</h6>
       <div v-if="current && current.length">
-        <small class="d-block">Dags: {{ current[0].modifiedAt | formatDate }}</small> 
-        <small class="d-block">Notandi: {{ current[0].modifiedByName }}</small> 
+        <small class="d-block">Skráð: {{ current[0].sentAt | formatDate }}</small> 
+        <small class="d-block">Notandi: {{ current[0].sentByName }}</small> 
+        <small class="d-block">Staðfest: {{ current[0].confirmedAt | formatDate }}</small> 
       </div>
     </div>
 
@@ -146,6 +147,7 @@
 import { mask } from 'vue-the-mask'
 import debounce from 'lodash.debounce'
 import { isValid, format, startOfYesterday, startOfToday } from 'date-fns'
+import { getUser } from '../user'
 export default {
   name: 'AdminMembership',
   directives: {
@@ -161,14 +163,14 @@ export default {
   computed: {
     pendingDate() {
       if (this.pending.length) {
-        return this.pending[0].modifiedAt
+        return this.pending[0].sentAt
       } else {
         return this.formatDate(new Date())
       }      
     },
     pendingUser() {
       if (this.pending.length) {
-        return this.pending[0].modifiedByName
+        return this.pending[0].sentByName
       } else {
         return 'Bergur Hallgrímsson' // Sækja úr köku
       }
@@ -185,15 +187,17 @@ export default {
   },
   methods: {
     addMembership() {
+      // REFACTOR: Senda user obj inn.
+      const user = getUser()
       this.current.forEach(item => {
         this.pending.push({
           clubId: item.clubId,
           clubFullName: item.clubFullName,          
           from: item.from,
           to: item.to,
-          modifiedAt: new Date(),
-          modifiedBy: 1,
-          modifiedByName: 'Bergur Hallgrímsson'
+          sentAt: new Date(),
+          sentBy: user.id,
+          sentByName: user.fullName
         })
       })
     },
