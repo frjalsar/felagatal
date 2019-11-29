@@ -6,14 +6,14 @@
         @click="$router.go(-1)"
       /> Félag
     </h1>
-    
+
     <EditClub
       :club="club"
       :regions="regions"
       :disabled="disabled"
       :alert="alert"
       @save="save"
-    />    
+    />
   </div>
 </template>
 
@@ -26,14 +26,14 @@ import { getUser, handle401 } from '../user'
 export default {
   name: 'ClubsSingle',
   components: {
-    EditClub    
+    EditClub
   },
   data () {
-    return {      
+    return {
       disabled: true,
       alert: {},
       club: {},
-      regions: [],
+      regions: []
     }
   },
   created () {
@@ -75,15 +75,15 @@ export default {
       return agent(method, path)
         .send(club)
         .withCredentials()
-        .then(res => {        
+        .then(res => {
           this.alert = {
             type: 'success',
             msg: 'Uppfærsla tókst'
           }
           setTimeout(() => {
             this.alert = {}
-          },800)
-          this.disabled = false          
+          }, 800)
+          this.disabled = false
         })
         .catch(e => {
           this.alert = handle401(e)

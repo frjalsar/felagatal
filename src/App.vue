@@ -7,12 +7,15 @@
           src="./assets/logo.png"
           class="logo"
         >
-        </a>
-        <a href="/#/" class="mr-md-auto title-link">
-          <h5 class="my-0 font-weight-normal">
-            Félagatal FRÍ
-          </h5>      
-        </a>
+      </a>
+      <a
+        href="/#/"
+        class="mr-md-auto title-link"
+      >
+        <h5 class="my-0 font-weight-normal">
+          Félagatal FRÍ
+        </h5>
+      </a>
       <nav class="my-2 my-md-0 mr-md-3">
         <router-link
           to="/idkendur"
@@ -31,23 +34,22 @@
           class="p-2 text-dark"
         >
           Íþróttahéruð
-        </router-link>        
-      </nav>      
-       <router-link
-          v-if="!user"
-          to="/login"
-          class="btn btn-outline-primary"
-        >
-          Innskráning
         </router-link>
+      </nav>
+      <router-link
+        v-if="!user"
+        to="/login"
+        class="btn btn-outline-primary"
+      >
+        Innskráning
+      </router-link>
 
-        <a
-          v-if="user"
-          class="btn btn-outline-secondary"
-        >
-          {{ user.fullName }}
-        </a>
-      
+      <a
+        v-if="user"
+        class="btn btn-outline-secondary"
+      >
+        {{ user.fullName }}
+      </a>
     </div>
     <div class="container">
       <div class="my-5 p-3 bg-white rounded shadow-sm">
@@ -71,12 +73,12 @@ h1 {
 import { getUser } from './user'
 export default {
   name: 'App',
-  data() {
+  data () {
     return {
       user: undefined
     }
   },
-  mounted() {
+  mounted () {
     // This Feels hacky
     this.user = getUser()
     this.$root.$on('loggedin', () => {

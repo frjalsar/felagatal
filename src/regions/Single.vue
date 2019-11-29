@@ -1,18 +1,18 @@
 <template>
-<div>
-  <h1 class="text-center mb-5">    
-    <i
-      class="fas fa-arrow-left"
-      @click="$router.go(-1)"
-    /> Íþróttahérað
-  </h1>     
-  <EditRegion
-    :region="region"
-    :disabled="disabled"
-    :alert="alert"
-    @save="save"
-  />
-</div>  
+  <div>
+    <h1 class="text-center mb-5">
+      <i
+        class="fas fa-arrow-left"
+        @click="$router.go(-1)"
+      /> Íþróttahérað
+    </h1>
+    <EditRegion
+      :region="region"
+      :disabled="disabled"
+      :alert="alert"
+      @save="save"
+    />
+  </div>
 </template>
 
 <script>
@@ -22,17 +22,17 @@ import { getUser, handle401 } from '../user'
 
 export default {
   name: 'RegionsSingle',
-  components: {    
+  components: {
     EditRegion
   },
   data () {
     return {
       disabled: true,
       alert: {},
-      region: {},
+      region: {}
     }
-  },  
-  created () {    
+  },
+  created () {
     this.disabled = !getUser()
 
     agent
@@ -45,16 +45,16 @@ export default {
           this.region = {
             id: 0,
             fullName: '',
-            abbreviation: '',            
+            abbreviation: ''
           }
         }
-      })   
+      })
   },
   methods: {
     save (region) {
       this.disabled = true
       const method = region.id ? 'put' : 'post'
-      const path = process.env.FRI_API_URL + '/regions'      
+      const path = process.env.FRI_API_URL + '/regions'
       return agent(method, path)
         .send(region)
         .withCredentials()
@@ -72,7 +72,7 @@ export default {
           this.alert = handle401(e)
           throw e
         })
-    }    
+    }
   }
 }
 </script>

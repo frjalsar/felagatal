@@ -1,10 +1,10 @@
 <template>
-<div>
+  <div>
     <div class="row">
       <div class="col-md-11 offset-md-1">
         <legend class="col-form-label">
           {{ label }}
-        </legend>          
+        </legend>
       </div>
     </div>
 
@@ -25,8 +25,9 @@
             :key="club.id"
             :value="club.id"
           >
-            {{ club.fullName}}
+            {{ club.fullName }}
           </option>
+        </select>
       </div>
 
       <div class="col-md-2 mb-3">
@@ -37,25 +38,25 @@
           placeholder="Fra"
           :disabled="disabled"
           @input="club.from = $event.target.value"
-        />
+        >
       </div>
 
       <div class="col-md-2 mb-3">
-         <input
+        <input
           :value="club.to"
           type="text"
           class="form-control"
           placeholder="Til"
           :disabled="disabled"
           @input="club.to = $event.target.value"
-        />
+        >
       </div>
 
       <div class="col-md-1 mb-3">
         <input
           type="hidden"
           :value="club.legacyClub"
-        />
+        >
         <button
           class="btn btn-outline-secondary"
           :disabled="disabled"
@@ -88,7 +89,7 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -106,7 +107,7 @@ export default {
       this.membership.splice(index, 1)
     },
     addClub () {
-      this.membership[this.membership.length -1].to = format(startOfToday(), 'yyyy-MM-dd')
+      this.membership[this.membership.length - 1].to = format(startOfToday(), 'yyyy-MM-dd')
       this.membership.push({
         from: format(startOfTomorrow(), 'yyyy-MM-dd'),
         to: ''
@@ -115,4 +116,3 @@ export default {
   }
 }
 </script>
-

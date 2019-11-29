@@ -3,24 +3,24 @@
     <label :for="label">
       {{ label }}:
     </label>
-    
-    <select        
-      :id="label" 
-      :readonly="readonly"        
+
+    <select
+      :id="label"
+      :readonly="readonly"
       :class="readonly ? 'form-control-plaintext' : 'form-control'"
       :disabled="disabled"
       @change="$emit('change', $event.target.value)"
-    > 
+    >
       <option
         v-for="opt in options"
         :key="opt.value"
         :value="opt.value"
         :selected="opt.value === value"
       >
-      {{ opt.text }} 
+        {{ opt.text }}
       </option>
     </select>
-  </div>  
+  </div>
 </template>
 
 <script>

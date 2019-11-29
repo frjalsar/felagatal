@@ -2,17 +2,17 @@
   <div class="form-group">
     <label :for="label">
       {{ label }}:
-    </label>    
+    </label>
     <input
-      :value="value"        
-      :id="label"          
+      :id="label"
+      :value="value"
       :type="type || 'text'"
       :readonly="readonly"
       :class="readonly ? 'form-control-plaintext' : 'form-control'"
       :disabled="disabled"
       @input="$emit('input', $event.target.value)"
-    />
-  </div>  
+    >
+  </div>
 </template>
 
 <script>

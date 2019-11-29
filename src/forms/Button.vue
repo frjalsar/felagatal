@@ -5,8 +5,8 @@
     :disabled="disabled"
     @click.prevent="click"
   >
-  {{ label }}
-  </button>   
+    {{ label }}
+  </button>
 </template>
 
 <script>
@@ -17,9 +17,9 @@ export default {
     disabled: Boolean
   },
   methods: {
-    click(e) {
+    click (e) {
       this.$emit('click', e)
     }
-  }  
+  }
 }
 </script>

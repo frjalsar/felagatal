@@ -7,19 +7,18 @@
 import agent from 'superagent'
 export default {
   name: 'MembershipSingle',
-  data() {
+  data () {
     return {
       athlete: undefined
     }
   },
-  mounted() {    
+  mounted () {
     agent
       .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
       .withCredentials()
       .then(res => {
         this.athlete = res.body
       })
-
   }
 }
 </script>

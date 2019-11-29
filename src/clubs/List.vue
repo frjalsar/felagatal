@@ -5,7 +5,7 @@
       placeholder="Sía"
       :definition="defintion"
       :data="data"
-      :onClick="onClick"
+      :on-click="onClick"
     />
   </div>
 </template>
@@ -19,31 +19,31 @@ export default {
   components: {
     FilterTable
   },
-  data() {
+  data () {
     return {
       data: [],
       defintion: [{
         field: 'id',
         label: 'Númer',
         display: 'lg'
-      },{
+      }, {
         field: 'fullName',
-        label: 'Nafn' 
-      },{
+        label: 'Nafn'
+      }, {
         field: 'abbreviation',
         label: 'Skammstöfun',
         display: 'lg'
-      },{
+      }, {
         field: 'region',
         label: 'Íþróttahérað',
-        display: 'md'     
+        display: 'md'
       }],
       onClick: (item) => {
         this.$router.push('/felog/' + item.id)
       }
     }
   },
-  mounted() {    
+  mounted () {
     agent
       .get(process.env.FRI_API_URL + '/clubs')
       .withCredentials()
@@ -56,8 +56,7 @@ export default {
             region: club.region.abbreviation
           }
         })
-      })    
-    
+      })
   }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="text-center mb-4">{{ title }}</h1>
+    <h1 class="text-center mb-4">
+      {{ title }}
+    </h1>
     <div class="row mb-4">
       <div class="col-md-4 offset-md-4">
         <input
@@ -22,7 +24,7 @@
                 :class="{
                   'd-none d-lg-table-cell': header.display === 'lg',
                   'd-none d-md-table-cell': header.display === 'md'
-                }"                 
+                }"
               >
                 {{ header.label }}
               </th>
@@ -40,9 +42,9 @@
                 :class="{
                   'd-none d-lg-table-cell': header.display === 'lg',
                   'd-none d-md-table-cell': header.display === 'md'
-                }"         
+                }"
               >
-                {{ item[header.field] }}                
+                {{ item[header.field] }}
               </td>
             </tr>
           </tbody>
@@ -59,16 +61,16 @@ export default {
     title: String,
     placeholder: String,
     definition: Array,
-    data: Array,    
+    data: Array,
     onClick: Function
   },
-  data() {
+  data () {
     return {
       query: ''
     }
   },
   computed: {
-    headers() {
+    headers () {
       if (this.definition && this.definition.length > 0) {
         return this.definition
       }
@@ -81,23 +83,23 @@ export default {
         })
       }
     },
-    filteredData() {      
+    filteredData () {
       return this.data.filter(item => {
         return this.definition.reduce((acc, def) => {
           const value = item[def.field]
-          const valueType = typeof value          
-          
-          if (valueType === 'string') {              
+          const valueType = typeof value
+
+          if (valueType === 'string') {
             return acc || value.toUpperCase().includes(this.query.toUpperCase())
           }
 
           if (valueType === 'number') {
             return acc || Number(value).toString().includes(this.query)
-          }      
-          
+          }
+
           return acc
         }, false)
-      })      
+      })
     }
   }
 }

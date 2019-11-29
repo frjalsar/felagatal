@@ -5,7 +5,7 @@
       placeholder="Sía"
       :definition="defintion"
       :data="data"
-      :onClick="onClick"
+      :on-click="onClick"
     />
   </div>
 </template>
@@ -20,17 +20,17 @@ export default {
   components: {
     FilterTable
   },
-  data() {
+  data () {
     return {
       data: [],
       defintion: [{
         field: 'id',
         label: 'Númer',
         display: 'lg'
-      },{
+      }, {
         field: 'fullName',
-        label: 'Nafn'        
-      },{
+        label: 'Nafn'
+      }, {
         field: 'abbreviation',
         label: 'Skammstöfun',
         display: 'md'
@@ -40,7 +40,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     agent
       .get(process.env.FRI_API_URL + '/regions')
       .withCredentials()
@@ -59,4 +59,3 @@ export default {
 
 <style scoped>
 </style>
-

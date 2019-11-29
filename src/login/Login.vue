@@ -4,48 +4,52 @@
     <div class="row mb-4">
       <div class="col-md-10 offset-md-1 card">
         <form class="card-body">
-          <Alert type="warning" :message="errorMsg" />
+          <Alert
+            type="warning"
+            :message="errorMsg"
+          />
 
-          <div class="col-md-6 offset-md-3" >            
-          <div class="form-group row">
-            <label
-              for="username"
-              class="col-sm-4 col-form-label text-right"
-            >Notendanafn:</label>
-            <div class="col-sm-8">
-              <input
-                id="username"
-                v-model="username"
-                type="text"
-                class="form-control"
-                :disabled="disabled"
-              >
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group row">
+              <label
+                for="username"
+                class="col-sm-4 col-form-label text-right"
+              >Notendanafn:</label>
+              <div class="col-sm-8">
+                <input
+                  id="username"
+                  v-model="username"
+                  type="text"
+                  class="form-control"
+                  :disabled="disabled"
+                >
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label
-              for="password"
-              class="col-sm-4 col-form-label text-right"
-            >Lykilorð:</label>
-            <div class="col-sm-8">
-              <input
-                id="password"
-                v-model="password"
-                type="password"
-                class="form-control"
-                :disabled="disabled"
-              >
+            <div class="form-group row">
+              <label
+                for="password"
+                class="col-sm-4 col-form-label text-right"
+              >Lykilorð:</label>
+              <div class="col-sm-8">
+                <input
+                  id="password"
+                  v-model="password"
+                  type="password"
+                  class="form-control"
+                  :disabled="disabled"
+                >
+              </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            class="btn btn-primary mt-4"
-            :disabled="disabled"
-            @click.prevent="login"
-          >
-            Innskrá
-          </button>
+            <button
+              type="submit"
+              class="btn btn-primary mt-4"
+              :disabled="disabled"
+              @click.prevent="login"
+            >
+              Innskrá
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -68,7 +72,7 @@ export default {
       username: '',
       password: ''
     }
-  },  
+  },
   methods: {
     login () {
       this.disabled = true

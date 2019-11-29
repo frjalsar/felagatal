@@ -2,12 +2,12 @@
   <div>
     <div class="row mb-4">
       <div class="col-md-12 text-center">
-        <a          
-          class="btn btn-sm"
+        <a
           v-for="letter in alphabet"
           :key="letter"
+          class="btn btn-sm"
           :class="{'btn-outline-secondary': startsWith === letter}"
-          @click="toggleLetter(letter)"          
+          @click="toggleLetter(letter)"
         >
           {{ letter }}
         </a>
@@ -28,7 +28,7 @@
           :value="regionId"
           class="form-control"
           @change="changeRegion"
-        > 
+        >
           <option
             selected="selected"
             :value="undefined"
@@ -40,7 +40,7 @@
             :key="region.id"
             :value="region.id"
           >
-          {{ region.fullName }} 
+            {{ region.fullName }}
           </option>
         </select>
       </div>
@@ -49,7 +49,7 @@
           :value="clubId"
           class="form-control"
           @change="changeClub"
-        > 
+        >
           <option
             selected="selected"
             :value="undefined"
@@ -61,7 +61,7 @@
             :key="club.id"
             :value="club.id"
           >
-          {{ club.fullName }} 
+            {{ club.fullName }}
           </option>
         </select>
       </div>
@@ -70,7 +70,7 @@
           :value="legacyClub"
           class="form-control"
           @change="changeLegacy"
-        > 
+        >
           <option
             selected="selected"
             :value="undefined"
@@ -82,7 +82,7 @@
             :key="club"
             :value="club"
           >
-          {{ club }} 
+            {{ club }}
           </option>
         </select>
       </div>
@@ -92,10 +92,11 @@
           class="btn btn-secondary btn-block"
           @click.prevent="clear"
         >
-        Hreinsa
+          Hreinsa
         </button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -109,18 +110,18 @@ export default {
     legacy: Array,
     default: Object
   },
-  data() {
+  data () {
     return {
       startsWith: this.default.startsWith,
       search: this.default.search,
       regionId: this.default.regionId,
-      clubId:  this.default.clubId,
+      clubId: this.default.clubId,
       legacyClub: this.default.legacyClub,
-      alphabet: ['A', 'Á', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Ý', 'Z', 'Þ', 'Æ', 'Ö'],
+      alphabet: ['A', 'Á', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Ý', 'Z', 'Þ', 'Æ', 'Ö']
     }
   },
   computed: {
-    selected() {
+    selected () {
       return {
         startsWith: this.startsWith,
         search: this.search,
@@ -129,16 +130,16 @@ export default {
         legacyClub: this.legacyClub
       }
     },
-    filteredClubs() {
+    filteredClubs () {
       if (this.regionId > 0) {
         return this.clubs.filter(club => club.regionId === Number(this.regionId))
       } else {
         return this.clubs
       }
-    },
+    }
   },
   methods: {
-    clear() {
+    clear () {
       this.startsWith = undefined
       this.search = undefined
       this.regionId = undefined
@@ -146,19 +147,19 @@ export default {
       this.legacyClub = undefined
       this.$emit('change', this.selected)
     },
-    toggleLetter(letter) {
+    toggleLetter (letter) {
       if (this.startsWith === letter) {
         this.startsWith = undefined
-      } else {        
+      } else {
         this.startsWith = letter
         this.search = undefined
       }
       this.$emit('change', this.selected)
     },
-    searchInput: debounce(function(e) {
+    searchInput: debounce(function (e) {
       this.startsWith = undefined
       this.search = e.target && e.target.value
-      
+
       // To clear box
       if (this.search.length === 0) {
         this.$emit('change', this.selected)
@@ -168,23 +169,23 @@ export default {
       if (this.search.length >= 3) {
         this.$emit('change', this.selected)
       }
-    },300),
-    changeRegion(e) {
+    }, 300),
+    changeRegion (e) {
       this.regionId = e.target.value
       this.clubId = undefined
       this.$emit('change', this.selected)
     },
-    changeClub(e) {
+    changeClub (e) {
       this.clubId = e.target.value
       this.$emit('change', this.selected)
     },
-    changeLegacy(e) {      
+    changeLegacy (e) {
       this.legacyClub = e.target.value
       this.regionId = undefined
       this.clubId = undefined
       this.$emit('change', this.selected)
     }
-  }  
+  }
 }
 </script>
 <style scoped>

@@ -1,12 +1,12 @@
-  <template>
+<template>
   <div
     class="timeline my-4"
     :style="{
       'height': 30 * years.length + 'px'
     }"
-  >   
-    <div      
-       v-for="item in data"
+  >
+    <div
+      v-for="item in data"
       :key="item.id"
       :style="{
         'top': calcPosition(item.from) + '%',
@@ -15,14 +15,15 @@
       }"
       :title="item.clubFullName || item.legacyClub"
       class="timeline-item"
-    >    
-      <small :class="{
-        'leftSide': alignYear !== 'right',
-        'rightSide': alignYear === 'right'
-      }">{{ item.from}}</small>    
-    </div>   
-
-</div>
+    >
+      <small
+        :class="{
+          'leftSide': alignYear !== 'right',
+          'rightSide': alignYear === 'right'
+        }"
+      >{{ item.from }}</small>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,33 +38,33 @@ export default {
     background: String
   },
   computed: {
-    years() {
+    years () {
       const years = []
 
       for (let year = this.start; year <= this.end; year++) {
         years.push(year)
       }
 
-      return years    
+      return years
     }
   },
   methods: {
-    calcPosition(from) {
-      const monthSize = 100 / this.years.length / 12      
+    calcPosition (from) {
+      const monthSize = 100 / this.years.length / 12
       const fromDate = new Date(from)
       const startDate = new Date(this.years[0], 0, 1)
-      
-      const monthCount = differenceInMonths(fromDate, startDate)            
+
+      const monthCount = differenceInMonths(fromDate, startDate)
       return Math.round(monthCount * monthSize * 100) / 100
     },
-    calcSize(from, to) {
-      const monthSize = 100 / this.years.length / 12      
+    calcSize (from, to) {
+      const monthSize = 100 / this.years.length / 12
       const fromDate = new Date(from)
       const toDate = to ? new Date(to) : new Date()
-      
-      const monthCount = differenceInMonths(toDate, addMonths(fromDate,1)) + 1    
+
+      const monthCount = differenceInMonths(toDate, addMonths(fromDate, 1)) + 1
       return Math.round(monthCount * monthSize * 100) / 100
-    },
+    }
   }
 }
 </script>
@@ -71,17 +72,16 @@ export default {
 <style lang="css" scoped>
 .timeline {
   position: relative;
-  width: 100%;  
+  width: 100%;
 }
 
-.timeline > .timeline-item {  
+.timeline > .timeline-item {
   position: absolute;
   top: 0;
   left: 0;
   background: rgba(0,0,0,.125);
-  border-radius: 0.25rem;  
+  border-radius: 0.25rem;
 }
-
 
 .timeline  > .timeline-item > small.leftSide {
   position: relative;
@@ -94,6 +94,5 @@ export default {
   right: -75px;
   white-space: nowrap
 }
-
 
 </style>

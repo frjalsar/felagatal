@@ -5,7 +5,7 @@
         class="fas fa-arrow-left"
         @click="$router.go(-1)"
       /> Iðkandi
-    </h1>         
+    </h1>
     <EditAthlete
       :athlete="athlete"
       :clubs="clubs"
@@ -14,7 +14,7 @@
       :disabled="disabled"
       :alert="alert"
       @save="save"
-    />          
+    />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     EditAthlete
   },
   data () {
-    return {            
+    return {
       disabled: true,
       alert: {},
       athlete: {},
@@ -41,18 +41,19 @@ export default {
       }, {
         value: 2,
         text: 'Kona'
-      }],      
+      }]
     }
   },
-  created () {    
+  created () {
+    console.log('athlete created')
     this.disabled = !getUser()
 
     agent
       .get('https://restcountries.eu/rest/v2/all')
-      .then(res => {        
-        this.countries = res.body.map(country => ({          
+      .then(res => {
+        this.countries = res.body.map(country => ({
           value: country.alpha3Code,
-          text: country.nativeName                   
+          text: country.nativeName
         }))
 
         this.countries.unshift({
@@ -89,7 +90,7 @@ export default {
   },
   methods: {
     save (athlete) {
-      this.disabled = true      
+      this.disabled = true
       const method = athlete.id ? 'put' : 'post'
       const path = process.env.FRI_API_URL + '/athletes'
       return agent(method, path)
@@ -100,18 +101,18 @@ export default {
             type: 'success',
             msg: 'Uppfærsla tókst'
           }
-          
-        agent
-          .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
-          .withCredentials()
-          .then(res => {
-              this.athlete = res.body[0]                          
+
+          agent
+            .get(process.env.FRI_API_URL + '/athletes/' + this.$route.params.id)
+            .withCredentials()
+            .then(res => {
+              this.athlete = res.body[0]
             })
 
           setTimeout(() => {
             this.alert = {}
-          },800)
-          this.disabled = false          
+          }, 800)
+          this.disabled = false
         })
         .catch(e => {
           this.alert = handle401(e)
