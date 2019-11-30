@@ -1,14 +1,5 @@
 <template>
-  <form>
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <Alert
-          :type="alert.type"
-          :message="alert.msg"
-        />
-      </div>
-    </div>
-
+  <form>    
     <div class="row">
       <div class="col-md-6 offset-md-1 mb-md-3">
         <Input
@@ -35,6 +26,15 @@
           :readonly="true"
           :disabled="disabled"
           @input="club.id = $event"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <Alert
+          :type="alert.type"
+          :message="alert.msg"
         />
       </div>
     </div>

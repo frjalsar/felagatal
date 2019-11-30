@@ -160,6 +160,10 @@
             <i class="fas fa-plus" />
           </button>
         </div>
+
+        <div class="text-center mt-3" v-if="pending && pending.length">
+          <small>{{ confirmationMessage }}</small>
+        </div>
       </div>
     </div>
   </div>
@@ -189,9 +193,20 @@ export default {
     pending: Array,
     clubs: Array,
     disabled: Boolean,
-    readonly: Boolean
+    admin: Boolean    
+  },
+  created() {
+    console.log('membership', this.admin)
   },
   computed: {
+    confirmationMessage() {
+      console.log('membership', this.admin)
+      if (this.admin) {
+        return 'Tillagan þín verður samþykkt um leið og þú smellir á vista þar sem þú ert stjórnandi.'
+      }
+
+      return 'Tillagan þín verður send inn til staðfestingar. Í millitíðinni mun núverandi skráning haldast óbreytt en síðan uppfærast um leið og skrifstofa FRÍ samþykkir tillöguna.'
+    },
     pendingDate () {
       if (this.pending.length) {
         return this.pending[0].sentAt
@@ -208,8 +223,7 @@ export default {
     }
   },
   methods: {
-    addMembership () {
-      // REFACTOR: Senda user obj inn.
+    addMembership () {            
       const user = getUser()
       const date = new Date()
       this.current.forEach(item => {
@@ -223,9 +237,15 @@ export default {
           sentByName: user.fullName
         })
       })
+
+      this.$emit('membershipSuggestion', this.pending)
     },
     removeClub (index) {
       this.pending.splice(index, 1)
+
+      if (this.pending.length === 0) {
+        this.$emit('membershipSuggestion', this.pending)
+      }
     },
     addClub () {
       const lastItem = this.pending[this.pending.length - 1]
@@ -253,8 +273,6 @@ export default {
       membership.clubFullName = foundClub.fullName
     },
     changeDate: debounce(function (event, membership, field) {
-      console.log(event.target.value)
-
       if (event.target.value) {
         const val = new Date(event.target.value)
         

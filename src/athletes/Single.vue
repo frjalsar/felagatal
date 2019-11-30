@@ -12,6 +12,7 @@
       :countries="countries"
       :genders="genders"
       :disabled="disabled"
+      :admin="admin"
       :alert="alert"
       @save="save"
     />
@@ -31,6 +32,7 @@ export default {
   data () {
     return {
       disabled: true,
+      admin: true,
       alert: {},
       athlete: {},
       clubs: [],
@@ -45,8 +47,10 @@ export default {
     }
   },
   created () {
-    console.log('athlete created')
-    this.disabled = !getUser()
+    const user = getUser()
+    this.disabled = !user
+    this.admin = user.admin
+    console.log('single', this.admin)
 
     agent
       .get('https://restcountries.eu/rest/v2/all')
@@ -111,7 +115,7 @@ export default {
 
           setTimeout(() => {
             this.alert = {}
-          }, 800)
+          }, 2000)
           this.disabled = false
         })
         .catch(e => {

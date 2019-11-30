@@ -1,14 +1,5 @@
 <template>
-  <form>
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <Alert
-          :type="alert.type"
-          :message="alert.msg"
-        />
-      </div>
-    </div>
-
+  <form>    
     <div class="row">
       <div class="col-md-5 offset-md-1 mb-md-3">
         <Input
@@ -71,6 +62,15 @@
     </div>
 
     <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <Alert
+          :type="alert.type"
+          :message="alert.msg"
+        />
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12 text-center">
         <Button
           v-if="!disabled"
@@ -80,6 +80,7 @@
         />
       </div>
     </div>
+    
   </form>
 </template>
 

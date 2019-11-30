@@ -1,15 +1,6 @@
 <template>
   <form>
     <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <Alert
-          :type="alert.type"
-          :message="alert.msg"
-        />
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-md-6 offset-md-1 mb-md-3">
         <Input
           :value="athlete.fullName"
@@ -100,7 +91,9 @@
           :current="athlete.membership"
           :pending="athlete.pendingMembership"
           :clubs="clubs"
+          :admin="admin"
           :disabled="disabled"
+          @membershipSuggestion="updateAthlete"
         />
       </div>
 
@@ -117,12 +110,21 @@
     </div>
 
     <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <Alert
+          :type="alert.type"
+          :message="alert.msg"
+        />
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12 text-center">
         <Button
           v-if="!disabled"
           class="btn btn-secondary"
-          :label="'Vista'"
-          :disabled="disabled"
+          :label="saveMessage"
+          :disabled="disabled"          
           @click.prevent="$emit('save', athlete)"
         />
       </div>
@@ -157,9 +159,22 @@ export default {
     countries: Array,
     genders: Array,
     alert: Object,
-    disabled: Boolean
-  },
+    disabled: Boolean,
+    admin: Boolean,
+  },  
   computed: {
+    saveMessage() {      
+      if (this.athlete.pendingMembership && this.athlete.pendingMembership.length > 0) {
+        if (this.admin) {
+          return 'Vista og samþykkja tillögu'
+        } else {
+          return 'Vista og senda inn tillögu'
+        }
+      }
+
+      return 'Vista'
+
+    },
     startYear () {
       if (this.athlete.membership) {
         const current = this.athlete.membership
@@ -187,6 +202,11 @@ export default {
         const max = Math.min(current[0], pending[0]) || current[0]
         return new Date(max).getFullYear()
       }
+    }
+  },
+  methods: {
+    updateAthlete(pendingMembership) {
+      this.athlete.pendingMembership = pendingMembership
     }
   }
 }

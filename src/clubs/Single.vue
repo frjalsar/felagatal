@@ -82,7 +82,7 @@ export default {
           }
           setTimeout(() => {
             this.alert = {}
-          }, 800)
+          }, 2000)
           this.disabled = false
         })
         .catch(e => {

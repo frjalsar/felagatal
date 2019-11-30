@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       v-if="message"
-      class="alert"
+      class="alert text-center"
       :class=" {
         'alert-success': type === 'success',
         'alert-warning': type === 'warning',
@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
