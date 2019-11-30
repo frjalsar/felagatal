@@ -253,10 +253,17 @@ export default {
       membership.clubFullName = foundClub.fullName
     },
     changeDate: debounce(function (event, membership, field) {
-      const val = new Date(event.target.value)
+      console.log(event.target.value)
 
-      if (val.getFullYear() >= 1800 && isValid(val)) {
-        membership[field] = event.target.value
+      if (event.target.value) {
+        const val = new Date(event.target.value)
+        
+        // REFACTOR: Dummy validation
+        if (val.getFullYear() >= 1800 && isValid(val)) {
+          membership[field] = event.target.value
+        }
+      } else {
+        membership[field] = undefined
       }
     }, 1000)
   }
