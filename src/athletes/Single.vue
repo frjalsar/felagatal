@@ -48,7 +48,7 @@ export default {
   },
   created () {
     const user = getUser()
-    this.disabled = !!(user && user.id)
+    this.disabled = !(user && user.id)
     this.admin = !!(user && user.admin)
 
     agent

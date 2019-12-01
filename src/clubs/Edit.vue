@@ -53,7 +53,7 @@
       <div class="col-sm-6 col-md-2 mb-md-3">
         <Input
           :value="club.thorId"
-          :label="'Fiffó kóði'"
+          :label="'Þór númer'"
           :readonly="true"
           :disabled="disabled"
           @input="club.thorId = $event"

@@ -63,7 +63,7 @@
       <div class="col-sm-6 col-md-2 mb-md-3">
         <Input
           :value="athlete.thorId"
-          :label="'Fiffó númer'"
+          :label="'Þór númer'"
           :readonly="true"
           :disabled="disabled"
           @input="athlete.thorId = $event"
