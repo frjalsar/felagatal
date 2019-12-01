@@ -48,9 +48,8 @@ export default {
   },
   created () {
     const user = getUser()
-    this.disabled = user && user.id
-    this.admin = user && user.admin
-    console.log('single', this.admin)
+    this.disabled = !!(user && user.id)
+    this.admin = !!(user && user.admin)
 
     agent
       .get('https://restcountries.eu/rest/v2/all')
