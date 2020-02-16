@@ -10,7 +10,25 @@
           :message="errorMsg"
         />
 
-        <div class="col-md-6 offset-md-3">
+        <div
+          v-if="user"
+          class="text-center"
+        >
+          <h4>
+            Þú ert: {{ user.fullName }}
+          </h4>
+          <button
+            class="btn btn-large btn-primary center"
+            @click="logout"
+          >
+            Skrá út
+          </button>
+        </div>
+
+        <div
+          v-if="!user"
+          class="col-md-6 offset-md-3"
+        >
           <div class="form-group">
             <label for="username">Notendanafn:</label>
             <input
@@ -47,6 +65,7 @@
 </template>
 
 <script>
+import { getUser } from '../user'
 import Alert from '../alert/Alert'
 import agent from 'superagent'
 
@@ -57,11 +76,17 @@ export default {
   },
   data () {
     return {
+      user: undefined,
       disabled: false,
       errorMsg: '',
       username: '',
       password: ''
     }
+  },
+  created () {
+    getUser().then(user => {
+      this.user = user
+    })
   },
   methods: {
     login () {
@@ -89,6 +114,16 @@ export default {
           setTimeout(() => {
             this.errorMsg = ''
           }, 2000)
+        })
+    },
+    logout () {
+      return agent
+        .post(process.env.FRI_API_URL + '/user/logout')
+        .withCredentials()
+        .then(res => {
+          this.user = undefined
+          sessionStorage.removeItem('FRI_FELAGATAL')
+          this.$root.$emit('loggedin', false)
         })
     }
   }
