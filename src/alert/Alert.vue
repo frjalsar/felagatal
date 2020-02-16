@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="message"
+      v-if="message && type"
       class="alert text-center"
       :class=" {
         'alert-success': type === 'success',
@@ -19,8 +19,14 @@
 export default {
   name: 'Alert',
   props: {
-    type: String,
-    message: String
+    type: {
+      type: String,
+      default: ''
+    },
+    message: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="timesheet">
     <div class="timesheet-header">
       <div class="header-current">
-        <h6>{{ current && current[0].confirmed ? 'Staðfest' : 'Óstaðfest' }} skráning</h6>
+        <h6>{{ current.length && current[0].confirmed ? 'Staðfest' : 'Óstaðfest' }} skráning</h6>
         <div v-if="current && current.length">
           <small class="d-block">Skráð: {{ current[0].sentAt | formatDate }}</small>
           <small class="d-block">Notandi: {{ current[0].sentByName }}</small>
@@ -161,7 +161,10 @@
           </button>
         </div>
 
-        <div class="text-center mt-3" v-if="pending && pending.length">
+        <div
+          v-if="pending && pending.length"
+          class="text-center mt-3"
+        >
           <small>{{ confirmationMessage }}</small>
         </div>
       </div>
@@ -173,8 +176,6 @@
 import { mask } from 'vue-the-mask'
 import debounce from 'lodash.debounce'
 import { isValid, format, startOfYesterday, startOfToday } from 'date-fns'
-import { getUser } from '../user'
-
 export default {
   name: 'AdminMembership',
   directives: {
@@ -189,19 +190,30 @@ export default {
     }
   },
   props: {
-    current: Array,
-    pending: Array,
-    clubs: Array,
-    disabled: Boolean,
-    admin: Boolean    
-  },
-  created() {
-    console.log('membership', this.admin)
+    current: {
+      type: Array,
+      default: () => []
+    },
+    pending: {
+      type: Array,
+      default: () => []
+    },
+    clubs: {
+      type: Array,
+      default: () => []
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    },
+    user: {
+      type: Object,
+      default: () => undefined
+    }
   },
   computed: {
-    confirmationMessage() {
-      console.log('membership', this.admin)
-      if (this.admin) {
+    confirmationMessage () {
+      if (this.user.admin) {
         return 'Tillagan þín verður samþykkt um leið og þú smellir á vista þar sem þú ert stjórnandi.'
       }
 
@@ -223,8 +235,7 @@ export default {
     }
   },
   methods: {
-    addMembership () {            
-      const user = getUser()
+    addMembership () {
       const date = new Date()
       this.current.forEach(item => {
         this.pending.push({
@@ -233,8 +244,8 @@ export default {
           from: item.from,
           to: item.to,
           sentAt: date,
-          sentBy: user.id,
-          sentByName: user.fullName
+          sentBy: this.user.id,
+          sentByName: this.user.fullName
         })
       })
 
@@ -275,7 +286,7 @@ export default {
     changeDate: debounce(function (event, membership, field) {
       if (event.target.value) {
         const val = new Date(event.target.value)
-        
+
         // REFACTOR: Dummy validation
         if (val.getFullYear() >= 1800 && isValid(val)) {
           membership[field] = event.target.value

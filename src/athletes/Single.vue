@@ -12,7 +12,7 @@
       :countries="countries"
       :genders="genders"
       :disabled="disabled"
-      :admin="admin"
+      :user="user"
       :alert="alert"
       @save="save"
     />
@@ -31,6 +31,7 @@ export default {
   },
   data () {
     return {
+      user: undefined,
       disabled: true,
       admin: true,
       alert: {},
@@ -47,9 +48,11 @@ export default {
     }
   },
   created () {
-    const user = getUser()
-    this.disabled = !(user && user.id)
-    this.admin = !!(user && user.admin)
+    getUser().then(user => {
+      this.user = user
+      this.disabled = !(user && user.id)
+      this.admin = !!(user && user.admin)
+    })
 
     agent
       .get('https://restcountries.eu/rest/v2/all')

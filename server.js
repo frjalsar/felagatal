@@ -4,7 +4,6 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const enforceHttps = require('express-sslify').HTTPS
-const login = require('./login')
 const app = express()
 
 if (process.env.NODE_ENV === 'production') {
@@ -21,8 +20,6 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 app.use(express.static('dist', {
   maxAge: '1y'
 }))
-
-app.post('/login', login())
 
 app.set('port', process.env.PORT || 3010)
 app.listen(app.get('port'), () => {

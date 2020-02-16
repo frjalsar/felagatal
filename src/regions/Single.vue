@@ -33,7 +33,9 @@ export default {
     }
   },
   created () {
-    this.disabled = !getUser()
+    getUser().then(user => {
+      this.disabled = !(user && user.id)
+    })
 
     agent
       .get(process.env.FRI_API_URL + '/regions/' + this.$route.params.id)

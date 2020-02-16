@@ -1,5 +1,5 @@
 <template>
-  <form>    
+  <form>
     <div class="row">
       <div class="col-md-6 offset-md-1 mb-md-3">
         <Input
@@ -55,7 +55,6 @@
 <script>
 import Alert from '../alert/Alert'
 import Input from '../forms/Input'
-import Checkbox from '../forms/Checkbox'
 import Button from '../forms/Button'
 
 export default {
@@ -63,13 +62,21 @@ export default {
   components: {
     Alert,
     Input,
-    Checkbox,
     Button
   },
   props: {
-    region: Object,
-    alert: Object,
-    disabled: Boolean
+    region: {
+      type: Object,
+      required: true
+    },
+    alert: {
+      type: Object,
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>

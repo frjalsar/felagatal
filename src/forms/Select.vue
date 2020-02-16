@@ -27,12 +27,26 @@
 export default {
   name: 'Radio',
   props: {
-    type: String,
-    value: String | Number,
-    label: String,
-    readonly: Boolean,
-    disabled: Boolean,
-    options: Array
+    label: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    options: {
+      type: Array,
+      default: () => []
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

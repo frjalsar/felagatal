@@ -6,9 +6,9 @@
     <input
       :id="label"
       :value="value"
-      :type="type || 'text'"
+      :type="type"
       :readonly="readonly"
-      :class="readonly ? 'form-control-plaintext' : 'form-control'"
+      :class="className"
       :disabled="disabled"
       @input="$emit('input', $event.target.value)"
     >
@@ -19,11 +19,31 @@
 export default {
   name: 'Input',
   props: {
-    type: String,
-    value: String | Number,
-    label: String,
-    readonly: Boolean,
-    disabled: Boolean
+    type: {
+      type: String,
+      default: 'text'
+    },
+    label: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    className () {
+      return this.readonly ? 'form-control-plaintext' : 'form-control'
+    }
   }
 }
 </script>

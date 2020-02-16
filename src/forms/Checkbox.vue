@@ -34,12 +34,22 @@
 export default {
   name: 'Checkbox',
   props: {
-    type: String,
-    value: String | Number,
-    label: String,
-    readonly: Boolean,
-    disabled: Boolean,
-    options: Array
+    label: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    options: {
+      type: Array,
+      default: () => []
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>

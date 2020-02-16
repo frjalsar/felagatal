@@ -47,6 +47,7 @@
       <a
         v-if="user"
         class="btn btn-outline-secondary"
+        @click="logout"
       >
         {{ user.fullName }}
       </a>
@@ -71,6 +72,7 @@ h1 {
 
 <script>
 import { getUser } from './user'
+import agent from 'superagent'
 export default {
   name: 'App',
   data () {
@@ -78,12 +80,29 @@ export default {
       user: undefined
     }
   },
-  mounted () {
-    // This Feels hacky
-    this.user = getUser()
-    this.$root.$on('loggedin', () => {
-      this.user = getUser()
+  created () {
+    getUser().then(user => {
+      this.user = user
     })
+  },
+  mounted () {
+    // This feels hacky
+    this.$root.$on('loggedin', (val) => {
+      getUser().then(user => {
+        this.user = val && user
+      })
+    })
+  },
+  methods: {
+    logout () {
+      agent
+        .post(process.env.FRI_API_URL + '/user/logout')
+        .withCredentials()
+        .then(res => {
+          sessionStorage.removeItem('FRI_FELAGATAL')
+          this.$root.$emit('loggedin', false)
+        })
+    }
   }
 }
 </script>

@@ -7,7 +7,7 @@
       :regions="regions"
       :clubs="clubs"
       :legacy="legacy"
-      :default="settings"
+      :settings="settings"
       @change="setQueryParams"
     />
     <div class="row">

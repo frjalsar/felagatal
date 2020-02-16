@@ -52,8 +52,10 @@ export default new Router({
   ]
 })
 
+// Out of date
 function hasSession () {
   return (to, from, next) => {
+    console.log('hasSession')
     const user = getUser()
     if (user) {
       next()

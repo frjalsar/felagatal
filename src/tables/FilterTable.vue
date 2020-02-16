@@ -58,11 +58,26 @@
 export default {
   name: 'FilterTable',
   props: {
-    title: String,
-    placeholder: String,
-    definition: Array,
-    data: Array,
-    onClick: Function
+    title: {
+      type: String,
+      default: ''
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    definition: {
+      type: Array,
+      default: () => []
+    },
+    data: {
+      type: Array,
+      default: () => []
+    },
+    onClick: {
+      type: Function,
+      default: () => {}
+    }
   },
   data () {
     return {
@@ -71,10 +86,11 @@ export default {
   },
   computed: {
     headers () {
-      if (this.definition && this.definition.length > 0) {
+      if (this.definition.length) {
         return this.definition
       }
-      if (this.data && this.data.length > 0) {
+
+      if (this.data.length) {
         return Object.keys(this.data[0]).map(key => {
           return {
             label: key,
@@ -82,6 +98,8 @@ export default {
           }
         })
       }
+
+      return []
     },
     filteredData () {
       return this.data.filter(item => {

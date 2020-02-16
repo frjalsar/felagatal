@@ -13,8 +13,14 @@
 export default {
   name: 'Button',
   props: {
-    label: String,
-    disabled: Boolean
+    label: {
+      type: String,
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
     click (e) {

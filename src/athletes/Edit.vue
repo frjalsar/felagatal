@@ -82,8 +82,7 @@
         <Timeline
           :start="startYear"
           :end="endYear"
-          :data="athlete.membership"
-          align-year="left"
+          :membership="athlete.membership"
         />
       </div>
       <div class="col-md-8">
@@ -102,9 +101,9 @@
           v-if="!disabled"
           :start="startYear"
           :end="endYear"
-          :data="athlete.pendingMembership"
-          align-year="right"
-          background="#6c757d"
+          :membership="athlete.pendingMembership"
+          year-alignment="right"
+          background-style="#6c757d"
         />
       </div>
     </div>
@@ -124,7 +123,7 @@
           v-if="!disabled"
           class="btn btn-secondary"
           :label="saveMessage"
-          :disabled="disabled"          
+          :disabled="disabled"
           @click.prevent="$emit('save', athlete)"
         />
       </div>
@@ -136,9 +135,7 @@
 import Alert from '../alert/Alert'
 import Input from '../forms/Input'
 import Select from '../forms/Select'
-import Radio from '../forms/Radio'
 import Button from '../forms/Button'
-import Membership from './Membership'
 import Timeline from './Timeline'
 import MembershipAdmin from './MembershipAdmin'
 
@@ -148,22 +145,42 @@ export default {
     Alert,
     Input,
     Select,
-    Radio,
     Button,
     Timeline,
     MembershipAdmin
   },
   props: {
-    athlete: Object,
-    clubs: Array,
-    countries: Array,
-    genders: Array,
-    alert: Object,
-    disabled: Boolean,
-    admin: Boolean,
-  },  
+    athlete: {
+      type: Object,
+      required: true
+    },
+    clubs: {
+      type: Array,
+      required: true
+    },
+    countries: {
+      type: Array,
+      required: true
+    },
+    genders: {
+      type: Array,
+      required: true
+    },
+    alert: {
+      type: Object,
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: true
+    },
+    admin: {
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
-    saveMessage() {      
+    saveMessage () {
       if (this.athlete.pendingMembership && this.athlete.pendingMembership.length > 0) {
         if (this.admin) {
           return 'Vista og samþykkja tillögu'
@@ -173,7 +190,6 @@ export default {
       }
 
       return 'Vista'
-
     },
     startYear () {
       if (this.athlete.membership) {
@@ -188,6 +204,8 @@ export default {
         const min = Math.min(current[0], pending[0]) || current[0]
         return new Date(min).getFullYear()
       }
+
+      return undefined
     },
     endYear () {
       if (this.athlete.membership) {
@@ -202,10 +220,12 @@ export default {
         const max = Math.min(current[0], pending[0]) || current[0]
         return new Date(max).getFullYear()
       }
+
+      return undefined
     }
   },
   methods: {
-    updateAthlete(pendingMembership) {
+    updateAthlete (pendingMembership) {
       this.athlete.pendingMembership = pendingMembership
     }
   }

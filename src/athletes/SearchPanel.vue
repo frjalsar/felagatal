@@ -105,18 +105,30 @@ import debounce from 'lodash.debounce'
 export default {
   name: 'AthleteSearchPanel',
   props: {
-    regions: Array,
-    clubs: Array,
-    legacy: Array,
-    default: Object
+    regions: {
+      type: Array,
+      default: () => []
+    },
+    clubs: {
+      type: Array,
+      default: () => []
+    },
+    legacy: {
+      type: Array,
+      default: () => []
+    },
+    settings: {
+      type: Object,
+      default: () => {}
+    }
   },
   data () {
     return {
-      startsWith: this.default.startsWith,
-      search: this.default.search,
-      regionId: this.default.regionId,
-      clubId: this.default.clubId,
-      legacyClub: this.default.legacyClub,
+      startsWith: this.settings.startsWith,
+      search: this.settings.search,
+      regionId: this.settings.regionId,
+      clubId: this.settings.clubId,
+      legacyClub: this.settings.legacyClub,
       alphabet: ['A', 'Á', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Ý', 'Z', 'Þ', 'Æ', 'Ö']
     }
   },

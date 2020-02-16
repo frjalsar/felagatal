@@ -1,5 +1,5 @@
 <template>
-  <form>    
+  <form>
     <div class="row">
       <div class="col-md-5 offset-md-1 mb-md-3">
         <Input
@@ -80,7 +80,6 @@
         />
       </div>
     </div>
-    
   </form>
 </template>
 
@@ -88,7 +87,6 @@
 import Alert from '../alert/Alert'
 import Input from '../forms/Input'
 import Select from '../forms/Select'
-import Radio from '../forms/Radio'
 import Button from '../forms/Button'
 
 export default {
@@ -97,14 +95,25 @@ export default {
     Alert,
     Input,
     Select,
-    Radio,
     Button
   },
   props: {
-    club: Object,
-    regions: Array,
-    alert: Object,
-    disabled: Boolean
+    club: {
+      type: Object,
+      required: true
+    },
+    regions: {
+      type: Array,
+      required: true
+    },
+    alert: {
+      type: Object,
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      value: true
+    }
   }
 }
 </script>

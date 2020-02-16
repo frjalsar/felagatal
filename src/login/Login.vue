@@ -1,56 +1,46 @@
 <template>
   <div>
-    <h1>Innskráning</h1>
+    <h1 class="text-center mb-5">
+      Innskráning
+    </h1>
     <div class="row mb-4">
-      <div class="col-md-10 offset-md-1 card">
-        <form class="card-body">
-          <Alert
-            type="warning"
-            :message="errorMsg"
-          />
+      <div class="col-md-10 offset-md-1">
+        <Alert
+          type="warning"
+          :message="errorMsg"
+        />
 
-          <div class="col-md-6 offset-md-3">
-            <div class="form-group row">
-              <label
-                for="username"
-                class="col-sm-4 col-form-label text-right"
-              >Notendanafn:</label>
-              <div class="col-sm-8">
-                <input
-                  id="username"
-                  v-model="username"
-                  type="text"
-                  class="form-control"
-                  :disabled="disabled"
-                >
-              </div>
-            </div>
-            <div class="form-group row">
-              <label
-                for="password"
-                class="col-sm-4 col-form-label text-right"
-              >Lykilorð:</label>
-              <div class="col-sm-8">
-                <input
-                  id="password"
-                  v-model="password"
-                  type="password"
-                  class="form-control"
-                  :disabled="disabled"
-                >
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              class="btn btn-primary mt-4"
+        <div class="col-md-6 offset-md-3">
+          <div class="form-group">
+            <label for="username">Notendanafn:</label>
+            <input
+              id="username"
+              v-model="username"
+              type="text"
+              class="form-control"
               :disabled="disabled"
-              @click.prevent="login"
             >
-              Innskrá
-            </button>
           </div>
-        </form>
+          <div class="form-group">
+            <label for="password">Lykilorð:</label>
+            <input
+              id="password"
+              v-model="password"
+              type="password"
+              class="form-control"
+              :disabled="disabled"
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
+            :disabled="disabled"
+            @click.prevent="login"
+          >
+            Innskrá
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -77,7 +67,7 @@ export default {
     login () {
       this.disabled = true
       return agent
-        .post('/login')
+        .post(process.env.FRI_API_URL + '/user/login')
         .send({
           username: this.username,
           password: this.password
@@ -85,8 +75,9 @@ export default {
         .withCredentials()
         .then(res => {
           this.disabled = false
-          this.$router.push('/idkendur')
+          sessionStorage.setItem('FRI_FELAGATAL', JSON.stringify(res.body))
           this.$root.$emit('loggedin', true)
+          this.$router.go(-1)
         })
         .catch(e => {
           this.disabled = false

@@ -1,13 +1,20 @@
-import { getCookie } from 'tiny-cookie'
-import { Base64 } from 'js-base64'
+import agent from 'superagent'
 
 export function getUser () {
-  const cookie = getCookie('FRI_FELAGATAL')
-  if (cookie) {
-    const user = JSON.parse(Base64.decode(cookie))
-    return user
+  const userSession = sessionStorage.getItem('FRI_FELAGATAL')
+  if (userSession) {
+    const user = JSON.parse(userSession)
+    return Promise.resolve(user)
   } else {
-    return undefined
+    return agent
+      .get(process.env.FRI_API_URL + '/user')
+      .withCredentials()
+      .then(res => {
+        if (res.body && res.body.id) {
+          sessionStorage.setItem('FRI_FELAGATAL', JSON.stringify(res.body))
+          return res.body
+        }
+      })
   }
 }
 

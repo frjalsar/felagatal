@@ -6,20 +6,20 @@
     }"
   >
     <div
-      v-for="item in data"
+      v-for="item in membership"
       :key="item.id"
       :style="{
         'top': calcPosition(item.from) + '%',
         'height': calcSize(item.from, item.to) + '%',
-        'background': background
+        'background': backgroundStyle
       }"
       :title="item.clubFullName || item.legacyClub"
       class="timeline-item"
     >
       <small
         :class="{
-          'leftSide': alignYear !== 'right',
-          'rightSide': alignYear === 'right'
+          'leftSide': yearAlignment !== 'right',
+          'rightSide': yearAlignment === 'right'
         }"
       >{{ item.from }}</small>
     </div>
@@ -31,11 +31,26 @@ import { differenceInMonths, addMonths } from 'date-fns'
 export default {
   name: 'Timeline',
   props: {
-    start: Number,
-    end: Number,
-    alignYear: String,
-    data: Array,
-    background: String
+    start: {
+      type: Number,
+      default: new Date().getFullYear()
+    },
+    end: {
+      type: Number,
+      default: new Date().getFullYear()
+    },
+    yearAlignment: {
+      type: String,
+      default: 'left'
+    },
+    membership: {
+      type: Array,
+      default: () => []
+    },
+    backgroundStyle: {
+      type: String,
+      default: undefined
+    }
   },
   computed: {
     years () {
