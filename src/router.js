@@ -40,6 +40,14 @@ export default new Router({
       component: () => import(/* webpackChunkName: "judges" */ './judges/Single.vue')
     },
     {
+      path: '/mannvirki',
+      component: () => import(/* webpackChunkName: "venues" */ './venues/List.vue')
+    },
+    {
+      path: '/mannvirki/:id',
+      component: () => import(/* webpackChunkName: "venues" */ './venues/Single.vue')
+    },
+    {
       path: '/felagasaga/:id',
       component: () => import(/* webpackChunkName: "felagasaga" */ './membership/Single.vue')
     },

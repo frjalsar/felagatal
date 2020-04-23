@@ -42,6 +42,13 @@
         >
           Dómarar
         </router-link>
+
+        <router-link
+          to="/mannvirki"
+          class="p-2 text-dark"
+        >
+          Mannvirki
+        </router-link>
       </nav>
       <router-link
         v-if="!user"
