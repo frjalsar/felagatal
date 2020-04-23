@@ -11,6 +11,9 @@
       :disabled="disabled"
       @change="$emit('change', $event.target.value)"
     >
+      <option :value="null">
+        --- Veldu
+      </option>
       <option
         v-for="opt in options"
         :key="opt.value"
