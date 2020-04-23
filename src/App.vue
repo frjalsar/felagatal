@@ -35,6 +35,13 @@
         >
           Íþróttahéruð
         </router-link>
+
+        <router-link
+          to="/domarar"
+          class="p-2 text-dark"
+        >
+          Dómarar
+        </router-link>
       </nav>
       <router-link
         v-if="!user"
