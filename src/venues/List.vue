@@ -30,18 +30,19 @@ export default {
         field: 'fullName',
         label: 'Nafn'
       }, {
-        field: 'indoor',
+        field: 'indoorText',
         label: 'Innanhús'
       }, {
-        field: 'banked',
-        label: 'Hallandi'
+        field: 'bankedText',
+        label: 'Hallandi braut',
+        display: 'lg'
       }, {
         field: 'straightLanes',
-        label: 'Beinar brautir',
+        label: 'Fjöldi beinna brauta',
         display: 'lg'
       }, {
         field: 'ovalLanes',
-        label: 'Hringbrautir',
+        label: 'Fjöldi hringbrauta',
         display: 'lg'
       }],
       onClick: (item) => {
@@ -54,7 +55,11 @@ export default {
       .get(process.env.FRI_API_URL + '/venues')
       .withCredentials()
       .then(res => {
-        this.data = res.body
+        this.data = res.body.map(item => {
+          item.bankedText = item.banked ? 'Já' : 'Nei'
+          item.indoorText = item.indoor ? 'Já' : 'Nei'
+          return item
+        })
       })
   }
 }
