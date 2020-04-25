@@ -51,7 +51,18 @@ export default {
             indoor: '',
             banked: '',
             straightLanes: '',
-            ovalLanes: ''
+            ovalLanes: '',
+            longTripleJump: '',
+            polevault: '',
+            hammerDiscus: '',
+            javelin: '',
+            shotPut: '',
+            material: '',
+            constructionYear: '',
+            renovationYear: '',
+            warmupTrack: '',
+            throwingField: '',
+            certification: ''
           }
         }
       })
