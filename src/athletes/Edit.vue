@@ -87,6 +87,7 @@
       </div>
       <div class="col-md-8">
         <MembershipAdmin
+          :user="user"
           :current="athlete.membership"
           :pending="athlete.pendingMembership"
           :clubs="clubs"
@@ -177,6 +178,10 @@ export default {
     admin: {
       type: Boolean,
       default: false
+    },
+    user: {
+      type: Object,
+      default: () => undefined
     }
   },
   computed: {

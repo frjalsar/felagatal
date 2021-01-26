@@ -54,7 +54,7 @@
     </div>
     <div class="container">
       <div class="my-5 p-3 bg-white rounded shadow">
-        <router-view />
+        <router-view :user="user" />
       </div>
     </div>
   </div>
@@ -82,16 +82,13 @@ export default {
   },
   created () {
     getUser().then(user => {
-      console.log(user)
       this.user = user
     })
   },
   mounted () {
     // This feels hacky
     this.$root.$on('loggedin', (val) => {
-      getUser().then(user => {
-        this.user = val && user
-      })
+      this.user = val
     })
   },
   methods: {

@@ -101,7 +101,7 @@ export default {
         .then(res => {
           this.disabled = false
           sessionStorage.setItem('FRI_FELAGATAL', JSON.stringify(res.body))
-          this.$root.$emit('loggedin', true)
+          this.$root.$emit('loggedin', res.body)
           this.$router.go(-1)
         })
         .catch(e => {
