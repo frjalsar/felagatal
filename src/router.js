@@ -32,6 +32,22 @@ export default new Router({
       component: () => import(/* webpackChunkName: "herud" */ './regions/Single.vue')
     },
     {
+      path: '/domarar',
+      component: () => import(/* webpackChunkName: "judges" */ './judges/List.vue')
+    },
+    {
+      path: '/domarar/:id',
+      component: () => import(/* webpackChunkName: "judges" */ './judges/Single.vue')
+    },
+    {
+      path: '/mannvirki',
+      component: () => import(/* webpackChunkName: "venues" */ './venues/List.vue')
+    },
+    {
+      path: '/mannvirki/:id',
+      component: () => import(/* webpackChunkName: "venues" */ './venues/Single.vue')
+    },
+    {
       path: '/felagasaga/:id',
       component: () => import(/* webpackChunkName: "felagasaga" */ './membership/Single.vue')
     },
